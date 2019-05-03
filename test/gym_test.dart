@@ -53,47 +53,46 @@ void main() {
          "vicinity" : "388 Carlaw Ave Suite 204, Toronto"
       }
     ''';
-        Gym gym = Gym.fromJson(json.decode(jsonString));
-        expect(gym.placeId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
+        Gym gym = Gym.fromGoogleJson(json.decode(jsonString));
+        expect(gym.id, '');
+        expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
         expect(gym.city, 'Toronto');
         expect(gym.name, 'The Rock Oasis Inc.');
-        expect(gym.vicinity, '388 Carlaw Ave Suite 204, Toronto');
-        expect(gym.userRatingsTotal, 484);
-        expect(gym.rating, 4.6);
-        expect(gym.photos.length, 1);
-        expect(gym.getPhotoUrl('ChIJC5QtSXrL1IkRhhF0XF6XwBs', width: 400),
+        expect(gym.googleUserRatingsTotal, 484);
+        expect(gym.googleRating, 4.6);
+        expect(gym.googlePhotos.length, 1);
+        expect(gym.getGooglePhotoUrl('ChIJC5QtSXrL1IkRhhF0XF6XwBs', width: 400),
             'https://maps.googleapis.com/maps/api/place/photo?key=ChIJC5QtSXrL1IkRhhF0XF6XwBs&photoreference=CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ&maxwidth=400');
         Map<String, dynamic> map = gym.toJson();
         expect(map, {
+          "id":"",
           "place_id": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
           "name": "The Rock Oasis Inc.",
           "user_ratings_total": 484,
-          "vicinity": "388 Carlaw Ave Suite 204, Toronto",
           "rating": 4.6,
           "city": "Toronto",
-          "photos": [
+          "google_photos": [
             {
               "photo_reference":
               "CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ"
             }
           ]
         });
-        gym = Gym.fromJson(json.decode(json.encode(map)));
-        expect(gym.placeId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
+        gym = Gym.fromGoogleJson(json.decode(json.encode(map)));
+        expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
         expect(gym.city, 'Toronto');
         expect(gym.name, 'The Rock Oasis Inc.');
-        expect(gym.vicinity, '388 Carlaw Ave Suite 204, Toronto');
-        expect(gym.userRatingsTotal, 484);
-        expect(gym.rating, 4.6);
-        expect(gym.photos.length, 1);
+        expect(gym.googleUserRatingsTotal, 484);
+        expect(gym.googleRating, 4.6);
+        expect(gym.googlePhotos.length, 0);
         expect(map, {
+          "id":"",
           "place_id": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
           "name": "The Rock Oasis Inc.",
           "user_ratings_total": 484,
-          "vicinity": "388 Carlaw Ave Suite 204, Toronto",
           "rating": 4.6,
           "city": "Toronto",
-          "photos": [
+          "google_photos": [
             {
               "photo_reference":
               "CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ"
@@ -218,13 +217,12 @@ void main() {
          "status" : "OK"
        }
       ''';
-        Gyms gyms = Gyms.fromJson(json.decode(jsonString)["results"]);
-        expect(gyms[0].placeId, 'ChIJyWEHuEmuEmsRm9hTkapTCrk');
+        Gyms gyms = Gyms.fromGoogleJson(json.decode(jsonString)["results"]);
+        expect(gyms[0].googlePlaceId, 'ChIJyWEHuEmuEmsRm9hTkapTCrk');
         expect(gyms[0].city, 'Sydney');
-        expect(gyms[0].rating, null);
-        expect(gyms[0].userRatingsTotal, null);
+        expect(gyms[0].googleRating, null);
+        expect(gyms[0].googleUserRatingsTotal, null);
         expect(gyms[0].name, 'Rhythmboat Cruises');
-        expect(gyms[0].vicinity, 'Pyrmont Bay Wharf Darling Dr, Sydney');
-        expect(gyms[0].photos.length, 1);
+        expect(gyms[0].googlePhotos.length, 1);
       });
 }

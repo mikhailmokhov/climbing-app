@@ -37,7 +37,7 @@ class _GymListState extends State<GymList> {
       if (jsonMap['results'] is List) {
         items = [];
         jsonMap['results'].forEach((gymMap) {
-          items.add(Gym.fromJson(gymMap));
+          items.add(Gym.fromGoogleJson(gymMap));
         });
       }
     }
@@ -176,24 +176,24 @@ class _GymListState extends State<GymList> {
                 },
                 trailing: FadeInImage.assetNetwork(
                     placeholder: 'images/gym-placeholder.jpg',
-                    image: gym.getPhotoUrl(APP_KEY),
+                    image: gym.getGooglePhotoUrl(APP_KEY),
                     width: 75,
                     height: 55,
                     fit: BoxFit.cover),
                 title: Text(gym.name),
                 subtitle: Column(children: <Widget>[
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Text(gym.rating.toString() + ' ',
+                    Text(gym.googleRating.toString() + ' ',
                         style: TextStyle(color: Colors.deepOrangeAccent)),
                     FlutterRatingBarIndicator(
-                      rating: gym.rating,
+                      rating: gym.googleRating,
                       fillColor: Colors.deepOrangeAccent,
                       emptyColor: Colors.grey.withAlpha(150),
                       itemCount: 5,
                       itemSize: 11,
                       itemPadding: EdgeInsets.symmetric(horizontal: 0.5),
                     ),
-                    Text(' (' + gym.userRatingsTotal.toString() + ')  ',
+                    Text(' (' + gym.googleUserRatingsTotal.toString() + ')  ',
                         style: TextStyle(color: Colors.grey.withAlpha(150))),
                   ]),
                   Row(

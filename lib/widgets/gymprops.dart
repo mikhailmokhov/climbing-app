@@ -167,7 +167,7 @@ class ContactsDemoState extends State<ContactsDemo> {
                   fit: StackFit.expand,
                   children: <Widget>[
                     Image.network(
-                      this.widget.gym.getPhotoUrl(APP_KEY, width: 1125),
+                      this.widget.gym.getGooglePhotoUrl(APP_KEY, width: 1125),
                       fit: BoxFit.cover,
                       height: _appBarHeight,
                     ),
@@ -224,7 +224,7 @@ class ContactsDemoState extends State<ContactsDemo> {
                         ));
                       },
                       lines: <String>[
-                        this.widget.gym.vicinity,
+                        this.widget.gym.city,
                         '',
                       ],
                     )
