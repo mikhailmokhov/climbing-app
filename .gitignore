@@ -1,0 +1,7 @@
+.idea
+android
+build
+gen
+ios
+.flutter-plugins
+.packages
