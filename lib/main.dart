@@ -1,7 +1,9 @@
-import 'package:climbing/widgets/gymslist.dart';
+import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/widgets/gyms_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-const String APP_KEY = 'AIzaSyCJ4u7HC3AsvOMS_4w-mdkhLOP_deCLBcc';
+const String GOOGLE_PLACES_APP_KEY = 'AIzaSyCJ4u7HC3AsvOMS_4w-mdkhLOP_deCLBcc';
 const String KEYWORD = 'climbing%20gym';
 const String LOCATION = '43.640454,-79.380488';
 
@@ -12,11 +14,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Climbing routes',
+      localizationsDelegates:  [
+        S.delegate,
+        // You need to add them if you are using the material library.
+        // The material components uses this delegates to provide default
+        // localization
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      onGenerateTitle: (BuildContext context) =>
+      S.of(context).appTitle,
+      title: 'Climbing app',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: GymList(),
+      home: GymsList(),
     );
   }
 }

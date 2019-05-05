@@ -19,6 +19,29 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get appTitle => "Climbing App";
+  String get drawerMenu_clearCache => "Clear cache";
+  String get gymsList_title => "Climbing gyms";
+  String get menu => "Menu";
+  String get refresh => "Refresh";
+}
+
+class $ru extends S {
+  const $ru();
+
+  @override
+  TextDirection get textDirection => TextDirection.ltr;
+
+  @override
+  String get drawerMenu_clearCache => "Очистить кэш";
+  @override
+  String get refresh => "Обновить";
+  @override
+  String get appTitle => "Скалодром";
+  @override
+  String get gymsList_title => "Скалодромы";
+  @override
+  String get menu => "Меню";
 }
 
 class $en extends S {
@@ -30,6 +53,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
+      Locale("ru", ""),
       Locale("en", ""),
     ];
   }
@@ -55,6 +79,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     final String lang = getLang(locale);
     if (lang != null) {
       switch (lang) {
+        case "ru":
+          return SynchronousFuture<S>(const $ru());
         case "en":
           return SynchronousFuture<S>(const $en());
         default:

@@ -1,3 +1,5 @@
+///
+/// Describes properties and serialization methods of gym instance
 class Gym {
   final String id;
   final String name;
@@ -19,7 +21,7 @@ class Gym {
     }
   }
 
-  /// Google specific constructor for serializing from Places API json
+  /// Google specific deserializer from Places API json response
   Gym.fromGoogleJson(Map<String, dynamic> json)
       : this.id = '',
         this.googlePlaceId = json['place_id'],
@@ -38,7 +40,7 @@ class Gym {
         this.googlePhotos.add(GooglePhoto.fromJson(photo));
   }
 
-  /// Google specific method
+  /// Google specific method for obtaining Places Photos URL
   String getGooglePhotoUrl(String appKey, {int width}) {
     if (this.googlePhotos.length > 0) {
       return this.googlePhotos[0].getUrl(appKey, width: width);
@@ -47,6 +49,7 @@ class Gym {
     }
   }
 
+  /// Generic serializer
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> googlePhotos = [];
     for (final photo in this.googlePhotos) googlePhotos.add(photo.toJson());
@@ -60,9 +63,9 @@ class Gym {
       'google_photos': googlePhotos
     };
   }
-
 }
 
+/// Describes Google Place API photo instance
 class GooglePhoto {
   final String reference;
 
@@ -82,10 +85,12 @@ class GooglePhoto {
   }
 }
 
+/// Gyms provider
+/// Can not be instantiated
 class Gyms {
-  final List<Gym> _list = [];
+  static final List<Gym> _list = [];
 
-  int get length => _list.length;
+  static int get length => _list.length;
 
   Gym operator [](int index) => _list[index];
 
@@ -93,13 +98,13 @@ class Gyms {
     _list[index] = value;
   }
 
-  void add(Gym value) => _list.add(value);
+  static void add(Gym value) => _list.add(value);
 
-  Gyms.fromGoogleJson(List<dynamic> list) {
+  static fromGoogleJson(List<dynamic> list) {
     for (final gym in list) _list.add(Gym.fromGoogleJson(gym));
   }
 
-  toJson() {
+  static toJson() {
     List<Map<String, dynamic>> gyms = [];
     for (final gym in _list) gyms.add(gym.toJson());
     return {"gyms": gyms};

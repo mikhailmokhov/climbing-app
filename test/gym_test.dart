@@ -5,8 +5,8 @@ import 'package:test/test.dart';
 void main() {
   test(
       "Gym instance can be created from json string and converted back to json",
-          () {
-        String jsonString = '''
+      () {
+    String jsonString = '''
     {
          "geometry" : {
             "location" : {
@@ -53,58 +53,58 @@ void main() {
          "vicinity" : "388 Carlaw Ave Suite 204, Toronto"
       }
     ''';
-        Gym gym = Gym.fromGoogleJson(json.decode(jsonString));
-        expect(gym.id, '');
-        expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
-        expect(gym.city, 'Toronto');
-        expect(gym.name, 'The Rock Oasis Inc.');
-        expect(gym.googleUserRatingsTotal, 484);
-        expect(gym.googleRating, 4.6);
-        expect(gym.googlePhotos.length, 1);
-        expect(gym.getGooglePhotoUrl('ChIJC5QtSXrL1IkRhhF0XF6XwBs', width: 400),
-            'https://maps.googleapis.com/maps/api/place/photo?key=ChIJC5QtSXrL1IkRhhF0XF6XwBs&photoreference=CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ&maxwidth=400');
-        Map<String, dynamic> map = gym.toJson();
-        expect(map, {
-          "id":"",
-          "place_id": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
-          "name": "The Rock Oasis Inc.",
-          "user_ratings_total": 484,
-          "rating": 4.6,
-          "city": "Toronto",
-          "google_photos": [
-            {
-              "photo_reference":
+    Gym gym = Gym.fromGoogleJson(json.decode(jsonString));
+    expect(gym.id, '');
+    expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
+    expect(gym.city, 'Toronto');
+    expect(gym.name, 'The Rock Oasis Inc.');
+    expect(gym.googleUserRatingsTotal, 484);
+    expect(gym.googleRating, 4.6);
+    expect(gym.googlePhotos.length, 1);
+    expect(gym.getGooglePhotoUrl('ChIJC5QtSXrL1IkRhhF0XF6XwBs', width: 400),
+        'https://maps.googleapis.com/maps/api/place/photo?key=ChIJC5QtSXrL1IkRhhF0XF6XwBs&photoreference=CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ&maxwidth=400');
+    Map<String, dynamic> map = gym.toJson();
+    expect(map, {
+      "id": "",
+      "place_id": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
+      "name": "The Rock Oasis Inc.",
+      "user_ratings_total": 484,
+      "rating": 4.6,
+      "city": "Toronto",
+      "google_photos": [
+        {
+          "photo_reference":
               "CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ"
-            }
-          ]
-        });
-        gym = Gym.fromGoogleJson(json.decode(json.encode(map)));
-        expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
-        expect(gym.city, 'Toronto');
-        expect(gym.name, 'The Rock Oasis Inc.');
-        expect(gym.googleUserRatingsTotal, 484);
-        expect(gym.googleRating, 4.6);
-        expect(gym.googlePhotos.length, 0);
-        expect(map, {
-          "id":"",
-          "place_id": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
-          "name": "The Rock Oasis Inc.",
-          "user_ratings_total": 484,
-          "rating": 4.6,
-          "city": "Toronto",
-          "google_photos": [
-            {
-              "photo_reference":
+        }
+      ]
+    });
+    gym = Gym.fromGoogleJson(json.decode(json.encode(map)));
+    expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
+    expect(gym.city, 'Toronto');
+    expect(gym.name, 'The Rock Oasis Inc.');
+    expect(gym.googleUserRatingsTotal, 484);
+    expect(gym.googleRating, 4.6);
+    expect(gym.googlePhotos.length, 0);
+    expect(map, {
+      "id": "",
+      "place_id": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
+      "name": "The Rock Oasis Inc.",
+      "user_ratings_total": 484,
+      "rating": 4.6,
+      "city": "Toronto",
+      "google_photos": [
+        {
+          "photo_reference":
               "CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ"
-            }
-          ]
-        });
-      });
+        }
+      ]
+    });
+  });
 
   test(
       "Gyms instance can be created from json string and converted back to json",
-          () {
-        String jsonString = '''
+      () {
+    String jsonString = '''
       {
          "html_attributions" : [],
          "results" : [
@@ -217,12 +217,12 @@ void main() {
          "status" : "OK"
        }
       ''';
-        Gyms gyms = Gyms.fromGoogleJson(json.decode(jsonString)["results"]);
-        expect(gyms[0].googlePlaceId, 'ChIJyWEHuEmuEmsRm9hTkapTCrk');
-        expect(gyms[0].city, 'Sydney');
-        expect(gyms[0].googleRating, null);
-        expect(gyms[0].googleUserRatingsTotal, null);
-        expect(gyms[0].name, 'Rhythmboat Cruises');
-        expect(gyms[0].googlePhotos.length, 1);
-      });
+    Gyms gyms = Gyms.fromGoogleJson(json.decode(jsonString)["results"]);
+    expect(gyms[0].googlePlaceId, 'ChIJyWEHuEmuEmsRm9hTkapTCrk');
+    expect(gyms[0].city, 'Sydney');
+    expect(gyms[0].googleRating, null);
+    expect(gyms[0].googleUserRatingsTotal, null);
+    expect(gyms[0].name, 'Rhythmboat Cruises');
+    expect(gyms[0].googlePhotos.length, 1);
+  });
 }

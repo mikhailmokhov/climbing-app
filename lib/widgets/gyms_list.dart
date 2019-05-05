@@ -1,24 +1,24 @@
 import 'package:climbing/classes/gym.dart';
+import 'package:climbing/classes/location.dart';
+import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/widgets/drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 import 'gymprops.dart';
 
-class GymList extends StatefulWidget {
-  static const String routeName = '/gymlist';
-
-  const GymList({Key key}) : super(key: key);
-
+class GymsList extends StatefulWidget {
+  static const String routeName = '/gymslist';
+  const GymsList({Key key}) : super(key: key);
   @override
-  _GymListState createState() => _GymListState();
+  _GymsListState createState() => _GymsListState();
 }
 
-class _GymListState extends State<GymList> {
+class _GymsListState extends State<GymsList> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -30,7 +30,7 @@ class _GymListState extends State<GymList> {
   List<Gym> items = [];
 
   Future<void> _handleRefresh() async {
-    const USE_CACHE = true;
+    const USE_CACHE = false;
     const String EXPIRATION = '_expiration';
 
     loadGyms(dynamic jsonMap) {
@@ -42,18 +42,11 @@ class _GymListState extends State<GymList> {
       }
     }
 
-    Position position = await Geolocator()
-        .getLastKnownPosition(desiredAccuracy: LocationAccuracy.medium);
-    if (position == null) {
-      position = await Geolocator()
-          .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
-    }
+    Coordinates coordinates = await Location.getCoordinates();
 
-    double latitude = position.latitude;
-    double longitude = position.longitude;
-
-    String dataKey =
-        latitude.toStringAsFixed(1) + ',' + longitude.toStringAsFixed(1);
+    String dataKey = coordinates.latitude.toStringAsFixed(1) +
+        ',' +
+        coordinates.longitude.toStringAsFixed(1);
     String expirationKey = dataKey + EXPIRATION;
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -67,14 +60,19 @@ class _GymListState extends State<GymList> {
     } else {
       final response = await http.get(
           'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +
-              latitude.toString() +
+              coordinates.latitude.toString() +
               ',' +
-              longitude.toString() +
+              coordinates.longitude.toString() +
               '&rankby=distance&keyword=' +
               KEYWORD +
               '&key=' +
-              APP_KEY);
+              GOOGLE_PLACES_APP_KEY);
       if (response.statusCode == 200) {
+        Map<String, dynamic> jsonMap = json.decode(response.body);
+        if (jsonMap['results'] is List) {
+          Gyms.fromGoogleJson(jsonMap['results']);
+        }
+
         preferences.setString(dataKey, response.body);
         preferences.setInt(dataKey + EXPIRATION,
             (DateTime.now()).add(Duration(days: 1)).millisecondsSinceEpoch);
@@ -105,6 +103,8 @@ class _GymListState extends State<GymList> {
       });
     });
   }
+
+  void _loadMore() {}
 
   _onTap(Gym gym) {
     Navigator.push(
@@ -141,10 +141,10 @@ class _GymListState extends State<GymList> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-          title: Text('Climbing gyms'),
+          title: Text(S.of(context).gymsList_title),
           leading: IconButton(
-            icon: const Icon(Icons.dehaze),
-            tooltip: 'Refresh',
+            icon: const Icon(Icons.menu),
+            tooltip: S.of(context).menu,
             onPressed: () {
               _scaffoldKey.currentState.openDrawer();
             },
@@ -152,7 +152,7 @@ class _GymListState extends State<GymList> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.refresh),
-              tooltip: 'Refresh',
+              tooltip: S.of(context).refresh,
               onPressed: () {
                 _refreshIndicatorKey.currentState.show();
               },
@@ -161,79 +161,66 @@ class _GymListState extends State<GymList> {
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          itemCount: items.length,
-          separatorBuilder: (BuildContext context, int index) =>
-              Divider(height: 0),
-          itemBuilder: (BuildContext context, int index) {
-            final Gym gym = items[index];
-            return ListTile(
-                dense: false,
-                isThreeLine: true,
-                onTap: () {
-                  _onTap(gym);
-                },
-                trailing: FadeInImage.assetNetwork(
-                    placeholder: 'images/gym-placeholder.jpg',
-                    image: gym.getGooglePhotoUrl(APP_KEY),
-                    width: 75,
-                    height: 55,
-                    fit: BoxFit.cover),
-                title: Text(gym.name),
-                subtitle: Column(children: <Widget>[
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Text(gym.googleRating.toString() + ' ',
-                        style: TextStyle(color: Colors.deepOrangeAccent)),
-                    FlutterRatingBarIndicator(
-                      rating: gym.googleRating,
-                      fillColor: Colors.deepOrangeAccent,
-                      emptyColor: Colors.grey.withAlpha(150),
-                      itemCount: 5,
-                      itemSize: 11,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 0.5),
-                    ),
-                    Text(' (' + gym.googleUserRatingsTotal.toString() + ')  ',
-                        style: TextStyle(color: Colors.grey.withAlpha(150))),
-                  ]),
-                  Row(
-                    children: <Widget>[Text(gym.city)],
-                  )
-                ]));
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification scrollInfo) {
+            if (scrollInfo.metrics.pixels ==
+                scrollInfo.metrics.maxScrollExtent) {
+              _loadMore();
+            }
           },
-        ),
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            const UserAccountsDrawerHeader(
-              accountName: Text('Alex Honnold'),
-              accountEmail: Text('alex.honnold@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('images/honnold.png'),
-              ),
-              margin: EdgeInsets.zero,
-            ),
-            MediaQuery.removePadding(
-              context: context,
-              // DrawerHeader consumes top MediaQuery padding.
-              removeTop: true,
-              child: ListTile(
-                  trailing: Icon(Icons.delete_sweep),
-                  title: Text('Clear cache'),
+          child: ListView.separated(
+            itemCount: items.length,
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            separatorBuilder: (BuildContext context, int index) =>
+                Divider(height: 0),
+            itemBuilder: (BuildContext context, int index) {
+              final Gym gym = items[index];
+              return ListTile(
+                  dense: false,
+                  isThreeLine: true,
                   onTap: () {
-                    SharedPreferences.getInstance().then((pref) {
-                      pref.clear();
-                      _scaffoldKey.currentState?.showSnackBar(SnackBar(
-                        content: const Text('Cache cleared'),
-                      ));
-                      Navigator.of(context).pop();
-                    });
-                  }),
-            ),
-          ],
+                    _onTap(gym);
+                  },
+                  trailing: FadeInImage.assetNetwork(
+                      placeholder: 'images/gym-placeholder.jpg',
+                      image: gym.getGooglePhotoUrl(GOOGLE_PLACES_APP_KEY),
+                      width: 75,
+                      height: 55,
+                      fit: BoxFit.cover),
+                  title: Text(gym.name),
+                  subtitle: Column(children: <Widget>[
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      Text(gym.googleRating.toString() + ' ',
+                          style: TextStyle(color: Colors.deepOrangeAccent)),
+                      FlutterRatingBarIndicator(
+                        rating: gym.googleRating,
+                        fillColor: Colors.deepOrangeAccent,
+                        emptyColor: Colors.grey.withAlpha(150),
+                        itemCount: 5,
+                        itemSize: 11,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 0.5),
+                      ),
+                      Text(' (' + gym.googleUserRatingsTotal.toString() + ')  ',
+                          style: TextStyle(color: Colors.grey.withAlpha(150))),
+                    ]),
+                    Row(
+                      children: <Widget>[Text(gym.city)],
+                    )
+                  ]));
+            },
+          ),
         ),
       ),
+      drawer: DrawerMenu('Алекс Хоннольдович', 'alex.honnold@gmail.com',
+          AssetImage('images/honnold.png'), () {
+        SharedPreferences.getInstance().then((pref) {
+          pref.clear();
+          _scaffoldKey.currentState?.showSnackBar(SnackBar(
+            content: const Text('Cache cleared'),
+          ));
+          Navigator.of(context).pop();
+        });
+      }),
     );
   }
 }

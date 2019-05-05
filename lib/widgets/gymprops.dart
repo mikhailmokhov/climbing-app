@@ -167,7 +167,7 @@ class ContactsDemoState extends State<ContactsDemo> {
                   fit: StackFit.expand,
                   children: <Widget>[
                     Image.network(
-                      this.widget.gym.getGooglePhotoUrl(APP_KEY, width: 1125),
+                      this.widget.gym.getGooglePhotoUrl(GOOGLE_PLACES_APP_KEY, width: 1125),
                       fit: BoxFit.cover,
                       height: _appBarHeight,
                     ),
