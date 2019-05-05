@@ -1,19 +1,31 @@
+import 'dart:convert';
+import 'package:climbing/classes/user.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:climbing/classes/gym.dart';
 import 'package:climbing/classes/location.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:climbing/widgets/drawer_menu.dart';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../main.dart';
 import 'gymprops.dart';
+import '../main.dart';
 
 class GymsList extends StatefulWidget {
+  final User user;
+  final Function signOut;
+  final Function signIn;
+  final Function register;
   static const String routeName = '/gymslist';
-  const GymsList({Key key}) : super(key: key);
+
+  const GymsList(
+      {@required this.user,
+      @required this.signOut,
+      @required this.signIn,
+      @required this.register,
+      Key key})
+      : super(key: key);
+
   @override
   _GymsListState createState() => _GymsListState();
 }
@@ -211,16 +223,8 @@ class _GymsListState extends State<GymsList> {
           ),
         ),
       ),
-      drawer: DrawerMenu('Алекс Хоннольдович', 'alex.honnold@gmail.com',
-          AssetImage('images/honnold.png'), () {
-        SharedPreferences.getInstance().then((pref) {
-          pref.clear();
-          _scaffoldKey.currentState?.showSnackBar(SnackBar(
-            content: const Text('Cache cleared'),
-          ));
-          Navigator.of(context).pop();
-        });
-      }),
+      drawer: DrawerMenu(this.widget.user, this.widget.signOut,
+          this.widget.signIn, this.widget.register),
     );
   }
 }

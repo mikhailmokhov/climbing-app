@@ -3,5 +3,8 @@
   "drawerMenu_clearCache": "Clear cache",
   "gymsList_title": "Climbing gyms",
   "refresh": "Refresh",
-  "menu": "Menu"
+  "menu": "Menu",
+  "signIn": "Sign In",
+  "register": "Register",
+  "signOut": "Sign Out"
 }

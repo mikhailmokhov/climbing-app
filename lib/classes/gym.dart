@@ -100,7 +100,7 @@ class Gyms {
 
   static void add(Gym value) => _list.add(value);
 
-  static fromGoogleJson(List<dynamic> list) {
+  Gyms.fromGoogleJson(List<dynamic> list) {
     for (final gym in list) _list.add(Gym.fromGoogleJson(gym));
   }
 

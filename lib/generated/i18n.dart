@@ -24,6 +24,9 @@ class S implements WidgetsLocalizations {
   String get gymsList_title => "Climbing gyms";
   String get menu => "Menu";
   String get refresh => "Refresh";
+  String get register => "Register";
+  String get signIn => "Sign In";
+  String get signOut => "Sign Out";
 }
 
 class $ru extends S {
@@ -35,13 +38,19 @@ class $ru extends S {
   @override
   String get drawerMenu_clearCache => "Очистить кэш";
   @override
+  String get signIn => "Sign In";
+  @override
   String get refresh => "Обновить";
+  @override
+  String get signOut => "Sign Out";
   @override
   String get appTitle => "Скалодром";
   @override
   String get gymsList_title => "Скалодромы";
   @override
   String get menu => "Меню";
+  @override
+  String get register => "Register";
 }
 
 class $en extends S {
