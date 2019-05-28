@@ -25,6 +25,7 @@ class S implements WidgetsLocalizations {
   String get menu => "Menu";
   String get refresh => "Refresh";
   String get register => "Register";
+  String get settings => "Settings";
   String get signIn => "Sign In";
   String get signOut => "Sign Out";
 }
@@ -37,6 +38,8 @@ class $ru extends S {
 
   @override
   String get drawerMenu_clearCache => "Очистить кэш";
+  @override
+  String get settings => "Settings";
   @override
   String get signIn => "Sign In";
   @override

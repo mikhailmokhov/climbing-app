@@ -6,5 +6,6 @@
   "menu": "Меню",
   "signIn": "Sign In",
   "register": "Register",
-  "signOut": "Sign Out"
+  "signOut": "Sign Out",
+  "settings": "Settings"
 }

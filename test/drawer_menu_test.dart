@@ -19,9 +19,7 @@ void main() {
             supportedLocales: S.delegate.supportedLocales,
             home: DrawerMenu(user, () {
               userSignedIn = false;
-            }, () {
-            }, () {
-            }))));
+            }, () {}, () {}, () {}))));
     expect(find.text(NAME), findsOneWidget);
     expect(find.text(EMAIL), findsOneWidget);
     await tester.tap(find.text('Sign Out'));
@@ -36,11 +34,9 @@ void main() {
         child: MaterialApp(
             localizationsDelegates: [S.delegate],
             supportedLocales: S.delegate.supportedLocales,
-            home: DrawerMenu(user, () {
-            }, () {
+            home: DrawerMenu(user, () {}, () {
               userSignedIn = true;
-            }, () {
-            }))));
+            }, () {}, () {}))));
     expect(find.text('Sign In'), findsOneWidget);
     expect(find.text('Register'), findsOneWidget);
     await tester.tap(find.text('Sign In'));

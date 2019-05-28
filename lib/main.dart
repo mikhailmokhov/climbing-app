@@ -66,6 +66,11 @@ class _MyAppState extends State<MyApp> {
               session.register();
               user = session.user;
             });
+          },
+          openSettings: () {
+            setState(() {
+              // Place code for opening settings
+            });
           }),
     );
   }

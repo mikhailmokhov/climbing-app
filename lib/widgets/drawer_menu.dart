@@ -8,8 +8,9 @@ class DrawerMenu extends StatelessWidget {
   final Function signOut;
   final Function signIn;
   final Function register;
+  final Function openSettings;
 
-  const DrawerMenu(this.user, this.signOut, this.signIn, this.register);
+  const DrawerMenu(this.user, this.signOut, this.signIn, this.register, this.openSettings);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,11 @@ class DrawerMenu extends StatelessWidget {
           title: Text(S.of(context).signOut),
           onTap: signOut));
     }
+
+    menuItems.add(ListTile(
+        leading: Icon(Icons.settings),
+        title: Text(S.of(context).settings),
+        onTap: openSettings));
 
     return Drawer(
       child: Column(

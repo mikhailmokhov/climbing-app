@@ -16,6 +16,7 @@ class GymsList extends StatefulWidget {
   final Function signOut;
   final Function signIn;
   final Function register;
+  final Function openSettings;
   static const String routeName = '/gymslist';
 
   const GymsList(
@@ -23,6 +24,7 @@ class GymsList extends StatefulWidget {
       @required this.signOut,
       @required this.signIn,
       @required this.register,
+        @required this.openSettings,
       Key key})
       : super(key: key);
 
@@ -224,7 +226,7 @@ class _GymsListState extends State<GymsList> {
         ),
       ),
       drawer: DrawerMenu(this.widget.user, this.widget.signOut,
-          this.widget.signIn, this.widget.register),
+          this.widget.signIn, this.widget.register, this.widget.openSettings),
     );
   }
 }
