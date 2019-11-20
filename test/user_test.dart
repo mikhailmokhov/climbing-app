@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/classes/user_class.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -9,7 +9,7 @@ void main() {
   const String PICTURE_ID = 'KGBiuygi*7)g87g-O*&go';
 
   test("Gym instance can be created", () {
-    User user = User(UUID, NAME, EMAIL);
+    User user = User(uuid: UUID, name: NAME, email: EMAIL);
     expect(user.uuid, UUID);
     expect(user.name, NAME);
     expect(user.email, EMAIL);
@@ -29,7 +29,7 @@ void main() {
   });
 
   test("Gym instance can be serialized to json string", () {
-    User user = new User(UUID, NAME, EMAIL, PICTURE_ID);
+    User user = new User(uuid: UUID, name: NAME, email: EMAIL);
     String jsonString = json.encode(user.toJson());
     expect(jsonString,
         '{"uuid":"$UUID","name":"$NAME","email":"$EMAIL","pictureId":"$PICTURE_ID"}');

@@ -1,11 +1,22 @@
 {
-  "appTitle": "Скалодром",
-  "drawerMenu_clearCache": "Очистить кэш",
-  "gymsList_title": "Скалодромы",
-  "refresh": "Обновить",
-  "menu": "Меню",
+  "appTitle": "Climbing App",
+  "drawerMenu_clearCache": "Clear cache",
+  "gymsList_title": "Climbing gyms",
+  "refresh": "Refresh",
+  "menu": "Menu",
   "signIn": "Sign In",
   "register": "Register",
   "signOut": "Sign Out",
-  "settings": "Settings"
+  "settings": "Settings",
+  "routes": "Routes",
+  "addRoute": "Add Route",
+  "addNewRoute": "Add new route",
+  "difficulty": "Difficulty",
+  "newestFirst" : "Newest First",
+  "sortRoutes": "Sort Routes",
+  "grades": "Grades",
+  "chooseGrade": "Choose grade",
+  "gradingSystem": "Grading System",
+  "browseGyms": "Browse Gyms",
+  "editProfile": "Edit Profile"
 }

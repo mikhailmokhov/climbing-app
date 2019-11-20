@@ -14,9 +14,16 @@ environment:
 
 dependencies:
   http: ^0.12.0+2
-  flutter_rating_bar: ^1.1.1
-  shared_preferences: ^0.5.2
-  cached_network_image: ^0.7.0
+  flutter_rating_bar: ^2.0.0+2
+  shared_preferences: ^0.5.4+5
+  cached_network_image: ^2.0.0-rc
+  google_maps_flutter: 0.5.21+11
+  google_sign_in: ^4.0.14
+  vibrate: ^0.0.4
+  image_picker_ui: ^0.2.0
+  apple_sign_in: ^0.1.0
+  line_awesome_icons: ^1.0.4+2
+  persist_theme: ^1.5.1
 
   flutter:
     sdk: flutter
@@ -49,8 +56,20 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/gym-placeholder.jpg
+    - images/gym-placeholder.png
     - images/honnold.png
+    - images/powered_by_google_on_white2x.png
+    - images/IMG_6338.jpeg
+    - images/IMG_6339.jpeg
+    - images/IMG_6340.jpeg
+    - images/IMG_6341.jpeg
+    - images/IMG_6342.jpeg
+    - images/IMG_6343.jpeg
+    - images/IMG_6344.jpeg
+    - images/IMG_6346.jpeg
+    - images/IMG_6347.jpeg
+    - images/IMG_6348.jpeg
+    - images/IMG_6349.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

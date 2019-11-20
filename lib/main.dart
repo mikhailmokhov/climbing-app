@@ -1,15 +1,16 @@
 import 'package:climbing/classes/session.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/classes/user_class.dart';
 import 'package:climbing/generated/i18n.dart';
-import 'package:climbing/widgets/gyms_list.dart';
+import 'package:climbing/widgets/gyms_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:vibrate/vibrate.dart';
 
-const String GOOGLE_PLACES_APP_KEY = 'AIzaSyCJ4u7HC3AsvOMS_4w-mdkhLOP_deCLBcc';
-const String KEYWORD = 'climbing%20gym';
-const String LOCATION = '43.640454,-79.380488';
+
 
 void main() => runApp(MyApp());
+
+bool canVibrate = false;
 
 class MyApp extends StatefulWidget {
   @override
@@ -26,8 +27,16 @@ class _MyAppState extends State<MyApp> {
   initState() {
     super.initState();
     session = Session();
-    session.signIn();
-    user = session.user;
+    session.isSignedIn().then((result) {
+      if (result != null) {
+        setState(() {
+          user = result;
+        });
+      }
+    });
+    Vibrate.canVibrate.then((value) {
+      canVibrate = value;
+    });
   }
 
   @override
@@ -44,34 +53,60 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
       title: 'Climbing app',
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          })),
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: Colors.redAccent),
+          primarySwatch: Colors.teal,
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          })),
       home: GymsList(
-          user: user,
-          signOut: () {
+        user: user,
+        signOut: () {
+          session.signOut().then((result) {
             setState(() {
-              session.signOut();
-              user = session.user;
+              user = result;
             });
-          },
-          signIn: () {
-            setState(() {
-              session.signIn();
-              user = session.user;
-            });
-          },
-          register: () {
-            setState(() {
-              session.register();
-              user = session.user;
-            });
-          },
-          openSettings: () {
-            setState(() {
-              // Place code for opening settings
-            });
-          }),
+          });
+        },
+        signInGoogle: () {
+          session.signInGoogle().then((result) {
+            if (result != null) {
+              setState(() {
+                user = result;
+              });
+            }
+          });
+        },
+        signInApple: () {
+          session.signInApple().then((result) {
+            if (result != null) {
+              setState(() {
+                user = result;
+              });
+            }
+          });
+        },
+        register: () {
+          setState(() {
+            session.register();
+            user = session.user;
+          });
+        },
+        openSettings: () {
+          setState(() {
+            // Place code for opening settings
+          });
+        },
+        editAccount: () {},
+      ),
     );
   }
 }

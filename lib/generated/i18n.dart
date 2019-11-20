@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 class S implements WidgetsLocalizations {
   const S();
 
+  static S current;
+
   static const GeneratedLocalizationsDelegate delegate =
     GeneratedLocalizationsDelegate();
 
@@ -19,15 +21,46 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get NO => "NO";
+  String get RETRY => "RETRY";
+  String get SAVE => "SAVE";
+  String get YES => "YES";
+  String get addNewRoute => "Add new route";
+  String get addRoute => "Add Route";
   String get appTitle => "Climbing App";
+  String get australian => "Australian";
+  String get browseGyms => "Browse Gyms";
+  String get chooseGrade => "Choose grade";
+  String get difficulty => "Difficulty";
   String get drawerMenu_clearCache => "Clear cache";
-  String get gymsList_title => "Climbing gyms";
+  String get editProfile => "Edit Profile";
+  String get french => "French";
+  String get grades => "Grades";
+  String get gradingSystem => "Grading System";
+  String get gymsList_title => "Gyms";
   String get menu => "Menu";
+  String get name => "Name";
+  String get newRoute => "New Route";
+  String get newestFirst => "Newest First";
   String get refresh => "Refresh";
   String get register => "Register";
+  String get requestError => "Request Error";
+  String get routes => "Routes";
+  String get searchThisArea => "Search this area";
   String get settings => "Settings";
-  String get signIn => "Sign In";
+  String get signInApple => "Apple Sign In";
+  String get signInGoogle => "Google Sign In";
   String get signOut => "Sign Out";
+  String get signOutQuestion => "Are you sure you want to sign out?";
+  String get sortRoutes => "Sort Routes";
+  String get switchToListView => "Switch to list view";
+  String get switchToMapView => "Switch to map view";
+  String get uiaa => "UIAA";
+  String get uk => "UK";
+  String get username => "Username";
+  String get usernameCanNotBeEmpty => "Can't be empty";
+  String get usernameCanNotContainSpaces => "Can't contain spaces";
+  String get yosemite => "Yosemite";
 }
 
 class $ru extends S {
@@ -37,21 +70,41 @@ class $ru extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get drawerMenu_clearCache => "Очистить кэш";
+  String get drawerMenu_clearCache => "Clear cache";
   @override
   String get settings => "Settings";
   @override
-  String get signIn => "Sign In";
+  String get gradingSystem => "Grading System";
   @override
-  String get refresh => "Обновить";
+  String get newestFirst => "Newest First";
+  @override
+  String get addNewRoute => "Add new route";
+  @override
+  String get refresh => "Refresh";
   @override
   String get signOut => "Sign Out";
   @override
-  String get appTitle => "Скалодром";
+  String get sortRoutes => "Sort Routes";
   @override
-  String get gymsList_title => "Скалодромы";
+  String get grades => "Grades";
   @override
-  String get menu => "Меню";
+  String get appTitle => "Climbing App";
+  @override
+  String get menu => "Menu";
+  @override
+  String get browseGyms => "Browse Gyms";
+  @override
+  String get difficulty => "Difficulty";
+  @override
+  String get routes => "Routes";
+  @override
+  String get editProfile => "Edit Profile";
+  @override
+  String get addRoute => "Add Route";
+  @override
+  String get chooseGrade => "Choose grade";
+  @override
+  String get gymsList_title => "Climbing gyms";
   @override
   String get register => "Register";
 }
@@ -92,14 +145,17 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     if (lang != null) {
       switch (lang) {
         case "ru":
-          return SynchronousFuture<S>(const $ru());
+          S.current = const $ru();
+          return SynchronousFuture<S>(S.current);
         case "en":
-          return SynchronousFuture<S>(const $en());
+          S.current = const $en();
+          return SynchronousFuture<S>(S.current);
         default:
           // NO-OP.
       }
     }
-    return SynchronousFuture<S>(const S());
+    S.current = const S();
+    return SynchronousFuture<S>(S.current);
   }
 
   @override
