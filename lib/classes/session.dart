@@ -47,3 +47,8 @@ class Session {
         email: 'alex.honnold@gmail.com');
   }
 }
+
+enum SignWith {
+  Google,
+  Apple
+}

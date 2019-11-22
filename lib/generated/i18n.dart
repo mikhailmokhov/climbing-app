@@ -48,6 +48,7 @@ class S implements WidgetsLocalizations {
   String get routes => "Routes";
   String get searchThisArea => "Search this area";
   String get settings => "Settings";
+  String get signIn => "Sign In";
   String get signInApple => "Apple Sign In";
   String get signInGoogle => "Google Sign In";
   String get signOut => "Sign Out";
@@ -101,6 +102,8 @@ class $ru extends S {
   String get editProfile => "Edit Profile";
   @override
   String get addRoute => "Add Route";
+  @override
+  String get signIn => "Sign In";
   @override
   String get chooseGrade => "Choose grade";
   @override

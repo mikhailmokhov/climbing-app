@@ -11,13 +11,12 @@ import 'profile_drawer_header_widget.dart';
 class DrawerMenu extends StatefulWidget {
   final User user;
   final Function signOut;
-  final Function signInGoogle;
-  final Function signInApple;
+  final Function signIn;
   final Function register;
   final Function openSettings;
 
   const DrawerMenu(
-      this.user, this.signOut, this.signInGoogle, this.signInApple, this.register, this.openSettings,
+      this.user, this.signOut, this.signIn, this.register, this.openSettings,
       {Key key})
       : super(key: key);
 
@@ -35,8 +34,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
     columnItems.add(AccountDrawerHeader(
       user: widget.user,
       onSignOutTap: widget.signOut,
-      onSignInGoogleTap: widget.signInGoogle,
-      onSignInAppleTap: widget.signInApple,
+      signIn: widget.signIn,
     ));
 
     // Browse gyms

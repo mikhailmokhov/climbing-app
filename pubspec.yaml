@@ -23,7 +23,8 @@ dependencies:
   image_picker_ui: ^0.2.0
   apple_sign_in: ^0.1.0
   line_awesome_icons: ^1.0.4+2
-  persist_theme: ^1.5.1
+  alice: ^0.0.17
+  built_vector: ^0.1.0
 
   flutter:
     sdk: flutter
@@ -70,6 +71,13 @@ flutter:
     - images/IMG_6347.jpeg
     - images/IMG_6348.jpeg
     - images/IMG_6349.jpeg
+
+  fonts:
+    - family: RobotoGoogle
+      fonts:
+        - asset: fonts/Roboto-Medium.ttf
+          weight: 500
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

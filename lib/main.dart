@@ -2,11 +2,10 @@ import 'package:climbing/classes/session.dart';
 import 'package:climbing/classes/user_class.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:climbing/widgets/gyms_list_widget.dart';
+import 'package:climbing/widgets/dialogs/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vibrate/vibrate.dart';
-
-
 
 void main() => runApp(MyApp());
 
@@ -55,13 +54,14 @@ class _MyAppState extends State<MyApp> {
       title: 'Climbing app',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
+          brightness: Brightness.dark,
           pageTransitionsTheme: PageTransitionsTheme(builders: {
             TargetPlatform.android: CupertinoPageTransitionsBuilder(),
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           })),
       theme: ThemeData(
-          floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: Colors.redAccent),
+          floatingActionButtonTheme:
+              FloatingActionButtonThemeData(backgroundColor: Colors.redAccent),
           primarySwatch: Colors.teal,
           pageTransitionsTheme: PageTransitionsTheme(builders: {
             TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -76,23 +76,14 @@ class _MyAppState extends State<MyApp> {
             });
           });
         },
-        signInGoogle: () {
-          session.signInGoogle().then((result) {
-            if (result != null) {
-              setState(() {
-                user = result;
-              });
-            }
-          });
-        },
-        signInApple: () {
-          session.signInApple().then((result) {
-            if (result != null) {
-              setState(() {
-                user = result;
-              });
-            }
-          });
+        signIn: (signInWithType) {
+          switch (signInWithType) {
+            case SignWith.Apple:
+              session.signInApple();
+              break;
+            case SignWith.Google:
+              session.signInGoogle();
+          }
         },
         register: () {
           setState(() {

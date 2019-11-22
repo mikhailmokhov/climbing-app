@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/classes/user_class.dart';
 import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/widgets/dialogs/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../main.dart';
 import 'edit_profile_widget.dart';
@@ -13,8 +13,7 @@ const double _kAccountDetailsHeight = 49.0;
 class AccountDrawerHeader extends StatefulWidget {
   final Function onNameEmailTap;
   final Function onSignOutTap;
-  final Function onSignInGoogleTap;
-  final Function onSignInAppleTap;
+  final Function signIn;
   final Function onEditAccountTap;
   final User user;
 
@@ -23,9 +22,8 @@ class AccountDrawerHeader extends StatefulWidget {
     this.onNameEmailTap,
     this.onSignOutTap,
     this.user,
-    this.onSignInGoogleTap,
+    this.signIn,
     this.onEditAccountTap,
-    this.onSignInAppleTap,
   }) : super(key: key);
 
   @override
@@ -62,28 +60,21 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
     List<Widget> elements = [];
     List<Widget> headerRows = [];
     if (this.widget.user == null) {
-      // Google Sign In button
+      // Sign In button
       elements.add(PositionedDirectional(
         end: 10.0,
         child: OutlineButton.icon(
-            label: DefaultTextStyle(
-              style: Theme.of(context).primaryTextTheme.body2,
-              child: Text(S.of(context).signInGoogle),
-            ),
-            icon: Icon(LineAwesomeIcons.google),
-            onPressed: this.widget.onSignInGoogleTap),
-      ));
-      // Apple Sign In button
-      elements.add(PositionedDirectional(
-        end: 10.0,
-        top: 50.0,
-        child: OutlineButton.icon(
-          icon: Icon(LineAwesomeIcons.apple, textDirection: TextDirection.ltr, size: 18, color: Theme.of(context).primaryTextTheme.body2.color),
-            label: DefaultTextStyle(
-              style: Theme.of(context).primaryTextTheme.body2,
-              child: Text(S.of(context).signInApple),
-            ),
-            onPressed: this.widget.onSignInAppleTap),
+            label: Text(S.of(context).signIn,
+                style: TextStyle(
+                    color: Theme.of(context).primaryIconTheme?.color)),
+            icon: Icon(Icons.account_circle,
+                color: Theme.of(context).primaryIconTheme?.color),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext passedContext) => SignInDialog(signIn: this.widget.signIn),
+              );
+            }),
       ));
     } else {
       // Avatar
