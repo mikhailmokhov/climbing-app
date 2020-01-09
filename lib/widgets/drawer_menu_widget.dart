@@ -1,24 +1,35 @@
-
+import 'package:climbing/classes/api.dart';
 import 'package:climbing/classes/grade_scale_class.dart';
 import 'package:climbing/classes/user_class.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
-import '../main.dart';
 import 'profile_drawer_header_widget.dart';
 
 class DrawerMenu extends StatefulWidget {
   final User user;
   final Function signOut;
-  final Function signIn;
+  final Function signedIn;
   final Function register;
   final Function openSettings;
+  final bool isGoogleSignInAvailable;
+  final bool isAppleSignInAvailable;
+  final Api api;
+  final Future<bool> canVibrate;
 
   const DrawerMenu(
-      this.user, this.signOut, this.signIn, this.register, this.openSettings,
-      {Key key})
-      : super(key: key);
+    this.user,
+    this.signOut,
+    this.signedIn,
+    this.register,
+    this.openSettings,
+    this.isAppleSignInAvailable,
+    this.isGoogleSignInAvailable,
+    this.api,
+    this.canVibrate, {
+    Key key,
+  }) : super(key: key);
 
   @override
   _DrawerMenuState createState() => _DrawerMenuState();
@@ -34,7 +45,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
     columnItems.add(AccountDrawerHeader(
       user: widget.user,
       onSignOutTap: widget.signOut,
-      signIn: widget.signIn,
+      signedIn: widget.signedIn,
+      isGoogleSignInAvailable: widget.isGoogleSignInAvailable,
+      isAppleSignInAvailable: widget.isAppleSignInAvailable,
+      api: widget.api,
+      canVibrate: widget.canVibrate,
     ));
 
     // Browse gyms
@@ -54,7 +69,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
             setState(() {
               _gradeScale = newValue;
             });
-            if (canVibrate) Vibrate.feedback(FeedbackType.selection);
+            widget.canVibrate.then((value) {
+              Vibrate.feedback(FeedbackType.selection);
+            });
           },
           items: <GradeScales>[
             GradeScales.YSD,
@@ -95,4 +112,3 @@ class _DrawerMenuState extends State<DrawerMenu> {
     );
   }
 }
-

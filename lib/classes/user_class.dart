@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 ///
 /// Describes user
 class User {
-  final String uuid;
+  String uuid;
   String googleId;
   String name = '';
   String email = '';
@@ -12,14 +12,13 @@ class User {
   String pictureId = '';
   String photoUrl = '';
 
-  User(
-      {this.googleId,
-      this.uuid,
-      this.username,
-      this.name,
-      this.email,
-      this.pictureId,
-      this.photoUrl});
+  User({this.googleId,
+    this.uuid,
+    this.username,
+    this.name,
+    this.email,
+    this.pictureId,
+    this.photoUrl});
 
   User.fromGoogleSignInAccount(GoogleSignInAccount googleSignInAccount)
       : this.googleId = googleSignInAccount.id,
@@ -28,14 +27,15 @@ class User {
         this.uuid = '',
         this.photoUrl = googleSignInAccount.photoUrl;
 
-  User.fromAppleAuthorizationResult(AuthorizationResult authorizationResult):this.uuid =''{
-    if(authorizationResult.status == AuthorizationStatus.authorized) {
-      this.email = authorizationResult.credential.email;
-      this.username = authorizationResult.credential.user;
-      this.name = authorizationResult.credential.fullName.givenName + ' ' + authorizationResult.credential.fullName.familyName;
-    }
+  User.fromAppleIdCredentials(AppleIdCredential appleIdCredential)
+  {
+    this.uuid = '';
+    this.email = appleIdCredential.email;
+    this.username = appleIdCredential.email;
+    this.name = appleIdCredential.fullName.givenName +
+        ' ' +
+        appleIdCredential.fullName.familyName;
   }
-
 
   User.fromJson(Map<String, dynamic> json)
       : this.uuid = json["uuid"],
@@ -59,7 +59,7 @@ class User {
   }
 
   String getPictureUrl() {
-    if(photoUrl.isNotEmpty){
+    if (photoUrl.isNotEmpty) {
       return photoUrl;
     } else {
       return 'http://mokhov.ca/honnold.png';

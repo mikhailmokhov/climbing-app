@@ -25,37 +25,52 @@ class S implements WidgetsLocalizations {
   String get RETRY => "RETRY";
   String get SAVE => "SAVE";
   String get YES => "YES";
+  String get addItToYelp => "Add it to Yelp";
   String get addNewRoute => "Add new route";
   String get addRoute => "Add Route";
   String get appTitle => "Climbing App";
   String get australian => "Australian";
   String get browseGyms => "Browse Gyms";
+  String get byContinuingYouAcceptOurPolicies => "By continuing you accept our Terms of Use and Privacy Policy.";
+  String get cancel => "CANCEL";
   String get chooseGrade => "Choose grade";
+  String get continueWithApple => "Continue With Apple";
+  String get continueWithGoogle => "Continue With Google";
+  String get didntFindYourGym => "Didn't find your gym?";
   String get difficulty => "Difficulty";
   String get drawerMenu_clearCache => "Clear cache";
   String get editProfile => "Edit Profile";
+  String get enableLocationService => "You must enable Location service.";
   String get french => "French";
   String get grades => "Grades";
   String get gradingSystem => "Grading System";
   String get gymsList_title => "Gyms";
+  String get locationIsDisabled => "Location is disabled";
+  String get locationServiceIsDisabled => "Location service is disabled.";
   String get menu => "Menu";
   String get name => "Name";
+  String get near => "Near";
   String get newRoute => "New Route";
   String get newestFirst => "Newest First";
+  String get noGymsFound => "No climbing gyms found nearby";
+  String get noInternetConnection => "No Internet Connection";
+  String get openSettings => "OPEN SETTINGS";
   String get refresh => "Refresh";
   String get register => "Register";
   String get requestError => "Request Error";
+  String get reviews => "Reviews";
   String get routes => "Routes";
   String get searchThisArea => "Search this area";
   String get settings => "Settings";
-  String get signIn => "Sign In";
   String get signInApple => "Apple Sign In";
   String get signInGoogle => "Google Sign In";
+  String get signInSignUp => "Sign In / Sign Up";
   String get signOut => "Sign Out";
   String get signOutQuestion => "Are you sure you want to sign out?";
   String get sortRoutes => "Sort Routes";
   String get switchToListView => "Switch to list view";
   String get switchToMapView => "Switch to map view";
+  String get turnOnLocation => "You must turn on Location service to allow search climbing gyms nearby.";
   String get uiaa => "UIAA";
   String get uk => "UK";
   String get username => "Username";
@@ -102,8 +117,6 @@ class $ru extends S {
   String get editProfile => "Edit Profile";
   @override
   String get addRoute => "Add Route";
-  @override
-  String get signIn => "Sign In";
   @override
   String get chooseGrade => "Choose grade";
   @override

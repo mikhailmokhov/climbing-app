@@ -9,22 +9,20 @@ class MyGoogleSignInButton extends StatefulWidget {
   /// If this is set to null, the button will be disabled.
   final VoidCallback onPressed;
 
-  /// A type for the authorization button.
-  final AppleSignInButtonType type;
-
   /// A style for the authorization button.
   final AppleSignInButtonStyle style;
 
   /// A custom corner radius to be used by this button.
   final double cornerRadius;
 
+  final String text;
+
   const MyGoogleSignInButton({
     this.onPressed,
-    this.type = AppleSignInButtonType.defaultButton,
     this.style = AppleSignInButtonStyle.white,
     this.cornerRadius = 6,
-  })  : assert(type != null),
-        assert(style != null),
+    this.text,
+  })  : assert(style != null),
         assert(cornerRadius != null);
 
   @override
@@ -86,9 +84,7 @@ class _MyGoogleSignInButtonState extends State<MyGoogleSignInButton> {
               ),
             ),
             Text(
-              widget.type == AppleSignInButtonType.continueButton
-                  ? 'Continue with Apple'
-                  : 'Sign in with Google',
+              widget.text,
               style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,

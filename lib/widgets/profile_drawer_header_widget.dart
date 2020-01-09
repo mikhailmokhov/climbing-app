@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:climbing/classes/api.dart';
 import 'package:climbing/classes/user_class.dart';
 import 'package:climbing/generated/i18n.dart';
-import 'package:climbing/widgets/dialogs/sign_in_dialog.dart';
+import 'package:climbing/sign_in/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
-import '../main.dart';
 import 'edit_profile_widget.dart';
 
 const double _kAccountDetailsHeight = 49.0;
@@ -13,17 +13,25 @@ const double _kAccountDetailsHeight = 49.0;
 class AccountDrawerHeader extends StatefulWidget {
   final Function onNameEmailTap;
   final Function onSignOutTap;
-  final Function signIn;
+  final Function signedIn;
   final Function onEditAccountTap;
+  final bool isAppleSignInAvailable;
+  final bool isGoogleSignInAvailable;
   final User user;
+  final Api api;
+  final Future<bool> canVibrate;
 
   const AccountDrawerHeader({
     Key key,
     this.onNameEmailTap,
-    this.onSignOutTap,
-    this.user,
-    this.signIn,
+    @required this.onSignOutTap,
+    @required this.user,
+    @required this.signedIn,
     this.onEditAccountTap,
+    @required this.isAppleSignInAvailable,
+    @required this.isGoogleSignInAvailable,
+    @required this.api,
+    @required this.canVibrate,
   }) : super(key: key);
 
   @override
@@ -39,7 +47,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
   }
 
   editAccount() {
-    if (canVibrate) Vibrate.feedback(FeedbackType.selection);
+    widget.canVibrate.then((value) {
+      Vibrate.feedback(FeedbackType.selection);
+    });
     Navigator.push(
         context,
         MaterialPageRoute<DismissDialogAction>(
@@ -64,15 +74,22 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
       elements.add(PositionedDirectional(
         end: 10.0,
         child: OutlineButton.icon(
-            label: Text(S.of(context).signIn,
+            label: Text(S.of(context).signInSignUp,
                 style: TextStyle(
                     color: Theme.of(context).primaryIconTheme?.color)),
             icon: Icon(Icons.account_circle,
                 color: Theme.of(context).primaryIconTheme?.color),
             onPressed: () {
+              widget.canVibrate.then((value) {
+                Vibrate.feedback(FeedbackType.light);
+              });
               showDialog(
                 context: context,
-                builder: (BuildContext passedContext) => SignInDialog(signIn: this.widget.signIn),
+                builder: (BuildContext passedContext) => SignInDialog(
+                    signedIn: widget.signedIn,
+                    isAppleSignInAvailable: widget.isAppleSignInAvailable,
+                    isGoogleSignInAvailable: widget.isGoogleSignInAvailable,
+                    api: widget.api),
               );
             }),
       ));
@@ -102,7 +119,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         end: 10.0,
         child: OutlineButton(
             onPressed: () {
-              if (canVibrate) Vibrate.feedback(FeedbackType.light);
+              widget.canVibrate.then((value) {
+                Vibrate.feedback(FeedbackType.light);
+              });
               showDialog<void>(
                 context: context,
                 barrierDismissible: true,

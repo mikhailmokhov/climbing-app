@@ -1,3 +1,4 @@
+import 'package:climbing/classes/my_location.dart';
 import 'package:climbing/classes/places_api.dart';
 
 import 'climbing_route_class.dart';
@@ -11,12 +12,16 @@ class Gym {
   List<ClimbingRoute> routes;
 
   /// Google specific fields
-  final String googlePlaceId;
+  final String googleId;
+  final String yelpId;
+  final String yelpImageUrl;
+  final String yelpUrl;
+  final double yelpRating;
+  final int yelpReviewCount;
   final List<PlacesPhoto> googlePhotos = [];
-  final double googleRating;
-  final int googleUserRatingsTotal;
-  final double lat;
-  final double lng;
+  final double rating;
+  final int ratingsCount;
+  final Coordinates coordinates;
 
   /// Google specific method
   static String _getCityFromVicinity(String vicinity) {
@@ -28,21 +33,42 @@ class Gym {
     }
   }
 
+  Gym.fromYelpMap(Map<String, dynamic> json)
+      : id = '',
+        googleId = '',
+        yelpRating = json['yelpRating'],
+        yelpReviewCount = json['yelpReviewCount'],
+        yelpId = json['id'],
+        yelpUrl = json['yelpUrl'],
+        routes = [],
+        rating = json['rating'],
+        ratingsCount = json['yelpReviewCount'],
+        name = json['name'],
+        coordinates = Coordinates(
+            json['coordinates']['latitude'], json['coordinates']['longitude']),
+        city = json['location']['city'],
+        yelpImageUrl = json['yelpImageUrl'];
+
   /// Google specific deserializer from Places API json response
   Gym.fromGoogleJson(Map<String, dynamic> json)
-      : this.id = '',
-        this.routes = [],
-        this.googlePlaceId = json['place_id'],
-        this.name = json['name'],
-        this.lat = json['geometry']['location']['lat'],
-        this.lng = json['geometry']['location']['lng'],
+      : id = '',
+        yelpId = '',
+        yelpRating = null,
+        yelpReviewCount = null,
+        yelpUrl = null,
+        routes = [],
+        googleId = json['place_id'],
+        name = json['name'],
+        yelpImageUrl = null,
+        coordinates = Coordinates(json['geometry']['location']['lat'],
+            json['geometry']['location']['lng']),
         this.city = json.containsKey('city')
             ? json['city']
             : _getCityFromVicinity(json['vicinity']),
-        this.googleRating = (json['rating'] is int || json['rating'] is double)
+        this.rating = (json['rating'] is int || json['rating'] is double)
             ? json['rating'].toDouble()
             : null,
-        this.googleUserRatingsTotal = (json['user_ratings_total'] is int)
+        this.ratingsCount = (json['user_ratings_total'] is int)
             ? json['user_ratings_total']
             : null {
     if (json['photos'] is List)
@@ -50,29 +76,33 @@ class Gym {
         this.googlePhotos.add(PlacesPhoto.fromJson(photo));
   }
 
-  /// Google specific method for obtaining Places Photos URL
-  String getGooglePhotoUrl({int width}) {
-    if (this.googlePhotos.length > 0) {
-      return this.googlePhotos[0].getUrl(width: width);
+  String getImageUrl({int width}) {
+    if (googlePhotos.length > 0) {
+      return googlePhotos[0].getUrl(width: width);
     } else {
-      return '';
+      return yelpImageUrl;
     }
+  }
+
+  bool isYelpRating(){
+    return yelpRating!=null;
   }
 
   /// Generic serializer
   Map<String, dynamic> toJson() {
-    List<Map<String, dynamic>> googlePhotos = [];
-    for (final photo in this.googlePhotos) googlePhotos.add(photo.toJson());
+    List<Map<String, dynamic>> googlePhotosMap = [];
+    for (final PlacesPhoto photo in googlePhotos)
+      googlePhotosMap.add(photo.toJson());
     return {
-      'id': this.id,
-      'place_id': this.googlePlaceId,
-      'name': this.name,
-      'user_ratings_total': this.googleUserRatingsTotal,
-      'rating': this.googleRating,
-      'city': this.city,
-      'lng':this.lng,
-      'lat':this.lat,
-      'google_photos': googlePhotos
+      'id': id,
+      'place_id': googleId,
+      'name': name,
+      'user_ratings_total': ratingsCount,
+      'rating': rating,
+      'city': city,
+      'lng': coordinates.longitude,
+      'lat': coordinates.latitude,
+      'google_photos': googlePhotosMap
     };
   }
 }

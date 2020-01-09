@@ -26,7 +26,7 @@ class _GymWidgetState extends State<GymWidget> {
   @override
   initState() {
     super.initState();
-    RoutesProvider.getRoutes(this.widget.gym.googlePlaceId).then((result) {
+    RoutesProvider.getRoutes(this.widget.gym.googleId).then((result) {
       setState(() {
         routes = result;
       });
@@ -95,18 +95,16 @@ class _GymWidgetState extends State<GymWidget> {
             snap: true,
             flexibleSpace: MyFlexibleSpaceBar(
               centerTitle: true,
-              title: SizedBox(
-                width: 220.0,
-                child: Text(
+              title: Text(
                   this.widget.gym.name,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                  overflow: TextOverflow.fade,
+
               ),
               background: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
                   Image.network(
-                    this.widget.gym.getGooglePhotoUrl(width: 1125),
+                    this.widget.gym.getImageUrl(width: 1125),
                     fit: BoxFit.cover,
                     height: _appBarHeight,
                   ),
@@ -123,6 +121,7 @@ class _GymWidgetState extends State<GymWidget> {
                   ),
                 ],
               ),
+              collapseMode: CollapseMode.parallax,
             ),
           ),
           SliverPadding(

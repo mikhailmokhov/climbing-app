@@ -55,13 +55,13 @@ void main() {
     ''';
     Gym gym = Gym.fromGoogleJson(json.decode(jsonString));
     expect(gym.id, '');
-    expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
+    expect(gym.googleId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
     expect(gym.city, 'Toronto');
     expect(gym.name, 'The Rock Oasis Inc.');
-    expect(gym.googleUserRatingsTotal, 484);
-    expect(gym.googleRating, 4.6);
+    expect(gym.ratingsCount, 484);
+    expect(gym.rating, 4.6);
     expect(gym.googlePhotos.length, 1);
-    expect(gym.getGooglePhotoUrl(width: 400),
+    expect(gym.getImageUrl(width: 400),
         'https://maps.googleapis.com/maps/api/place/photo?key=ChIJC5QtSXrL1IkRhhF0XF6XwBs&photoreference=CmRaAAAAbC7IAnGLT8CnOkCGFgVE_bxw87Bc3oIy5OMMYFLzLW3Te5md-hTQrUHhnYfCgcb0VaJkDUCX8JcBxsbSDbiRzJIJLsKVztNHIdB5b-W9gjPm2yQPse7Zo-EhEgIKKzgyEhCaRVgK5gYrU42DSwWDfUf5GhRxncOJP8lb9BKFknXbJwjWV7kPlQ&maxwidth=400');
     Map<String, dynamic> map = gym.toJson();
     expect(map, {
@@ -79,11 +79,11 @@ void main() {
       ]
     });
     gym = Gym.fromGoogleJson(json.decode(json.encode(map)));
-    expect(gym.googlePlaceId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
+    expect(gym.googleId, 'ChIJC5QtSXrL1IkRhhF0XF6XwBs');
     expect(gym.city, 'Toronto');
     expect(gym.name, 'The Rock Oasis Inc.');
-    expect(gym.googleUserRatingsTotal, 484);
-    expect(gym.googleRating, 4.6);
+    expect(gym.ratingsCount, 484);
+    expect(gym.rating, 4.6);
     expect(gym.googlePhotos.length, 0);
     expect(map, {
       "id": "",

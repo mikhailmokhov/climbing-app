@@ -13,22 +13,20 @@ class MyAppleSignInButton extends StatefulWidget {
   /// If this is set to null, the button will be disabled.
   final VoidCallback onPressed;
 
-  /// A type for the authorization button.
-  final AppleSignInButtonType type;
-
   /// A style for the authorization button.
   final AppleSignInButtonStyle style;
 
   /// A custom corner radius to be used by this button.
   final double cornerRadius;
 
+  final String text;
+
   const MyAppleSignInButton({
     this.onPressed,
-    this.type = AppleSignInButtonType.defaultButton,
     this.style = AppleSignInButtonStyle.white,
     this.cornerRadius = 6,
-  })  : assert(type != null),
-        assert(style != null),
+    this.text,
+  })  : assert(style != null),
         assert(cornerRadius != null);
 
   @override
@@ -40,12 +38,15 @@ class _MyAppleSignInButtonState extends State<MyAppleSignInButton> {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor =
-    widget.style == AppleSignInButtonStyle.black ? Colors.black : Colors.white;
-    final textColor =
-    widget.style == AppleSignInButtonStyle.black ? Colors.white : Colors.black;
-    final borderColor =
-    widget.style == AppleSignInButtonStyle.white ? Colors.white : Colors.black;
+    final bgColor = widget.style == AppleSignInButtonStyle.black
+        ? Colors.black
+        : Colors.white;
+    final textColor = widget.style == AppleSignInButtonStyle.black
+        ? Colors.white
+        : Colors.black;
+    final borderColor = widget.style == AppleSignInButtonStyle.white
+        ? Colors.white
+        : Colors.black;
 
     return GestureDetector(
       onTapDown: (_) => setState(() => _isTapDown = true),
@@ -71,34 +72,32 @@ class _MyAppleSignInButtonState extends State<MyAppleSignInButton> {
         ),
         child: Center(
             child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 1, left: 2, right: 6),
-                  child: SizedBox(
-                    height: 17,
-                    child: AspectRatio(
-                      aspectRatio: 25 / 31,
-                      child: CustomPaint(
-                        painter: _AppleLogoPainter(color: textColor),
-                      ),
-                    ),
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 1, left: 2, right: 6),
+              child: SizedBox(
+                height: 17,
+                child: AspectRatio(
+                  aspectRatio: 25 / 31,
+                  child: CustomPaint(
+                    painter: _AppleLogoPainter(color: textColor),
                   ),
                 ),
-                Text(
-                  widget.type == AppleSignInButtonType.continueButton
-                      ? 'Continue with Apple'
-                      : 'Sign in with Apple',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: .3,
-                    wordSpacing: -.5,
-                    color: textColor,
-                  ),
-                ),
-              ],
-            )),
+              ),
+            ),
+            Text(
+              widget.text,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                letterSpacing: .3,
+                wordSpacing: -.5,
+                color: textColor,
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }
