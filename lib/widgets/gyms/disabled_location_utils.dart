@@ -33,17 +33,20 @@ class LocationDisabled extends StatelessWidget {
         ),
         Text(S.of(context).enableLocationService,
             style: TextStyle(color: disabledColor)),
-        InkWell(
-            onTap: () {
-              OpenLocationSettingsDialog.openSettings(
-                  geolocationStatus, serviceStatus);
-            },
-            child: Text(
-              S.of(context).openSettings,
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-            )),
+        Padding(
+          child: InkWell(
+              onTap: () {
+                OpenLocationSettingsDialog.openSettings(
+                    geolocationStatus, serviceStatus);
+              },
+              child: Text(
+                S.of(context).openSettings,
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                ),
+              )),
+          padding: EdgeInsets.only(top: 3),
+        ),
       ]),
     );
   }
@@ -67,7 +70,6 @@ class OpenLocationSettingsDialog {
         return AlertDialog(
           title: Row(
             children: <Widget>[
-
               Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: Icon(

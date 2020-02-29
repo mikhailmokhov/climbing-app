@@ -67,12 +67,13 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> elements = [];
-    List<Widget> headerRows = [];
+    List<Widget> topRowItems = [];
+    List<Widget> rows = [];
     if (this.widget.user == null) {
       // Sign In button
-      elements.add(PositionedDirectional(
+      topRowItems.add(PositionedDirectional(
         end: 10.0,
+        top: 0.0,
         child: OutlineButton.icon(
             label: Text(S.of(context).signInSignUp,
                 style: TextStyle(
@@ -95,8 +96,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
       ));
     } else {
       // Avatar
-      elements.add(Positioned(
+      topRowItems.add(Positioned(
         top: 0.0,
+        left: 0.0,
         child: Semantics(
           onTap: editAccount,
           explicitChildNodes: true,
@@ -115,8 +117,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
       ));
 
       // Sign Out button
-      elements.add(PositionedDirectional(
+      topRowItems.add(PositionedDirectional(
         end: 10.0,
+        top: 0.0,
         child: OutlineButton(
             onPressed: () {
               widget.canVibrate.then((value) {
@@ -155,61 +158,62 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
       ));
 
       // Account name, username and edit account button
-      headerRows.add(
+      rows.add(
         SizedBox(
           height: _kAccountDetailsHeight,
           child: Row(
             children: <Widget>[
               // Account name/username
-              InkWell(
-                onTap: editAccount,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-                          child: DefaultTextStyle(
-                            style: Theme.of(context).primaryTextTheme.body2,
-                            overflow: TextOverflow.ellipsis,
-                            child: Text(this.widget.user.name.isEmpty
-                                ? ''
-                                : this.widget.user.name),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: DefaultTextStyle(
-                          style: Theme.of(context).primaryTextTheme.body1,
-                          overflow: TextOverflow.ellipsis,
-                          child: Text(this.widget.user.username.isEmpty
-                              ? ''
-                              : this.widget.user.username),
-                        ),
-                      )
-                    ]),
+              Expanded(
+                child: Container(
+                  child: InkWell(
+                    onTap: editAccount,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 2.0),
+                              child: DefaultTextStyle(
+                                textWidthBasis: TextWidthBasis.parent,
+                                style: Theme.of(context).primaryTextTheme.body2,
+                                overflow: TextOverflow.ellipsis,
+                                child: Text(this.widget.user.name.isEmpty
+                                    ? ''
+                                    : this.widget.user.name + 'test2dfghdfg hdfghdfghdf ghd'),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            child: DefaultTextStyle(
+                              textWidthBasis: TextWidthBasis.parent,
+                              style: Theme.of(context).primaryTextTheme.body1,
+                              overflow: TextOverflow.ellipsis,
+                              child: Text(this.widget.user.username.isEmpty
+                                  ? ''
+                                  : this.widget.user.username + ' testfghdfhdfghd fghdfg hdfg'),
+                            ),
+                          )
+                        ]),
+                  ),
+                ),
               ),
               // Edit account button
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Tooltip(
-                    message: S.of(context).editProfile,
-                    child: SizedBox(
-                      width: 50,
-                      child: OutlineButton(
-                          shape: CircleBorder(),
-                          onPressed: editAccount,
-                          child: Icon(
-                            Icons.mode_edit,
-                            color:
-                                Theme.of(context).primaryTextTheme.body2.color,
-                            size: 20,
-                          )),
-                    ),
+              Container(
+                child: Tooltip(
+                  message: S.of(context).editProfile,
+                  child: SizedBox(
+                    width: 50,
+                    child: OutlineButton(
+                        shape: CircleBorder(),
+                        onPressed: editAccount,
+                        child: Icon(
+                          Icons.mode_edit,
+                          color: Theme.of(context).primaryTextTheme.body2.color,
+                          size: 20,
+                        )),
                   ),
-                ],
-              )),
+                ),
+              ),
             ],
           ),
         ),
@@ -217,23 +221,24 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
     }
 
     // Top row with avatar and Sign In/Out buttons
-    headerRows.insert(
+    rows.insert(
         0,
         Expanded(
-          child: Stack(children: elements),
+          child: Stack(children: topRowItems),
         ));
 
     return DrawerHeader(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
       ),
-      margin: const EdgeInsets.only(bottom: 8.0),
       padding: const EdgeInsetsDirectional.only(
-          top: 15.0, start: 17.0, bottom: 9.0, end: 7.0),
+          top: 15.0, start: 15.0, bottom: 9.0, end: 0.0),
       child: SafeArea(
         bottom: false,
-        child: Column(
-          children: headerRows,
+        child: Container(
+          child: Column(
+            children: rows,
+          ),
         ),
       ),
     );

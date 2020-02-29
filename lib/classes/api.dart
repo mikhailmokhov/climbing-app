@@ -4,13 +4,15 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:climbing/classes/gyms_response.dart';
 import 'package:climbing/classes/my_location.dart';
 import 'package:climbing/sign_in/apple/apple_id_credential_converter.dart';
-import 'package:connectivity/connectivity.dart';
+//import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class Api {
   static final Dio _dio = Dio()
-    ..options.baseUrl = "https://api.routesetter.app"
+    ..options.baseUrl = "http://localhost:8080"
+    ..options.connectTimeout = 10000
+    ..options.receiveTimeout = 10000
     ..interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
@@ -33,10 +35,10 @@ class Api {
     return GymsResponse.fromResponse(response.data);
   }
 
-  static _checkInternetConnection() async {
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
-    if(connectivityResult != ConnectivityResult.mobile || connectivityResult != ConnectivityResult.wifi){
-      throw "No Internet Connection";
-    }
-  }
+//  static _checkInternetConnection() async {
+//    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+//    if(connectivityResult != ConnectivityResult.mobile || connectivityResult != ConnectivityResult.wifi){
+//      throw "No Internet Connection";
+//    }
+//  }
 }

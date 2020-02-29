@@ -56,7 +56,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   bool locationServiceAvailable = true;
   GeolocationStatus geolocationStatus = GeolocationStatus.unknown;
   ServiceStatus serviceStatus = ServiceStatus.unknown;
-  StreamSubscription subscription;
+  StreamSubscription connectivitySubscription;
   ConnectivityResult connectivityStatus;
 
   List<Gym> gyms = [];
@@ -64,6 +64,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   GymsProvider provider;
   Widget widgetToShow;
   Flushbar flushbar;
+  bool pendingRequest = false;
 
   gymOnTap(Gym gym, BuildContext context) {
     Navigator.push(
@@ -79,139 +80,144 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   }
 
   showError(String error) {
+    flushbar?.dismiss();
     flushbar = Flushbar(
       message: error,
       backgroundColor: Colors.deepOrange,
       flushbarStyle: FlushbarStyle.GROUNDED,
       flushbarPosition: FlushbarPosition.BOTTOM,
       isDismissible: true,
-    )..show(this.context);
+      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+    )..show(context);
   }
 
-  Future<void> fetchApi(Coordinates coordinates) {
-    Completer completer = new Completer();
-    Api.gyms(coordinates).then((GymsResponse gymsResponse) {
+  openLocationSettings() async {
+    bool result = await OpenLocationSettingsDialog.show(
+        context, geolocationStatus, serviceStatus);
+    if (result) {
+      Future.delayed(const Duration(milliseconds: 200), () {
+        // delay to wait for the dialog to close
+        OpenLocationSettingsDialog.openSettings(
+            geolocationStatus, serviceStatus);
+      });
+    } else {
+      setState(() {});
+    }
+  }
+
+  refresh() {
+    //show refresh indicator which should trigger onRefresh event
+    _refreshIndicatorKey.currentState?.show();
+  }
+
+  triggerConnectivityError() {
+    if (connectivityStatus == ConnectivityResult.none) {
+      showError(S.of(this.context).noInternetConnection);
+    } else {
+      flushbar?.dismiss();
+    }
+  }
+
+  setConnectivityStatus() async {
+    ConnectivityResult result = await Connectivity().checkConnectivity();
+    connectivityStatus = result;
+    triggerConnectivityError();
+  }
+
+  connectivityOnChange(ConnectivityResult result) {
+    connectivityStatus = result;
+    triggerConnectivityError();
+    if (pendingRequest) refresh();
+  }
+
+  setLocationPermissions() async {
+    geolocationStatus = await Geolocator().checkGeolocationPermissionStatus();
+    serviceStatus = await LocationPermissions().checkServiceStatus();
+    switch (geolocationStatus) {
+      case GeolocationStatus.unknown:
+        locationServiceAvailable = true;
+        break;
+      case GeolocationStatus.granted:
+        locationServiceAvailable = true;
+        break;
+      case GeolocationStatus.denied:
+      default:
+        locationServiceAvailable = false;
+        openLocationSettings();
+    }
+  }
+
+  setLocation() async {
+    return Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.lowest)
+        .then((Position position) {
+      coordinates = Coordinates(position.latitude, position.longitude);
+    }).catchError((error) {
+      locationServiceAvailable = false;
+    });
+  }
+
+  onRefresh(BuildContext context) async {
+    await setConnectivityStatus();
+    if (connectivityStatus == ConnectivityResult.none) {
+      pendingRequest = true;
+      return;
+    }
+    if (coordinates == null) {
+      await setLocationPermissions();
+      if (locationServiceAvailable == false) return;
+      await setLocation();
+      if (coordinates == null) return;
+    }
+    try {
+      GymsResponse gymsResponse = await Api.gyms(coordinates);
       setState(() {
         provider = gymsResponse.provider;
         gyms = gymsResponse.gyms;
-        completer.complete();
-        flushbar?.dismiss();
+        pendingRequest = false;
       });
-    }).catchError((error) {
-      completer.completeError(error);
-    });
-    return completer.future;
-  }
-
-  Future<void> refreshGyms(BuildContext context) {
-    Completer completer = new Completer();
-    if (coordinates != null) {
-      fetchApi(coordinates).then((_) {
-        completer.complete();
-      }).catchError((error) {
-        completer.completeError(error);
-      });
-    } else {
-      Geolocator()
-          .checkGeolocationPermissionStatus()
-          .then((GeolocationStatus status) async {
-        ServiceStatus serviceStatus =
-            await LocationPermissions().checkServiceStatus();
-        geolocationStatus = status;
-        if (status == GeolocationStatus.granted ||
-            status == GeolocationStatus.unknown) {
-          setState(() {
-            locationServiceAvailable = true;
-          });
-          MyLocation.getCoordinates().then((Coordinates coordinates) {
-            setState(() {
-              this.coordinates = coordinates;
-            });
-            fetchApi(coordinates).then((_) {
-              completer.complete();
-            }).catchError((error) {
-              completer.completeError(error);
-            });
-          }).catchError((error) {
-            completer.completeError(error);
-          });
-        } else {
-          completer.complete();
-          setState(() {
-            locationServiceAvailable = false;
-          });
-          // OPEN LOCATION SETTINGS DIALOG
-          OpenLocationSettingsDialog.show(
-                  context, geolocationStatus, serviceStatus)
-              .then((result) {
-            if (result) {
-              // delay to wait for the dialog to close
-              Future.delayed(const Duration(milliseconds: 200), () {
-                OpenLocationSettingsDialog.openSettings(status, serviceStatus);
-              });
-            }
-          });
-        }
-      }).catchError((error) {
-        completer.completeError(error);
-      });
+    } catch (error) {
+      showError(error.toString());
     }
-    return completer.future;
+    return;
   }
 
   @override
   initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      setState(() {
-        connectivityStatus = result;
-      });
-      if (connectivityStatus == ConnectivityResult.none) {
-        showError(S.of(this.context).noInternetConnection);
-      } else {
-        flushbar.dismiss();
-      }
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ConnectivityResult connectivityResult =
-          await (Connectivity().checkConnectivity());
-      setState(() {
-        connectivityStatus = connectivityResult;
-      });
-      if (connectivityStatus != ConnectivityResult.none) {
-        _refreshIndicatorKey.currentState?.show();
-      } else {
-        showError(S.of(this.context).noInternetConnection);
-      }
-    });
+    // subscribe to network connection change
+    connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen(connectivityOnChange);
+    WidgetsBinding.instance
+      ..addPostFrameCallback((_) {
+        refresh();
+      })
+      ..addObserver(this); // didChangeAppLifecycleState
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    subscription.cancel();
+    connectivitySubscription.cancel();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (!locationServiceAvailable && state == AppLifecycleState.resumed)
-      _refreshIndicatorKey.currentState?.show();
+    if (locationServiceAvailable == false && state == AppLifecycleState.resumed)
+      refresh();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!locationServiceAvailable) {
+    if (locationServiceAvailable == false) {
       widgetToShow = LocationDisabled(geolocationStatus, serviceStatus);
     } else if (viewMode == ViewMode.list) {
-      if (gyms?.length == 0) {
+      if (gyms?.length == 0 && provider != null) {
         widgetToShow = EmptyResponse();
       } else {
-        widgetToShow = GymsList(refreshGyms, gymOnTap, _refreshIndicatorKey,
-            gyms, coordinates, provider);
+        widgetToShow = GymsList(onRefresh, gymOnTap, _refreshIndicatorKey, gyms,
+            coordinates, provider);
       }
     } else {
       widgetToShow =
@@ -235,7 +241,8 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                 ? IconButton(
                     icon: const Icon(Icons.map),
                     tooltip: S.of(context).switchToMapView,
-                    onPressed: locationServiceAvailable == false
+                    onPressed: locationServiceAvailable == false ||
+                            connectivityStatus == ConnectivityResult.none
                         ? null
                         : () {
                             setState(() {
@@ -263,7 +270,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
               icon: const Icon(Icons.refresh),
               tooltip: S.of(context).refresh,
               onPressed: () {
-                _refreshIndicatorKey.currentState?.show();
+                refresh();
               },
             ),
           ]),
@@ -271,7 +278,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           key: _refreshIndicatorKey,
           displacement: 60.0,
           onRefresh: () {
-            return refreshGyms(context);
+            return onRefresh(context);
           },
           child: widgetToShow),
       drawer: DrawerMenu(

@@ -14,23 +14,24 @@ environment:
 
 dependencies:
   flutter_rating_bar: ^2.0.0+2
-  shared_preferences: ^0.5.6
+  shared_preferences: ^0.5.6+2
   cached_network_image: ^2.0.0
-  google_maps_flutter: 0.5.21+15
-  google_sign_in: ^4.0.14
+  google_maps_flutter: ^0.5.24+1
+  google_sign_in: ^4.1.4
   vibrate: ^0.0.4
   image_picker_ui: ^0.2.0
   apple_sign_in: ^0.1.0
   built_vector: ^0.1.0
   flutter_secure_storage: ^3.3.1+1
   dio_http2_adapter: ^1.0.0
-  connectivity: ^0.4.6+2
+  connectivity: ^0.4.8+1
   flushbar: ^1.9.1
-  pretty_dio_logger: ^1.0.8
-  url_launcher: ^5.4.1
-  geolocator: ^5.1.5
-  app_settings: 3.0.0+1
+  pretty_dio_logger: ^1.1.0
+  url_launcher: ^5.4.2
+  geolocator: ^5.3.0
+  app_settings: ^3.0.1
   location_permissions: ^2.0.4+1
+  airplane_mode_detection: ^1.0.0
 
   flutter:
     sdk: flutter
