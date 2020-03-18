@@ -19,7 +19,6 @@ dependencies:
   google_maps_flutter: ^0.5.24+1
   google_sign_in: ^4.1.4
   vibrate: ^0.0.4
-  image_picker_ui: ^0.2.0
   apple_sign_in: ^0.1.0
   built_vector: ^0.1.0
   flutter_secure_storage: ^3.3.1+1
@@ -32,12 +31,23 @@ dependencies:
   app_settings: ^3.0.1
   location_permissions: ^2.0.4+1
   airplane_mode_detection: ^1.0.0
+  path: ^1.6.4
+  lombok: ^0.0.5
+  dio: ^3.0.9
+  http: ^0.12.0+4
+  mime_type: ^0.2.7
+  image_picker: ^0.6.3+4
+  image_cropper: ^1.2.1
+  flutter_progress_dialog: ^0.1.0
+  flutter_native_image: ^0.0.5+2
+
 
   flutter:
     sdk: flutter
 
   flutter_localizations: # add this
     sdk: flutter # add this
+
 
 
   # The following adds the Cupertino Icons font to your application.

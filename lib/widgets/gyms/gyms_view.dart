@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:climbing/classes/gyms_response.dart';
-import 'package:climbing/classes/api.dart';
-import 'package:climbing/classes/user_class.dart';
+
+import 'package:climbing/classes/user.dart';
+import 'package:climbing/services/api_service.dart';
 import 'package:climbing/widgets/gyms/gyms_list_empty_response.dart';
 import 'package:climbing/widgets/gyms/gyms_map.dart';
 import 'package:connectivity/connectivity.dart';
@@ -27,8 +28,9 @@ class GymsView extends StatefulWidget {
   final User user;
   final Function signOut, signedIn, register, openSettings, editAccount;
   final bool isAppleSignInAvailable, isGoogleSignInAvailable;
-  final Api api;
+  final ApiService api;
   final Future<bool> canVibrate;
+  final Future<dynamic> Function(User) updateUser;
 
   GymsView({
     @required this.user,
@@ -39,6 +41,7 @@ class GymsView extends StatefulWidget {
     @required this.editAccount,
     @required this.api,
     @required this.canVibrate,
+    @required this.updateUser,
     Key key,
     this.isAppleSignInAvailable,
     this.isGoogleSignInAvailable,
@@ -51,7 +54,7 @@ class GymsView extends StatefulWidget {
 class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState>();
   ViewMode viewMode = ViewMode.list;
   bool locationServiceAvailable = true;
   GeolocationStatus geolocationStatus = GeolocationStatus.unknown;
@@ -88,7 +91,8 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       flushbarPosition: FlushbarPosition.BOTTOM,
       isDismissible: true,
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,
-    )..show(context);
+    )
+      ..show(context);
   }
 
   openLocationSettings() async {
@@ -112,7 +116,9 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
 
   triggerConnectivityError() {
     if (connectivityStatus == ConnectivityResult.none) {
-      showError(S.of(this.context).noInternetConnection);
+      showError(S
+          .of(this.context)
+          .noInternetConnection);
     } else {
       flushbar?.dismiss();
     }
@@ -170,7 +176,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       if (coordinates == null) return;
     }
     try {
-      GymsResponse gymsResponse = await Api.gyms(coordinates);
+      GymsResponse gymsResponse = await ApiService.gyms(coordinates);
       setState(() {
         provider = gymsResponse.provider;
         gyms = gymsResponse.gyms;
@@ -228,10 +234,14 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       key: _scaffoldKey,
       appBar: AppBar(
           centerTitle: true,
-          title: Text(S.of(context).gymsList_title),
+          title: Text(S
+              .of(context)
+              .gymsList_title),
           leading: IconButton(
             icon: const Icon(Icons.menu),
-            tooltip: S.of(context).menu,
+            tooltip: S
+                .of(context)
+                .menu,
             onPressed: () {
               _scaffoldKey.currentState.openDrawer();
             },
@@ -239,36 +249,42 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           actions: <Widget>[
             viewMode == ViewMode.list
                 ? IconButton(
-                    icon: const Icon(Icons.map),
-                    tooltip: S.of(context).switchToMapView,
-                    onPressed: locationServiceAvailable == false ||
-                            connectivityStatus == ConnectivityResult.none
-                        ? null
-                        : () {
-                            setState(() {
-                              viewMode = ViewMode.map;
-                            });
-                            widget.canVibrate.then((value) {
-                              Vibrate.feedback(FeedbackType.selection);
-                            });
-                          },
-                  )
+              icon: const Icon(Icons.map),
+              tooltip: S
+                  .of(context)
+                  .switchToMapView,
+              onPressed: locationServiceAvailable == false ||
+                  connectivityStatus == ConnectivityResult.none
+                  ? null
+                  : () {
+                setState(() {
+                  viewMode = ViewMode.map;
+                });
+                widget.canVibrate.then((value) {
+                  Vibrate.feedback(FeedbackType.selection);
+                });
+              },
+            )
                 : IconButton(
-                    icon: const Icon(Icons.list),
-                    tooltip: S.of(context).switchToListView,
-                    onPressed: () {
-                      setState(() {
-                        viewMode = ViewMode.list;
-                      });
-                      widget.canVibrate.then((value) {
-                        Vibrate.feedback(FeedbackType.selection);
-                      });
-                    },
-                  ),
+              icon: const Icon(Icons.list),
+              tooltip: S
+                  .of(context)
+                  .switchToListView,
+              onPressed: () {
+                setState(() {
+                  viewMode = ViewMode.list;
+                });
+                widget.canVibrate.then((value) {
+                  Vibrate.feedback(FeedbackType.selection);
+                });
+              },
+            ),
             // REFRESH LIST
             IconButton(
               icon: const Icon(Icons.refresh),
-              tooltip: S.of(context).refresh,
+              tooltip: S
+                  .of(context)
+                  .refresh,
               onPressed: () {
                 refresh();
               },
@@ -290,7 +306,8 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           widget.isAppleSignInAvailable,
           widget.isGoogleSignInAvailable,
           widget.api,
-          widget.canVibrate),
+          widget.canVibrate,
+          updateUser: this.widget.updateUser),
     );
   }
 }

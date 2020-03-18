@@ -1,15 +1,14 @@
 import 'dart:io';
 
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/classes/api.dart';
-import 'package:climbing/classes/user_class.dart';
+import 'package:climbing/services/api_service.dart';
+import 'package:climbing/classes/user.dart';
 import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/models/sign_in_with_apple_response.dart';
 import 'package:climbing/widgets/buttons/my_apple_sign_in_button.dart';
 import 'package:climbing/widgets/buttons/my_google_sign_in_button.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
 class SignInDialog extends StatelessWidget {
   static const double CORNER_RADIUS = 4.0;
@@ -17,7 +16,7 @@ class SignInDialog extends StatelessWidget {
   final Function(User) signedIn;
   final bool isAppleSignInAvailable;
   final bool isGoogleSignInAvailable;
-  final Api api;
+  final ApiService api;
 
   SignInDialog(
       {Key key,
@@ -47,8 +46,12 @@ class SignInDialog extends StatelessWidget {
                   : AppleSignInButtonStyle.black,
               cornerRadius: CORNER_RADIUS,
               onPressed: () {
+                var dialog = showProgressDialog(
+                    backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+                    loadingText: "", context: context);
                 _signInWithApple().then((user) {
                   //pass user to parent widgets
+                  dialog.dismiss();
                   signedIn(user);
                 });
                 closeDialog();
@@ -100,20 +103,16 @@ class SignInDialog extends StatelessWidget {
 
   Future<User> _signInWithApple() async {
 
-
-
-
     final AuthorizationResult result = await AppleSignIn.performRequests([
       AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
     ]);
 
     switch (result.status) {
       case AuthorizationStatus.authorized:
-        FlutterSecureStorage()
-            .write(key: "appleUserId", value: result.credential.user);
 
+        SignInWithAppleResponse response = await ApiService.appleSignIn(result.credential);
 
-        return User.fromAppleIdCredentials(result.credential);
+        return response.user;
         break;
 
       case AuthorizationStatus.error:
@@ -128,8 +127,4 @@ class SignInDialog extends StatelessWidget {
     return null;
   }
 
-  Future<User> _signInWithGoogle() async {
-    //TODO: add Google Sign In
-    return new User();
-  }
 }

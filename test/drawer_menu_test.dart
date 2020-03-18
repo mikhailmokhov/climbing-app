@@ -1,4 +1,4 @@
-import 'package:climbing/classes/user_class.dart';
+import 'package:climbing/classes/user.dart';
 import 'package:climbing/widgets/drawer_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,7 +11,7 @@ void main() {
   const String USERNAME = 'honnold';
 
   testWidgets('Drawer signed in', (WidgetTester tester) async {
-    final User user = User(uuid: UUID, name: NAME, username: USERNAME, email: EMAIL);
+    final User user = User(uuid: UUID, name: NAME, nickname: USERNAME, email: EMAIL);
     bool userSignedIn = true;
     await tester.pumpWidget(new MediaQuery(
         data: MediaQueryData(),

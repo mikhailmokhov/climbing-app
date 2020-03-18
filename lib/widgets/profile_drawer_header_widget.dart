@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:climbing/classes/api.dart';
-import 'package:climbing/classes/user_class.dart';
+import 'package:climbing/services/api_service.dart';
+import 'package:climbing/classes/user.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:climbing/sign_in/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +15,15 @@ class AccountDrawerHeader extends StatefulWidget {
   final Function onSignOutTap;
   final Function signedIn;
   final Function onEditAccountTap;
+  final Future<bool> Function(User) updateUser;
   final bool isAppleSignInAvailable;
   final bool isGoogleSignInAvailable;
   final User user;
-  final Api api;
+  final ApiService api;
   final Future<bool> canVibrate;
 
-  const AccountDrawerHeader({
+
+  AccountDrawerHeader({
     Key key,
     this.onNameEmailTap,
     @required this.onSignOutTap,
@@ -32,6 +34,7 @@ class AccountDrawerHeader extends StatefulWidget {
     @required this.isGoogleSignInAvailable,
     @required this.api,
     @required this.canVibrate,
+    @required this.updateUser,
   }) : super(key: key);
 
   @override
@@ -39,12 +42,6 @@ class AccountDrawerHeader extends StatefulWidget {
 }
 
 class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
-  updateProfile(String name, String userName) {
-    setState(() {
-      this.widget.user.name = name;
-      this.widget.user.username = userName;
-    });
-  }
 
   editAccount() {
     widget.canVibrate.then((value) {
@@ -55,7 +52,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         MaterialPageRoute<DismissDialogAction>(
           builder: (BuildContext context) => EditAccount(
             user: this.widget.user,
-            updateProfile: updateProfile,
+            updateUser: this.widget.updateUser,
           ),
           fullscreenDialog: true,
         ));
@@ -108,6 +105,8 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
             child: InkWell(
               onTap: editAccount,
               child: CircleAvatar(
+                foregroundColor: Colors.blue,
+                backgroundColor: Colors.deepPurple,
                 backgroundImage: CachedNetworkImageProvider(
                     this.widget.user.getPictureUrl()),
               ),
@@ -175,22 +174,20 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: DefaultTextStyle(
-                                textWidthBasis: TextWidthBasis.parent,
                                 style: Theme.of(context).primaryTextTheme.body2,
-                                overflow: TextOverflow.ellipsis,
+                                overflow: TextOverflow.fade,
                                 child: Text(this.widget.user.name.isEmpty
                                     ? ''
-                                    : this.widget.user.name + 'test2dfghdfg hdfghdfghdf ghd'),
+                                    : this.widget.user.name),
                               )),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 2.0),
                             child: DefaultTextStyle(
-                              textWidthBasis: TextWidthBasis.parent,
                               style: Theme.of(context).primaryTextTheme.body1,
                               overflow: TextOverflow.ellipsis,
-                              child: Text(this.widget.user.username.isEmpty
+                              child: Text(this.widget.user.nickname.isEmpty
                                   ? ''
-                                  : this.widget.user.username + ' testfghdfhdfghd fghdfg hdfg'),
+                                  : this.widget.user.nickname),
                             ),
                           )
                         ]),

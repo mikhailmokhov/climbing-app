@@ -24,7 +24,7 @@
   "gradingSystem": "Grading System",
   "browseGyms": "Browse Gyms",
   "editProfile": "Edit Profile",
-  "name": "Name",
+  "fullName": "Full Name",
   "username": "Username",
   "usernameCanNotBeEmpty": "Can't be empty",
   "usernameCanNotContainSpaces": "Can't contain spaces",
@@ -54,5 +54,9 @@
   "enableLocationService" : "You must enable Location service.",
   "cancel": "CANCEL",
   "openSettings": "OPEN SETTINGS",
-  "noGymsFound": "No climbing gyms found nearby"
+  "noGymsFound": "No climbing gyms found nearby",
+  "saving": "Saving",
+  "cropper": "Cropper",
+  "camera": "Camera",
+  "gallery": "Gallery"
 }

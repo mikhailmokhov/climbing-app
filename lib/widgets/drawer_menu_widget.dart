@@ -1,6 +1,6 @@
-import 'package:climbing/classes/api.dart';
+import 'package:climbing/services/api_service.dart';
 import 'package:climbing/classes/grade_scale_class.dart';
-import 'package:climbing/classes/user_class.dart';
+import 'package:climbing/classes/user.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
@@ -15,8 +15,9 @@ class DrawerMenu extends StatefulWidget {
   final Function openSettings;
   final bool isGoogleSignInAvailable;
   final bool isAppleSignInAvailable;
-  final Api api;
+  final ApiService api;
   final Future<bool> canVibrate;
+  final Future<bool> Function(User) updateUser;
 
   const DrawerMenu(
     this.user,
@@ -28,7 +29,7 @@ class DrawerMenu extends StatefulWidget {
     this.isGoogleSignInAvailable,
     this.api,
     this.canVibrate, {
-    Key key,
+    Key key, @required this.updateUser,
   }) : super(key: key);
 
   @override
@@ -50,6 +51,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
       isAppleSignInAvailable: widget.isAppleSignInAvailable,
       api: widget.api,
       canVibrate: widget.canVibrate,
+      updateUser: this.widget.updateUser,
     ));
 
     // Browse gyms

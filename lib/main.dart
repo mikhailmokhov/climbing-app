@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/classes/user_class.dart';
+import 'package:climbing/classes/user.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:climbing/widgets/gyms/gyms_view.dart';
 import 'package:climbing/widgets/theme.dart';
@@ -7,9 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vibrate/vibrate.dart';
-import 'classes/api.dart';
+import 'services/api_service.dart';
+import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+    ProgressDialog(
+      child: MyApp(),
+    ));
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -18,17 +25,25 @@ class MyApp extends StatefulWidget {
   }
 }
 
-class _MyAppState extends State<MyApp>{
+class _MyAppState extends State<MyApp> {
+  static const String STORAGE_KEY_USER = 'user';
   final bool isGoogleSignInAvailable = true;
-   Api api;
+
+  ApiService api;
   final canVibrate = Vibrate.canVibrate;
   User user;
   bool isAppleSignInAvailable = false;
 
+  Future<bool> updateUser(User user){
+    setState(() {
+      this.user = user;
+    });
+    return ApiService.updateUser(this.user);
+  }
+
   @override
   initState() {
     super.initState();
-    //api.init("http:/192.168.50.25");
     AppleSignIn.isAvailable().then((isAvailable) {
       setState(() {
         isAppleSignInAvailable = isAvailable;
@@ -36,6 +51,7 @@ class _MyAppState extends State<MyApp>{
       });
     });
     AppleSignIn.onCredentialRevoked.listen((_) {
+      if (user != null) ApiService.logout();
       //TODO: add logic for revoked credentials
       setState(() {
         print('Credentials revoked');
@@ -43,7 +59,7 @@ class _MyAppState extends State<MyApp>{
       });
     });
   }
-  
+
   @override
   void dispose() {
     //api.dispose();
@@ -70,16 +86,20 @@ class _MyAppState extends State<MyApp>{
       home: GymsView(
         user: user,
         signOut: () {
-          Api.logout().then((response){
+          FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
+          ApiService.logout().then((response) {
             print(response);
           });
           setState(() {
             user = null;
           });
         },
-        signedIn: (newUser) {
+        signedIn: (user) {
+          ApiService.uuid = user.uuid;
+          FlutterSecureStorage()
+              .write(key: STORAGE_KEY_USER, value: json.encode(user.toJson()));
           setState(() {
-            user = newUser;
+            this.user = user;
           });
         },
         register: () {},
@@ -90,29 +110,39 @@ class _MyAppState extends State<MyApp>{
         },
         editAccount: () {},
         isAppleSignInAvailable: isAppleSignInAvailable,
-        isGoogleSignInAvailable: isGoogleSignInAvailable, api: api, canVibrate: canVibrate,
+        isGoogleSignInAvailable: isGoogleSignInAvailable,
+        api: api,
+        canVibrate: canVibrate,
+        updateUser: updateUser,
       ),
     );
   }
 
   void checkLoggedInState() async {
-    final userId = await FlutterSecureStorage().read(key: "appleUserId");
-    if (userId == null) {
-      print("No stored user ID");
-      return;
-    }
-
-    final credentialState = await AppleSignIn.getCredentialState(userId);
+    final String savedUserJsonString =
+        await FlutterSecureStorage().read(key: STORAGE_KEY_USER);
+    if (savedUserJsonString == null) return;
+    User storedUser = User.fromJson(json.decode(savedUserJsonString));
+    if (storedUser.appleIdCredentialUser == null) return;
+    final credentialState =
+        await AppleSignIn.getCredentialState(storedUser.appleIdCredentialUser);
     switch (credentialState.status) {
       case CredentialStatus.authorized:
-        print("getCredentialState returned authorized");
+        ApiService.uuid = storedUser.uuid;
+        ApiService.getUser().then((user){
+          setState(() {
+            this.user = user;
+          });
+        }).catchError((){
+          setState(() {
+            this.user = storedUser;
+          });
+        });
         break;
-
       case CredentialStatus.error:
         print(
             "getCredentialState returned an error: ${credentialState.error.localizedDescription}");
         break;
-
       case CredentialStatus.revoked:
         print("getCredentialState returned revoked");
         break;
