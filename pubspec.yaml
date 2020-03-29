@@ -16,7 +16,7 @@ dependencies:
   flutter_rating_bar: ^2.0.0+2
   shared_preferences: ^0.5.6+2
   cached_network_image: ^2.0.0
-  google_maps_flutter: ^0.5.24+1
+  google_maps_flutter: ^0.5.25+1
   google_sign_in: ^4.1.4
   vibrate: ^0.0.4
   apple_sign_in: ^0.1.0
@@ -40,6 +40,7 @@ dependencies:
   image_cropper: ^1.2.1
   flutter_progress_dialog: ^0.1.0
   flutter_native_image: ^0.0.5+2
+  auto_size_text: ^2.1.0
 
 
   flutter:
@@ -103,8 +104,13 @@ flutter:
   fonts:
     - family: RobotoGoogle
       fonts:
-        - asset: fonts/Roboto-Medium.ttf
+        - asset: res/fonts/Roboto-Medium.ttf
           weight: 500
+
+    - family: LatoGoogle
+      fonts:
+          - asset: res/fonts/Lato-Regular.ttf
+            weight: 500
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

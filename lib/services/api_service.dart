@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:apple_sign_in/apple_sign_in.dart';
+import 'package:climbing/classes/gym_class.dart';
 import 'package:climbing/classes/gyms_response.dart';
 import 'package:climbing/classes/my_location.dart';
 import 'package:climbing/classes/user.dart';
@@ -22,7 +23,7 @@ class ApiService {
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
         ? "https://api.routesetter.app"
-        : "http://10.0.1.4:8080"
+        : "http://10.0.1.11:8080"
     ..options.connectTimeout = 10000
     ..options.receiveTimeout = 10000
     ..interceptors.add(PrettyDioLogger(
@@ -95,6 +96,15 @@ class ApiService {
     String mimeType = mime(file.path);
     if (mimeType == null) mimeType = 'text/plain; charset=UTF-8';
     return mimeType;
+  }
+
+  static Future<void> addHomeGym(Gym gym) async {
+    await _dio.post("/user/gyms", queryParameters: {"id": gym.id}, options: generateOptions());
+    return;
+  }
+
+  static Future<void> markAsNotAGym(Gym gym) async {
+    await _dio.patch("/user/gyms/" + gym.id, queryParameters: {"notAGym": true}, options: generateOptions());
   }
 
 //  static _checkInternetConnection() async {

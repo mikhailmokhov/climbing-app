@@ -252,7 +252,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
               icon: const Icon(Icons.map),
               tooltip: S
                   .of(context)
-                  .switchToMapView,
+                  .mapView,
               onPressed: locationServiceAvailable == false ||
                   connectivityStatus == ConnectivityResult.none
                   ? null
@@ -269,7 +269,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
               icon: const Icon(Icons.list),
               tooltip: S
                   .of(context)
-                  .switchToListView,
+                  .listView,
               onPressed: () {
                 setState(() {
                   viewMode = ViewMode.list;

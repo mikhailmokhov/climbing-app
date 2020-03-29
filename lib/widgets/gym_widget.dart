@@ -1,11 +1,11 @@
 import 'package:climbing/classes/grade_scale_class.dart';
-import 'package:climbing/classes/routes_provider.dart';
+import 'package:climbing/services/api_service.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:climbing/classes/climbing_route_class.dart';
 import 'package:climbing/classes/gym_class.dart';
 import 'package:climbing/generated/i18n.dart';
 import 'package:flutter/material.dart';
-//import 'package:image_picker_modern/image_picker_modern.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'my_flexible_space_bar.dart';
 
@@ -19,18 +19,31 @@ class GymWidget extends StatefulWidget {
   _GymWidgetState createState() => _GymWidgetState();
 }
 
+enum GymPopupMenuItems { markAsNotAGym, makeHomeGym }
+
 class _GymWidgetState extends State<GymWidget> {
   final double _appBarHeight = 256.0;
-  List<ClimbingRoute> routes =[];
+  List<ClimbingRoute> routes = [];
 
   @override
   initState() {
     super.initState();
-    RoutesProvider.getRoutes(this.widget.gym.googleId).then((result) {
-      setState(() {
-        routes = result;
-      });
-    });
+//    RoutesProvider.getRoutes(this.widget.gym.googleId).then((result) {
+//      setState(() {
+//        routes = result;
+//      });
+//    });
+  }
+
+  void _select(GymPopupMenuItems choice) {
+    switch(choice) {
+      case GymPopupMenuItems.makeHomeGym:
+        ApiService.addHomeGym(this.widget.gym);
+        return;
+      case GymPopupMenuItems.markAsNotAGym:
+
+
+    }
   }
 
   @override
@@ -81,13 +94,19 @@ class _GymWidgetState extends State<GymWidget> {
         slivers: <Widget>[
           SliverAppBar(
             actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.more_horiz),
-                tooltip: S.of(context).switchToMapView,
-                onPressed: () {
-                  //TODO: add code for switching to info view
-                },
-              )
+              PopupMenuButton<GymPopupMenuItems>(
+                onSelected: _select,
+                itemBuilder: (BuildContext context) =>  <PopupMenuItem<GymPopupMenuItems>>[
+                  PopupMenuItem(
+                    value: GymPopupMenuItems.markAsNotAGym,
+                    child: Text(S.of(context).markAsNotAGym),
+                  ),
+                  PopupMenuItem(
+                    value: GymPopupMenuItems.makeHomeGym,
+                    child: Text(S.of(context).makeHomeGym),
+                  )
+                ],
+              ),
             ],
             expandedHeight: _appBarHeight,
             pinned: true,
@@ -95,11 +114,19 @@ class _GymWidgetState extends State<GymWidget> {
             snap: true,
             flexibleSpace: MyFlexibleSpaceBar(
               centerTitle: true,
-              title: Text(
-                  this.widget.gym.name,
-                  overflow: TextOverflow.fade,
-
-              ),
+              title: SizedBox(
+                  width: 250.0,
+                  child: AutoSizeText(this.widget.gym.name,
+                      textAlign: TextAlign.center,
+                      style: new TextStyle(shadows: [
+                        Shadow(
+                          blurRadius: 8.0,
+                          color: Colors.black,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ]),
+                      overflow: TextOverflow.fade,
+                      maxLines: 1)),
               background: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
@@ -138,10 +165,10 @@ class _GymWidgetState extends State<GymWidget> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: (){
-            //ImagePicker.pickImage(source: ImageSource.gallery).then((image){
+        onPressed: () {
+          //ImagePicker.pickImage(source: ImageSource.gallery).then((image){
 
-            //});
+          //});
         },
       ),
     );

@@ -39,8 +39,17 @@ class EditAccountState extends State<EditAccount> {
   Flushbar flushbar;
 
   void updateAndClose(user) {
-    widget.updateUser(user);
-    Navigator.pop(context, DismissDialogAction.save);
+    _dialog = showProgressDialog(
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor
+            .withOpacity(0.7),
+        loadingText: "",
+        context: context);
+    widget.updateUser(user).whenComplete((){
+      dismissProgressDialog();
+      Navigator.pop(context, DismissDialogAction.save);
+    });
   }
 
   void removeFocus(BuildContext context) {

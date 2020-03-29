@@ -29,8 +29,8 @@
   "usernameCanNotBeEmpty": "Can't be empty",
   "usernameCanNotContainSpaces": "Can't contain spaces",
   "SAVE": "SAVE",
-  "switchToMapView": "Switch to map view",
-  "switchToListView": "Switch to list view",
+  "mapView": "Map view",
+  "listView": "List view",
   "requestError": "Request Error",
   "RETRY": "RETRY",
   "searchThisArea": "Search this area",
@@ -58,5 +58,7 @@
   "saving": "Saving",
   "cropper": "Cropper",
   "camera": "Camera",
-  "gallery": "Gallery"
+  "gallery": "Gallery",
+  "markAsNotAGym": "Mark as not a gym",
+  "makeHomeGym": "Make home gym"
 }
