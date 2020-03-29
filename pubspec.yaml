@@ -75,20 +75,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/gym-placeholder.png
     - images/honnold.png
     - images/powered_by_google_on_white2x.png
-    - images/IMG_6338.jpeg
-    - images/IMG_6339.jpeg
-    - images/IMG_6340.jpeg
-    - images/IMG_6341.jpeg
-    - images/IMG_6342.jpeg
-    - images/IMG_6343.jpeg
-    - images/IMG_6344.jpeg
-    - images/IMG_6346.jpeg
-    - images/IMG_6347.jpeg
-    - images/IMG_6348.jpeg
-    - images/IMG_6349.jpeg
     - res/yelp/regular_0@2x.png
     - res/yelp/regular_1@2x.png
     - res/yelp/regular_1_half@2x.png
