@@ -24,7 +24,7 @@ dependencies:
   flutter_secure_storage: ^3.3.1+1
   dio_http2_adapter: ^1.0.0
   connectivity: ^0.4.8+1
-  flushbar: ^1.9.1
+  flushbar: ^1.10.0
   pretty_dio_logger: ^1.1.0
   url_launcher: ^5.4.2
   geolocator: ^5.3.0
@@ -75,6 +75,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - images/gym-placeholder.jpg
     - images/honnold.png
     - images/powered_by_google_on_white2x.png
     - res/yelp/regular_0@2x.png

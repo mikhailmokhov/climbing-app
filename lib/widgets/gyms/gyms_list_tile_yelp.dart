@@ -21,7 +21,7 @@ class GymsListTileYelp extends StatelessWidget {
             leading: new ClipRRect(
               borderRadius: new BorderRadius.circular(2.0),
               child: FadeInImage.assetNetwork(
-                  placeholder: 'images/gym-placeholder.png',
+                  placeholder: 'images/gym-placeholder.jpg',
                   image: gym.getImageUrl() != null
                       ? gym.getImageUrl()
                       //TODO replace image by an asset

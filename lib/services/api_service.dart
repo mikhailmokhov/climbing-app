@@ -99,7 +99,7 @@ class ApiService {
   }
 
   static Future<void> addHomeGym(Gym gym) async {
-    await _dio.post("/user/gyms", queryParameters: {"id": gym.id}, options: generateOptions());
+    await _dio.post("/user/gyms", queryParameters: {"gymId": gym.id}, options: generateOptions());
     return;
   }
 

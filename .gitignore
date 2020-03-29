@@ -2,6 +2,6 @@
 android
 build
 gen
-ios
+ios/.generated/
 .flutter-plugins
 .packages

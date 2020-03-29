@@ -82,7 +82,7 @@ class _GymsListState extends State<GymsList> {
                     trailing: new ClipRRect(
                       borderRadius: new BorderRadius.circular(2.0),
                       child: FadeInImage.assetNetwork(
-                          placeholder: 'images/gym-placeholder.png',
+                          placeholder: 'images/gym-placeholder.jpg',
                           image: gym.getImageUrl() != null
                               ? gym.getImageUrl()
                               : 'https://birkeland.uib.no/wp-content/themes/bcss/images/no.png',
