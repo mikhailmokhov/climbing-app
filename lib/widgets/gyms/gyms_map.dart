@@ -1,6 +1,7 @@
 import 'package:climbing/classes/gym_class.dart';
 import 'package:climbing/classes/my_location.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/classes/user.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -11,8 +12,9 @@ class GymsMap extends StatefulWidget {
   final Coordinates coordinates;
   final Function setCoordinates;
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
+  final User user;
 
-  GymsMap(this.coordinates, this.gyms, this.setCoordinates, this.refreshIndicatorKey, {Key key})
+  GymsMap(this.coordinates, this.gyms, this.setCoordinates, this.refreshIndicatorKey, this.user, {Key key})
       : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class _GymsMapState extends State<GymsMap> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GymWidget(gym)),
+                MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user)),
               );
             },
             title: gym.name,

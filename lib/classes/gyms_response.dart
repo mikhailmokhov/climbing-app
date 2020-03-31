@@ -27,4 +27,4 @@ class GymsResponse {
   }
 }
 
-enum GymsProvider { YELP, GOOGLE }
+enum GymsProvider { YELP, GOOGLE, INTERNAL }

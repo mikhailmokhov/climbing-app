@@ -10,7 +10,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:climbing/classes/gym_class.dart';
 import 'package:climbing/classes/my_location.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/widgets/drawer_menu_widget.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location_permissions/location_permissions.dart';
@@ -51,10 +51,12 @@ class GymsView extends StatefulWidget {
   _GymsViewState createState() => _GymsViewState();
 }
 
+enum GymListPopupMenuItems { purgeCurrentCoordinatesCache, purgeAllCache }
+
 class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  GlobalKey<RefreshIndicatorState>();
+      GlobalKey<RefreshIndicatorState>();
   ViewMode viewMode = ViewMode.list;
   bool locationServiceAvailable = true;
   GeolocationStatus geolocationStatus = GeolocationStatus.unknown;
@@ -72,7 +74,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   gymOnTap(Gym gym, BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GymWidget(gym)),
+      MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user)),
     );
   }
 
@@ -91,8 +93,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       flushbarPosition: FlushbarPosition.BOTTOM,
       isDismissible: true,
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,
-    )
-      ..show(context);
+    )..show(context);
   }
 
   openLocationSettings() async {
@@ -116,9 +117,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
 
   triggerConnectivityError() {
     if (connectivityStatus == ConnectivityResult.none) {
-      showError(S
-          .of(this.context)
-          .noInternetConnection);
+      showError(S.of(this.context).noInternetConnection);
     } else {
       flushbar?.dismiss();
     }
@@ -214,6 +213,17 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       refresh();
   }
 
+  void _popupMenuSelect(GymListPopupMenuItems choice) {
+    switch (choice) {
+      case GymListPopupMenuItems.purgeCurrentCoordinatesCache:
+        ApiService.purgeYelpCacheForCoordinates(
+            coordinates.latitude, coordinates.longitude);
+        return;
+      case GymListPopupMenuItems.purgeAllCache:
+        ApiService.purgeYelpCache();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (locationServiceAvailable == false) {
@@ -227,49 +237,38 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       }
     } else {
       widgetToShow =
-          GymsMap(coordinates, gyms, setCoordinates, _refreshIndicatorKey);
+          GymsMap(coordinates, gyms, setCoordinates, _refreshIndicatorKey, this.widget.user);
     }
 
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-          centerTitle: true,
-          title: Text(S
-              .of(context)
-              .gymsList_title),
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            tooltip: S
-                .of(context)
-                .menu,
-            onPressed: () {
-              _scaffoldKey.currentState.openDrawer();
-            },
-          ),
-          actions: <Widget>[
-            viewMode == ViewMode.list
-                ? IconButton(
+    List<Widget> actions = <Widget>[
+      // REFRESH LIST
+      IconButton(
+        icon: const Icon(Icons.refresh),
+        tooltip: S.of(context).refresh,
+        onPressed: () {
+          refresh();
+        },
+      ),
+      // VIEW MODE
+      viewMode == ViewMode.list
+          ? IconButton(
               icon: const Icon(Icons.map),
-              tooltip: S
-                  .of(context)
-                  .mapView,
+              tooltip: S.of(context).mapView,
               onPressed: locationServiceAvailable == false ||
-                  connectivityStatus == ConnectivityResult.none
+                      connectivityStatus == ConnectivityResult.none
                   ? null
                   : () {
-                setState(() {
-                  viewMode = ViewMode.map;
-                });
-                widget.canVibrate.then((value) {
-                  Vibrate.feedback(FeedbackType.selection);
-                });
-              },
+                      setState(() {
+                        viewMode = ViewMode.map;
+                      });
+                      widget.canVibrate.then((value) {
+                        Vibrate.feedback(FeedbackType.selection);
+                      });
+                    },
             )
-                : IconButton(
+          : IconButton(
               icon: const Icon(Icons.list),
-              tooltip: S
-                  .of(context)
-                  .listView,
+              tooltip: S.of(context).listView,
               onPressed: () {
                 setState(() {
                   viewMode = ViewMode.list;
@@ -278,18 +277,40 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                   Vibrate.feedback(FeedbackType.selection);
                 });
               },
-            ),
-            // REFRESH LIST
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              tooltip: S
-                  .of(context)
-                  .refresh,
-              onPressed: () {
-                refresh();
-              },
-            ),
-          ]),
+            )
+    ];
+
+    if (this.widget.user != null) {
+      actions.add(// MORE ACTIONS POPUP MENU
+          PopupMenuButton<GymListPopupMenuItems>(
+        onSelected: _popupMenuSelect,
+        itemBuilder: (BuildContext context) =>
+            <PopupMenuItem<GymListPopupMenuItems>>[
+          PopupMenuItem(
+            value: GymListPopupMenuItems.purgeCurrentCoordinatesCache,
+            child: Text(S.of(context).purgeCurrentCoordinatesCache),
+          ),
+          PopupMenuItem(
+            value: GymListPopupMenuItems.purgeAllCache,
+            child: Text(S.of(context).purgeAllCache),
+          )
+        ],
+      ));
+    }
+
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(S.of(context).gymsList_title),
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            tooltip: S.of(context).menu,
+            onPressed: () {
+              _scaffoldKey.currentState.openDrawer();
+            },
+          ),
+          actions: actions),
       body: RefreshIndicator(
           key: _refreshIndicatorKey,
           displacement: 60.0,

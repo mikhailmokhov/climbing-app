@@ -1,9 +1,10 @@
 import 'package:climbing/classes/grade_scale_class.dart';
+import 'package:climbing/classes/user.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:climbing/classes/climbing_route_class.dart';
 import 'package:climbing/classes/gym_class.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -12,8 +13,9 @@ import 'my_flexible_space_bar.dart';
 class GymWidget extends StatefulWidget {
   static const String routeName = '/gym';
   final Gym gym;
+  final User user;
 
-  const GymWidget(this.gym, {Key key}) : super(key: key);
+  const GymWidget(this.gym, this.user, {Key key}) : super(key: key);
 
   @override
   _GymWidgetState createState() => _GymWidgetState();
@@ -36,13 +38,37 @@ class _GymWidgetState extends State<GymWidget> {
   }
 
   void _select(GymPopupMenuItems choice) {
-    switch(choice) {
+    switch (choice) {
       case GymPopupMenuItems.makeHomeGym:
         ApiService.addHomeGym(this.widget.gym);
         return;
       case GymPopupMenuItems.markAsNotAGym:
-
-
+        showDialog<void>(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(S.of(context).hideGymQuestion),
+              actions: <Widget>[
+                RaisedButton(
+                  textColor: Colors.white,
+                  child: Text(S.of(context).YES),
+                  onPressed: () {
+                    ApiService.setVisibility(this.widget.gym, false).then((value) {
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                FlatButton(
+                  child: Text(S.of(context).NO),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
     }
   }
 
@@ -93,10 +119,11 @@ class _GymWidgetState extends State<GymWidget> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            actions: <Widget>[
+            actions: this.widget.user == null ? null : <Widget>[
               PopupMenuButton<GymPopupMenuItems>(
                 onSelected: _select,
-                itemBuilder: (BuildContext context) =>  <PopupMenuItem<GymPopupMenuItems>>[
+                itemBuilder: (BuildContext context) =>
+                    <PopupMenuItem<GymPopupMenuItems>>[
                   PopupMenuItem(
                     value: GymPopupMenuItems.markAsNotAGym,
                     child: Text(S.of(context).markAsNotAGym),

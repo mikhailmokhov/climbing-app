@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/classes/user.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/sign_in/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';

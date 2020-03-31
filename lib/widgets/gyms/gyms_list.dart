@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:climbing/classes/gym_class.dart';
 import 'package:climbing/classes/my_location.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 
 import 'gyms_list_add_to_yelp.dart';
 import 'gyms_list_tile_yelp.dart';

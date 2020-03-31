@@ -39,8 +39,9 @@ dependencies:
   image_picker: ^0.6.3+4
   image_cropper: ^1.2.1
   flutter_progress_dialog: ^0.1.0
-  flutter_native_image: ^0.0.5+2
+  flutter_native_image: ^0.0.5+2     #native iOS/Android image resize, compress or crop
   auto_size_text: ^2.1.0
+  enum_to_string: ^1.0.9
 
 
   flutter:
@@ -127,3 +128,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true

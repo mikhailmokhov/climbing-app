@@ -16,6 +16,7 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:http/http.dart' as http;
+import 'package:enum_to_string/enum_to_string.dart';
 
 class ApiService {
   static String uuid;
@@ -24,8 +25,8 @@ class ApiService {
     ..options.baseUrl = Foundation.kReleaseMode
         ? "https://api.routesetter.app"
         : "http://10.0.1.11:8080"
-    ..options.connectTimeout = 10000
-    ..options.receiveTimeout = 10000
+    ..options.connectTimeout = 60000
+    ..options.receiveTimeout = 60000
     ..interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
@@ -99,12 +100,40 @@ class ApiService {
   }
 
   static Future<void> addHomeGym(Gym gym) async {
-    await _dio.post("/user/gyms", queryParameters: {"gymId": gym.id}, options: generateOptions());
+    await _dio.post("/user/gyms",
+        queryParameters: {"gymId": gym.id}, options: generateOptions());
     return;
   }
 
-  static Future<void> markAsNotAGym(Gym gym) async {
-    await _dio.patch("/user/gyms/" + gym.id, queryParameters: {"notAGym": true}, options: generateOptions());
+  static Future<void> setVisibility(Gym gym, bool visibility) async {
+    String idProvider;
+    String id;
+    if (gym.id != null && gym.id.isNotEmpty) {
+      idProvider = EnumToString.parse(GymsProvider.INTERNAL);
+      id = gym.id;
+    } else if (gym.yelpId != null && gym.yelpId.isNotEmpty) {
+      idProvider = EnumToString.parse(GymsProvider.YELP);
+      id = gym.yelpId;
+    } else if (gym.googleId != null && gym.googleId.isNotEmpty) {
+      idProvider = EnumToString.parse(GymsProvider.GOOGLE);
+      id = gym.googleId;
+    } else {
+      throw "setVisibility error: all the gym ids are null";
+    }
+    await _dio.patch("/user/gyms/" + id,
+        queryParameters: {"provider": idProvider, "visibility": visibility},
+        options: generateOptions());
+  }
+
+  static Future<void> purgeYelpCacheForCoordinates(double latitude, double longitude) async {
+    await _dio.delete("/gyms/cache/yelp",
+        queryParameters: {"latitude": latitude, "longitude": longitude},
+        options: generateOptions());
+  }
+
+  static Future<void> purgeYelpCache() async {
+    await _dio.delete("/gyms/cache/yelp",
+        options: generateOptions());
   }
 
 //  static _checkInternetConnection() async {

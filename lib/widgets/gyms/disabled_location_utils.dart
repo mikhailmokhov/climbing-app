@@ -1,6 +1,6 @@
 //import 'package:app_settings/app_settings.dart';
 import 'package:app_settings/app_settings.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location_permissions/location_permissions.dart';

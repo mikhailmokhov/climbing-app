@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/classes/user.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/models/sign_in_with_apple_response.dart';
 import 'package:climbing/widgets/buttons/my_apple_sign_in_button.dart';
 import 'package:climbing/widgets/buttons/my_google_sign_in_button.dart';

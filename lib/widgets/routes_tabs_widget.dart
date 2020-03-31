@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:climbing/classes/gym_class.dart';
 import 'package:flutter/material.dart';
 import 'package:climbing/classes/climbing_route_class.dart';
-import 'package:climbing/generated/i18n.dart';
+import 'package:climbing/generated/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 
 enum Sorting { difficulty, newestFirst }
