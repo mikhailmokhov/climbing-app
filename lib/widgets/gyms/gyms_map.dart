@@ -85,7 +85,7 @@ class _GymsMapState extends State<GymsMap> {
               height: 33.0,
               child: FloatingActionButton.extended(
                 backgroundColor: themeData.scaffoldBackgroundColor,
-                foregroundColor: themeData.textTheme.body1.color,
+                foregroundColor: themeData.textTheme.bodyText2.color,
                 onPressed: () {
                   mapController
                       .getVisibleRegion()

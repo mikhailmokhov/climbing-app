@@ -1,7 +1,7 @@
 {
   "appTitle": "Climbing App",
-  "drawerMenu_clearCache": "Clear cache",
-  "gymsList_title": "Climbing gyms",
+  "drawerMenuClearCache": "Clear cache",
+  "gymsListTitle": "Climbing gyms",
   "refresh": "Refresh",
   "menu": "Menu",
   "signIn": "Sign In",

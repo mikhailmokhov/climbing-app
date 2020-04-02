@@ -55,9 +55,15 @@ class ApiService {
     return _dio.get("/user/logout", options: generateOptions());
   }
 
-  static Future<GymsResponse> gyms(Coordinates coordinates) async {
+  static Future<GymsResponse> getGyms(Coordinates coordinates) async {
     final Response response =
         await _dio.get("/gyms", queryParameters: coordinates.toMap());
+    return GymsResponse.fromResponse(response.data);
+  }
+
+  static Future<GymsResponse> getHiddenGyms(Coordinates coordinates) async {
+    final Response response =
+    await _dio.get("/gyms/hidden", queryParameters: coordinates.toMap());
     return GymsResponse.fromResponse(response.data);
   }
 

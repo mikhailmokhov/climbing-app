@@ -52,6 +52,7 @@ class GymsView extends StatefulWidget {
 }
 
 enum GymListPopupMenuItems { purgeCurrentCoordinatesCache, purgeAllCache }
+enum GymListViewMode { allGyms, hiddenGyms }
 
 class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -63,6 +64,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   ServiceStatus serviceStatus = ServiceStatus.unknown;
   StreamSubscription connectivitySubscription;
   ConnectivityResult connectivityStatus;
+  GymListViewMode _gymListViewMode = GymListViewMode.allGyms;
 
   List<Gym> gyms = [];
   Coordinates coordinates;
@@ -175,7 +177,15 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       if (coordinates == null) return;
     }
     try {
-      GymsResponse gymsResponse = await ApiService.gyms(coordinates);
+      GymsResponse gymsResponse;
+      switch (_gymListViewMode) {
+        case GymListViewMode.allGyms:
+          gymsResponse = await ApiService.getGyms(coordinates);
+          break;
+        case GymListViewMode.hiddenGyms:
+          gymsResponse = await ApiService.getHiddenGyms(coordinates);
+          break;
+      }
       setState(() {
         provider = gymsResponse.provider;
         gyms = gymsResponse.gyms;
@@ -236,8 +246,8 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
             coordinates, provider);
       }
     } else {
-      widgetToShow =
-          GymsMap(coordinates, gyms, setCoordinates, _refreshIndicatorKey, this.widget.user);
+      widgetToShow = GymsMap(coordinates, gyms, setCoordinates,
+          _refreshIndicatorKey, this.widget.user);
     }
 
     List<Widget> actions = <Widget>[
@@ -302,7 +312,55 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       key: _scaffoldKey,
       appBar: AppBar(
           centerTitle: true,
-          title: Text(S.of(context).gymsList_title),
+          title: InkWell(
+              onTap: () {
+                showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SafeArea(
+                        child: new Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            RadioListTile<GymListViewMode>(
+                              onChanged: (GymListViewMode value) {
+                                //Switch to main gyms view
+                                setState(() {
+                                  _gymListViewMode = value;
+                                  Navigator.pop(context);
+                                  refresh();
+                                });
+                              },
+                              value: GymListViewMode.allGyms,
+                              groupValue: _gymListViewMode,
+                              title: new Text(S.of(context).allGyms),
+                            ),
+                            RadioListTile<GymListViewMode>(
+                              onChanged: (GymListViewMode value) {
+                                //Switch to main gyms view
+                                setState(() {
+                                  _gymListViewMode = value;
+                                  Navigator.pop(context);
+                                  refresh();
+                                });
+                              },
+                              value: GymListViewMode.hiddenGyms,
+                              groupValue: _gymListViewMode,
+                              title: new Text(S.of(context).hiddenGyms),
+                            ),
+                          ],
+                        ),
+                      );
+                    });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(Icons.keyboard_arrow_down),
+                  _gymListViewMode == GymListViewMode.allGyms
+                      ? Text(S.of(context).gymsListTitle)
+                      : Text(S.of(context).hiddenGyms)
+                ],
+              )),
           leading: IconButton(
             icon: const Icon(Icons.menu),
             tooltip: S.of(context).menu,
