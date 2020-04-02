@@ -5,3 +5,4 @@ gen
 ios/.generated/
 .flutter-plugins
 .packages
+.dart_tool
