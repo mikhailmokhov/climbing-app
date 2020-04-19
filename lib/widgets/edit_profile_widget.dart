@@ -156,11 +156,6 @@ class EditAccountState extends State<EditAccount> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
@@ -173,7 +168,7 @@ class EditAccountState extends State<EditAccount> {
             child: Text(S
                 .of(context)
                 .SAVE,
-                style: theme.textTheme.body2.copyWith(color: Colors.white)),
+                style: theme.textTheme.bodyText1.copyWith(color: Colors.white)),
             onPressed: () {
               attemptToSave(context);
             },

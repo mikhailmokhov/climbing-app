@@ -54,7 +54,8 @@ class _GymWidgetState extends State<GymWidget> {
                   textColor: Colors.white,
                   child: Text(S.of(context).YES),
                   onPressed: () {
-                    ApiService.setVisibility(this.widget.gym, false).then((value) {
+                    ApiService.setVisibility(this.widget.gym, false)
+                        .then((value) {
                       Navigator.pop(context);
                     });
                   },
@@ -119,22 +120,24 @@ class _GymWidgetState extends State<GymWidget> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            actions: this.widget.user == null ? null : <Widget>[
-              PopupMenuButton<GymPopupMenuItems>(
-                onSelected: _select,
-                itemBuilder: (BuildContext context) =>
-                    <PopupMenuItem<GymPopupMenuItems>>[
-                  PopupMenuItem(
-                    value: GymPopupMenuItems.markAsNotAGym,
-                    child: Text(S.of(context).markAsNotAGym),
-                  ),
-                  PopupMenuItem(
-                    value: GymPopupMenuItems.makeHomeGym,
-                    child: Text(S.of(context).makeHomeGym),
-                  )
-                ],
-              ),
-            ],
+            actions: this.widget.user != null && this.widget.user.isAdmin()
+                ? <Widget>[
+                    PopupMenuButton<GymPopupMenuItems>(
+                      onSelected: _select,
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuItem<GymPopupMenuItems>>[
+                        PopupMenuItem(
+                          value: GymPopupMenuItems.markAsNotAGym,
+                          child: Text(S.of(context).markAsNotAGym),
+                        ),
+                        PopupMenuItem(
+                          value: GymPopupMenuItems.makeHomeGym,
+                          child: Text(S.of(context).makeHomeGym),
+                        )
+                      ],
+                    ),
+                  ]
+                : null,
             expandedHeight: _appBarHeight,
             pinned: true,
             floating: true,

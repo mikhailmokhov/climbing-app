@@ -24,7 +24,7 @@ class ApiService {
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
         ? "https://api.routesetter.app"
-        : "http://10.0.1.11:8080"
+        : "http://10.0.1.5:8080"
     ..options.connectTimeout = 60000
     ..options.receiveTimeout = 60000
     ..interceptors.add(PrettyDioLogger(
@@ -62,8 +62,8 @@ class ApiService {
   }
 
   static Future<GymsResponse> getHiddenGyms(Coordinates coordinates) async {
-    final Response response =
-    await _dio.get("/gyms/hidden", queryParameters: coordinates.toMap());
+    final Response response = await _dio.get("/gyms/hidden",
+        queryParameters: coordinates.toMap(), options: generateOptions());
     return GymsResponse.fromResponse(response.data);
   }
 
@@ -131,15 +131,15 @@ class ApiService {
         options: generateOptions());
   }
 
-  static Future<void> purgeYelpCacheForCoordinates(double latitude, double longitude) async {
+  static Future<void> purgeYelpCacheForCoordinates(
+      double latitude, double longitude) async {
     await _dio.delete("/gyms/cache/yelp",
         queryParameters: {"latitude": latitude, "longitude": longitude},
         options: generateOptions());
   }
 
   static Future<void> purgeYelpCache() async {
-    await _dio.delete("/gyms/cache/yelp",
-        options: generateOptions());
+    await _dio.delete("/gyms/cache/yelp", options: generateOptions());
   }
 
 //  static _checkInternetConnection() async {

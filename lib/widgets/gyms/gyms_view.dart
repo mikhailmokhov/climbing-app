@@ -290,77 +290,82 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
             )
     ];
 
-    if (this.widget.user != null) {
+    Widget titleWidget;
+    if (this.widget.user != null && this.widget.user.isAdmin()) {
       actions.add(// MORE ACTIONS POPUP MENU
           PopupMenuButton<GymListPopupMenuItems>(
-        onSelected: _popupMenuSelect,
-        itemBuilder: (BuildContext context) =>
+            onSelected: _popupMenuSelect,
+            itemBuilder: (BuildContext context) =>
             <PopupMenuItem<GymListPopupMenuItems>>[
-          PopupMenuItem(
-            value: GymListPopupMenuItems.purgeCurrentCoordinatesCache,
-            child: Text(S.of(context).purgeCurrentCoordinatesCache),
-          ),
-          PopupMenuItem(
-            value: GymListPopupMenuItems.purgeAllCache,
-            child: Text(S.of(context).purgeAllCache),
-          )
-        ],
-      ));
+              PopupMenuItem(
+                value: GymListPopupMenuItems.purgeCurrentCoordinatesCache,
+                child: Text(S.of(context).purgeCurrentCoordinatesCache),
+              ),
+              PopupMenuItem(
+                value: GymListPopupMenuItems.purgeAllCache,
+                child: Text(S.of(context).purgeAllCache),
+              )
+            ],
+          ));
+
+      titleWidget = InkWell(
+          onTap: () {
+            showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return SafeArea(
+                    child: new Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        RadioListTile<GymListViewMode>(
+                          onChanged: (GymListViewMode value) {
+                            //Switch to main gyms view
+                            setState(() {
+                              _gymListViewMode = value;
+                              Navigator.pop(context);
+                              refresh();
+                            });
+                          },
+                          value: GymListViewMode.allGyms,
+                          groupValue: _gymListViewMode,
+                          title: new Text(S.of(context).allGyms),
+                        ),
+                        RadioListTile<GymListViewMode>(
+                          onChanged: (GymListViewMode value) {
+                            //Switch to main gyms view
+                            setState(() {
+                              _gymListViewMode = value;
+                              Navigator.pop(context);
+                              refresh();
+                            });
+                          },
+                          value: GymListViewMode.hiddenGyms,
+                          groupValue: _gymListViewMode,
+                          title: new Text(S.of(context).hiddenGyms),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Icon(Icons.keyboard_arrow_down),
+              _gymListViewMode == GymListViewMode.allGyms
+                  ? Text(S.of(context).gymsListTitle)
+                  : Text(S.of(context).hiddenGyms)
+            ],
+          ));
+    } else {
+      titleWidget = Text(S.of(context).gymsListTitle);
     }
 
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
           centerTitle: true,
-          title: InkWell(
-              onTap: () {
-                showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SafeArea(
-                        child: new Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            RadioListTile<GymListViewMode>(
-                              onChanged: (GymListViewMode value) {
-                                //Switch to main gyms view
-                                setState(() {
-                                  _gymListViewMode = value;
-                                  Navigator.pop(context);
-                                  refresh();
-                                });
-                              },
-                              value: GymListViewMode.allGyms,
-                              groupValue: _gymListViewMode,
-                              title: new Text(S.of(context).allGyms),
-                            ),
-                            RadioListTile<GymListViewMode>(
-                              onChanged: (GymListViewMode value) {
-                                //Switch to main gyms view
-                                setState(() {
-                                  _gymListViewMode = value;
-                                  Navigator.pop(context);
-                                  refresh();
-                                });
-                              },
-                              value: GymListViewMode.hiddenGyms,
-                              groupValue: _gymListViewMode,
-                              title: new Text(S.of(context).hiddenGyms),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Icon(Icons.keyboard_arrow_down),
-                  _gymListViewMode == GymListViewMode.allGyms
-                      ? Text(S.of(context).gymsListTitle)
-                      : Text(S.of(context).hiddenGyms)
-                ],
-              )),
+          title: titleWidget,
           leading: IconButton(
             icon: const Icon(Icons.menu),
             tooltip: S.of(context).menu,

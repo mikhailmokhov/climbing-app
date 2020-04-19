@@ -1,4 +1,6 @@
 import 'package:apple_sign_in/apple_sign_in.dart';
+import 'package:climbing/classes/authority.dart';
+import 'package:climbing/classes/role.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ///
@@ -12,6 +14,7 @@ class User {
   String pictureId = '';
   String photoUrl = '';
   String appleIdCredentialUser;
+  List<Authority> authorities = List<Authority>();
 
   User(
       {this.googleId,
@@ -47,9 +50,17 @@ class User {
         this.pictureId = json['pictureId'] != null ? json['pictureId'] : '',
         this.photoUrl = json['photoUrl'] != null ? json['photoUrl'] : '',
         this.appleIdCredentialUser = json['appleIdCredentialUser'] != null
-            ? json['appleIdCredentialUser'] : '';
+            ? json['appleIdCredentialUser']
+            : '' {
+    if (json['authorities'] is List)
+      for (final authority in json['authorities'])
+        this.authorities.add(Authority.fromJson(authority));
+  }
 
   Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> authoritiesMap = [];
+    for (final Authority authority in authorities)
+      authoritiesMap.add(authority.toJson());
     return {
       'uuid': this.uuid,
       'googleId': this.googleId,
@@ -58,8 +69,15 @@ class User {
       'email': this.email,
       'pictureId': this.pictureId,
       'photoUrl': this.photoUrl,
-      'appleIdCredentialUser': this.appleIdCredentialUser
+      'appleIdCredentialUser': this.appleIdCredentialUser,
+      'authorities': authoritiesMap
     };
+  }
+
+  bool isAdmin() {
+    for (final Authority authority in authorities)
+      if (authority.authority == Role.ROLE_ADMIN) return true;
+    return false;
   }
 
   String getPictureUrl() {
