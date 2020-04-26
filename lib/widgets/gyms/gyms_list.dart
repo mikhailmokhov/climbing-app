@@ -7,6 +7,7 @@ import 'package:climbing/generated/l10n.dart';
 
 import 'gyms_list_add_to_yelp.dart';
 import 'gyms_list_tile_yelp.dart';
+import 'gyms_view.dart';
 
 enum ViewMode { list, map }
 
@@ -17,9 +18,10 @@ class GymsList extends StatefulWidget {
   final List<Gym> gyms;
   final Coordinates coordinates;
   final GymsProvider provider;
+  final GymListViewMode gymListViewMode;
 
   GymsList(this.refreshList, this.gymOnTap, this.refreshIndicatorKey, this.gyms,
-      this.coordinates, this.provider,
+      this.coordinates, this.provider, this.gymListViewMode,
       {Key key})
       : super(key: key);
 
@@ -29,8 +31,18 @@ class GymsList extends StatefulWidget {
 
 class _GymsListState extends State<GymsList> {
   @override
+
   Widget build(BuildContext context) {
-    int length = widget.gyms.length;
+    List visibleWidgets;
+    switch (widget.gymListViewMode) {
+      case GymListViewMode.allGyms:
+         visibleWidgets = widget.gyms.where((widget) => widget.hidden == false).toList();
+        break;
+      case GymListViewMode.hiddenGyms:
+        visibleWidgets = widget.gyms.where((widget) => widget.hidden == true).toList();
+        break;
+    }
+    int length = visibleWidgets.length;
     return Container(
         child: ListView.separated(
       itemCount: length + 2,
@@ -62,13 +74,13 @@ class _GymsListState extends State<GymsList> {
                   ),
                 ),
                 Text(
-                  S.of(context).near + " " + widget.gyms[0].city,
+                  S.of(context).near + " " + visibleWidgets[0].city,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 )
               ]));
         }
         if (length == 0) return Container();
-        final Gym gym = widget.gyms[index > 0 ? index - 1 : index];
+        final Gym gym = visibleWidgets[index > 0 ? index - 1 : index];
 
         return widget.provider == GymsProvider.YELP
             ? GymsListTileYelp(widget.gymOnTap, gym)

@@ -64,12 +64,12 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   ServiceStatus serviceStatus = ServiceStatus.unknown;
   StreamSubscription connectivitySubscription;
   ConnectivityResult connectivityStatus;
-  GymListViewMode _gymListViewMode = GymListViewMode.allGyms;
+  GymListViewMode gymListViewMode = GymListViewMode.allGyms;
 
   List<Gym> gyms = [];
   Coordinates coordinates;
   GymsProvider provider;
-  Widget widgetToShow;
+  Widget mainViewWidget;
   Flushbar flushbar;
   bool pendingRequest = false;
 
@@ -177,15 +177,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       if (coordinates == null) return;
     }
     try {
-      GymsResponse gymsResponse;
-      switch (_gymListViewMode) {
-        case GymListViewMode.allGyms:
-          gymsResponse = await ApiService.getGyms(coordinates);
-          break;
-        case GymListViewMode.hiddenGyms:
-          gymsResponse = await ApiService.getHiddenGyms(coordinates);
-          break;
-      }
+      GymsResponse gymsResponse = await ApiService.getGyms(coordinates);
       setState(() {
         provider = gymsResponse.provider;
         gyms = gymsResponse.gyms;
@@ -237,16 +229,16 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     if (locationServiceAvailable == false) {
-      widgetToShow = LocationDisabled(geolocationStatus, serviceStatus);
+      mainViewWidget = LocationDisabled(geolocationStatus, serviceStatus);
     } else if (viewMode == ViewMode.list) {
       if (gyms?.length == 0 && provider != null) {
-        widgetToShow = EmptyResponse();
+        mainViewWidget = EmptyResponse();
       } else {
-        widgetToShow = GymsList(onRefresh, gymOnTap, _refreshIndicatorKey, gyms,
-            coordinates, provider);
+        mainViewWidget = GymsList(onRefresh, gymOnTap, _refreshIndicatorKey, gyms,
+            coordinates, provider, gymListViewMode);
       }
     } else {
-      widgetToShow = GymsMap(coordinates, gyms, setCoordinates,
+      mainViewWidget = GymsMap(coordinates, gyms, setCoordinates,
           _refreshIndicatorKey, this.widget.user);
     }
 
@@ -292,21 +284,22 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
 
     Widget titleWidget;
     if (this.widget.user != null && this.widget.user.isAdmin()) {
-      actions.add(// MORE ACTIONS POPUP MENU
+      // MORE ACTIONS POPUP MENU
+      actions.add(
           PopupMenuButton<GymListPopupMenuItems>(
-            onSelected: _popupMenuSelect,
-            itemBuilder: (BuildContext context) =>
+        onSelected: _popupMenuSelect,
+        itemBuilder: (BuildContext context) =>
             <PopupMenuItem<GymListPopupMenuItems>>[
-              PopupMenuItem(
-                value: GymListPopupMenuItems.purgeCurrentCoordinatesCache,
-                child: Text(S.of(context).purgeCurrentCoordinatesCache),
-              ),
-              PopupMenuItem(
-                value: GymListPopupMenuItems.purgeAllCache,
-                child: Text(S.of(context).purgeAllCache),
-              )
-            ],
-          ));
+          PopupMenuItem(
+            value: GymListPopupMenuItems.purgeCurrentCoordinatesCache,
+            child: Text(S.of(context).purgeCurrentCoordinatesCache),
+          ),
+          PopupMenuItem(
+            value: GymListPopupMenuItems.purgeAllCache,
+            child: Text(S.of(context).purgeAllCache),
+          )
+        ],
+      ));
 
       titleWidget = InkWell(
           onTap: () {
@@ -317,30 +310,28 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                     child: new Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
+                        // ALL GYMS
                         RadioListTile<GymListViewMode>(
                           onChanged: (GymListViewMode value) {
-                            //Switch to main gyms view
                             setState(() {
-                              _gymListViewMode = value;
+                              gymListViewMode = value;
                               Navigator.pop(context);
-                              refresh();
                             });
                           },
                           value: GymListViewMode.allGyms,
-                          groupValue: _gymListViewMode,
+                          groupValue: gymListViewMode,
                           title: new Text(S.of(context).allGyms),
                         ),
+                        // HIDDEN GYMS
                         RadioListTile<GymListViewMode>(
                           onChanged: (GymListViewMode value) {
-                            //Switch to main gyms view
                             setState(() {
-                              _gymListViewMode = value;
+                              gymListViewMode = value;
                               Navigator.pop(context);
-                              refresh();
                             });
                           },
                           value: GymListViewMode.hiddenGyms,
-                          groupValue: _gymListViewMode,
+                          groupValue: gymListViewMode,
                           title: new Text(S.of(context).hiddenGyms),
                         ),
                       ],
@@ -352,7 +343,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Icon(Icons.keyboard_arrow_down),
-              _gymListViewMode == GymListViewMode.allGyms
+              gymListViewMode == GymListViewMode.allGyms
                   ? Text(S.of(context).gymsListTitle)
                   : Text(S.of(context).hiddenGyms)
             ],
@@ -380,7 +371,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           onRefresh: () {
             return onRefresh(context);
           },
-          child: widgetToShow),
+          child: mainViewWidget),
       drawer: DrawerMenu(
           widget.user,
           widget.signOut,

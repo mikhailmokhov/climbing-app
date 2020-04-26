@@ -3,6 +3,8 @@ import 'package:climbing/classes/places_api.dart';
 
 import 'climbing_route_class.dart';
 
+//TODO create YelpBusiness class
+
 ///
 /// Describes properties and serialization methods of gym instance
 class Gym {
@@ -22,6 +24,7 @@ class Gym {
   final double rating;
   final int ratingsCount;
   final Coordinates coordinates;
+  final bool hidden;
 
   /// Google specific method
   static String _getCityFromVicinity(String vicinity) {
@@ -47,7 +50,8 @@ class Gym {
         coordinates = Coordinates(
             json['coordinates']['latitude'], json['coordinates']['longitude']),
         city = json['location']['city'],
-        yelpImageUrl = json['yelpImageUrl'];
+        yelpImageUrl = json['yelpImageUrl'],
+        hidden = json['hidden'];
 
   /// Google specific deserializer from Places API json response
   Gym.fromGoogleJson(Map<String, dynamic> json)
@@ -59,6 +63,7 @@ class Gym {
         routes = [],
         googleId = json['place_id'],
         name = json['name'],
+        hidden = json['hidden'],
         yelpImageUrl = null,
         coordinates = Coordinates(json['geometry']['location']['lat'],
             json['geometry']['location']['lng']),
@@ -84,8 +89,8 @@ class Gym {
     }
   }
 
-  bool isYelpRating(){
-    return yelpRating!=null;
+  bool isYelpRating() {
+    return yelpRating != null;
   }
 
   /// Generic serializer
@@ -100,6 +105,7 @@ class Gym {
       'user_ratings_total': ratingsCount,
       'rating': rating,
       'city': city,
+      'hidden': hidden,
       'lng': coordinates.longitude,
       'lat': coordinates.latitude,
       'google_photos': googlePhotosMap

@@ -567,19 +567,28 @@ class S {
     );
   }
 
-  String get markAsNotAGym {
+  String get hideBusiness {
     return Intl.message(
-      'Mark as not a gym',
-      name: 'markAsNotAGym',
+      'Hide Business',
+      name: 'hideBusiness',
       desc: '',
       args: [],
     );
   }
 
-  String get makeHomeGym {
+  String get unhideBusiness {
     return Intl.message(
-      'Make home gym',
-      name: 'makeHomeGym',
+      'Unhide business',
+      name: 'unhideBusiness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get addToHomeGyms {
+    return Intl.message(
+      'Add to Home Gyms',
+      name: 'addToHomeGyms',
       desc: '',
       args: [],
     );
@@ -612,10 +621,19 @@ class S {
     );
   }
 
-  String get hideGymQuestion {
+  String get hideBusinessQuestion {
     return Intl.message(
-      'Are you sure you want to hide this gym?',
-      name: 'hideGymQuestion',
+      'Are you sure you want to hide this business?',
+      name: 'hideBusinessQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get unhideBusinessQuestion {
+    return Intl.message(
+      'Are you sure you want to unhide this business?',
+      name: 'unhideBusinessQuestion',
       desc: '',
       args: [],
     );
@@ -645,7 +663,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ru'),
     ];
   }
 

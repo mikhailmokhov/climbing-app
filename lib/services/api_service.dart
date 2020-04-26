@@ -61,12 +61,6 @@ class ApiService {
     return GymsResponse.fromResponse(response.data);
   }
 
-  static Future<GymsResponse> getHiddenGyms(Coordinates coordinates) async {
-    final Response response = await _dio.get("/gyms/hidden",
-        queryParameters: coordinates.toMap(), options: generateOptions());
-    return GymsResponse.fromResponse(response.data);
-  }
-
   static Future<bool> updateUser(User user) async {
     Response response = await _dio.post("/user",
         data: user.toJson(), options: generateOptions());
@@ -126,7 +120,7 @@ class ApiService {
     } else {
       throw "setVisibility error: all the gym ids are null";
     }
-    await _dio.patch("/user/gyms/" + id,
+    await _dio.patch("/gyms/" + id,
         queryParameters: {"provider": idProvider, "visibility": visibility},
         options: generateOptions());
   }

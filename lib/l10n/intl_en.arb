@@ -59,12 +59,14 @@
   "cropper": "Cropper",
   "camera": "Camera",
   "gallery": "Gallery",
-  "markAsNotAGym": "Mark as not a gym",
-  "makeHomeGym": "Make home gym",
+  "hideBusiness": "Hide Business",
+  "unhideBusiness": "Unhide business",
+  "addToHomeGyms": "Add to Home Gyms",
   "moreActions": "More actions",
   "purgeCurrentCoordinatesCache": "Purge current coordinates Yelp cache",
   "purgeAllCache": "Purge all Yelp cache",
-  "hideGymQuestion": "Are you sure you want to hide this gym?",
+  "hideBusinessQuestion": "Are you sure you want to hide this business?",
+  "unhideBusinessQuestion": "Are you sure you want to unhide this business?",
   "allGyms": "All Gyms",
   "hiddenGyms": "Hidden Gyms"
 }

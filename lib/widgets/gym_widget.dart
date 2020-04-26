@@ -21,7 +21,7 @@ class GymWidget extends StatefulWidget {
   _GymWidgetState createState() => _GymWidgetState();
 }
 
-enum GymPopupMenuItems { markAsNotAGym, makeHomeGym }
+enum GymPopupMenuItems { hideBusiness, unHideBusiness, addToHomeGyms }
 
 class _GymWidgetState extends State<GymWidget> {
   final double _appBarHeight = 256.0;
@@ -37,18 +37,19 @@ class _GymWidgetState extends State<GymWidget> {
 //    });
   }
 
+  // CONTEXT MENU HANDLER
   void _select(GymPopupMenuItems choice) {
     switch (choice) {
-      case GymPopupMenuItems.makeHomeGym:
+      case GymPopupMenuItems.addToHomeGyms:
         ApiService.addHomeGym(this.widget.gym);
         return;
-      case GymPopupMenuItems.markAsNotAGym:
+      case GymPopupMenuItems.hideBusiness:
         showDialog<void>(
           context: context,
           barrierDismissible: true,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(S.of(context).hideGymQuestion),
+              title: Text(S.of(context).hideBusinessQuestion),
               actions: <Widget>[
                 RaisedButton(
                   textColor: Colors.white,
@@ -70,6 +71,36 @@ class _GymWidgetState extends State<GymWidget> {
             );
           },
         );
+        break;
+      case GymPopupMenuItems.unHideBusiness:
+        showDialog<void>(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(S.of(context).unhideBusinessQuestion),
+              actions: <Widget>[
+                RaisedButton(
+                  textColor: Colors.white,
+                  child: Text(S.of(context).YES),
+                  onPressed: () {
+                    ApiService.setVisibility(this.widget.gym, true)
+                        .then((value) {
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                FlatButton(
+                  child: Text(S.of(context).NO),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+        break;
     }
   }
 
@@ -77,6 +108,7 @@ class _GymWidgetState extends State<GymWidget> {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+    // ROUTES
     List<GridTile> gridTiles = routes.map((route) {
       return GridTile(
         footer: GestureDetector(
@@ -127,13 +159,19 @@ class _GymWidgetState extends State<GymWidget> {
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuItem<GymPopupMenuItems>>[
                         PopupMenuItem(
-                          value: GymPopupMenuItems.markAsNotAGym,
-                          child: Text(S.of(context).markAsNotAGym),
+                          value: this.widget.gym.hidden
+                              ? GymPopupMenuItems.unHideBusiness
+                              : GymPopupMenuItems.hideBusiness,
+                          child: Text(this.widget.gym.hidden
+                              ? S.of(context).unhideBusiness
+                              : S.of(context).hideBusiness),
                         ),
-                        PopupMenuItem(
-                          value: GymPopupMenuItems.makeHomeGym,
-                          child: Text(S.of(context).makeHomeGym),
-                        )
+                        this.widget.gym.hidden
+                            ? null
+                            : PopupMenuItem(
+                                value: GymPopupMenuItems.addToHomeGyms,
+                                child: Text(S.of(context).addToHomeGyms),
+                              )
                       ],
                     ),
                   ]
@@ -165,8 +203,8 @@ class _GymWidgetState extends State<GymWidget> {
                     fit: BoxFit.cover,
                     height: _appBarHeight,
                   ),
-// This gradient ensures that the toolbar icons are distinct
-// against the background image.
+                  // This gradient ensures that the toolbar icons are distinct
+                  // against the background image.
                   const DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
