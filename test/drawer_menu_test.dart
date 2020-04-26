@@ -11,7 +11,7 @@ void main() {
   const String USERNAME = 'honnold';
 
   testWidgets('Drawer signed in', (WidgetTester tester) async {
-    final User user = User(uuid: UUID, name: NAME, nickname: USERNAME, email: EMAIL);
+    final User user = User(token: UUID, name: NAME, nickname: USERNAME, email: EMAIL);
     bool userSignedIn = true;
     await tester.pumpWidget(new MediaQuery(
         data: MediaQueryData(),
@@ -20,7 +20,7 @@ void main() {
             supportedLocales: S.delegate.supportedLocales,
             home: DrawerMenu(user, () {
               userSignedIn = false;
-            }, () {}, () {}, () {}))));
+            }, () {}, () {}, () {}, updateUser: (User ) {  },))));
     expect(find.text(NAME), findsOneWidget);
     expect(find.text(EMAIL), findsOneWidget);
     await tester.tap(find.text('Sign Out'));
@@ -37,7 +37,7 @@ void main() {
             supportedLocales: S.delegate.supportedLocales,
             home: DrawerMenu(user, () {}, () {
               userSignedIn = true;
-            }, () {}, () {}))));
+            }, () {}, () {}, updateUser: (User ) {  },))));
     expect(find.text('Sign In'), findsOneWidget);
     expect(find.text('Register'), findsOneWidget);
     await tester.tap(find.text('Sign In'));

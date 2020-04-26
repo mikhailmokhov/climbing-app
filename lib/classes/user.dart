@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 ///
 /// Describes user
 class User {
-  String uuid;
+  String token;
   String googleId;
   String name = '';
   String email = '';
@@ -18,7 +18,7 @@ class User {
 
   User(
       {this.googleId,
-      this.uuid,
+      this.token,
       this.nickname,
       this.name,
       this.email,
@@ -29,11 +29,11 @@ class User {
       : this.googleId = googleSignInAccount.id,
         this.email = googleSignInAccount.email,
         this.name = googleSignInAccount.displayName,
-        this.uuid = '',
+        this.token = '',
         this.photoUrl = googleSignInAccount.photoUrl;
 
   User.fromAppleIdCredentials(AppleIdCredential appleIdCredential) {
-    this.uuid = '';
+    this.token = '';
     this.email = appleIdCredential.email;
     this.nickname = appleIdCredential.email;
     this.name = appleIdCredential.fullName.givenName +
@@ -42,7 +42,7 @@ class User {
   }
 
   User.fromJson(Map<String, dynamic> json)
-      : this.uuid = json['uuid'],
+      : this.token = json['token'],
         this.googleId = json['uuigoogleIdd'],
         this.name = json['name'] != null ? json['name'] : '',
         this.email = json['email'] != null ? json['email'] : '',
@@ -62,7 +62,7 @@ class User {
     for (final Authority authority in authorities)
       authoritiesMap.add(authority.toJson());
     return {
-      'uuid': this.uuid,
+      'token': this.token,
       'googleId': this.googleId,
       'name': this.name,
       'nickname': this.nickname,

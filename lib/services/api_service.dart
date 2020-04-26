@@ -19,7 +19,7 @@ import 'package:http/http.dart' as http;
 import 'package:enum_to_string/enum_to_string.dart';
 
 class ApiService {
-  static String uuid;
+  static String token;
 
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
@@ -37,8 +37,8 @@ class ApiService {
 
   static Options generateOptions() {
     Options options = Options();
-    if (uuid != null)
-      options.headers.addAll({"Authorization": "Bearer " + uuid});
+    if (token != null)
+      options.headers.addAll({"Authorization": "Bearer " + token});
     return options;
   }
 

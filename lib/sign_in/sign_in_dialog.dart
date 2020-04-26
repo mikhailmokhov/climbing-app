@@ -111,7 +111,6 @@ class SignInDialog extends StatelessWidget {
       case AuthorizationStatus.authorized:
 
         SignInWithAppleResponse response = await ApiService.appleSignIn(result.credential);
-
         return response.user;
         break;
 

@@ -9,8 +9,8 @@ void main() {
   const String PICTURE_ID = 'KGBiuygi*7)g87g-O*&go';
 
   test("Gym instance can be created", () {
-    User user = User(uuid: UUID, name: NAME, email: EMAIL);
-    expect(user.uuid, UUID);
+    User user = User(token: UUID, name: NAME, email: EMAIL);
+    expect(user.token, UUID);
     expect(user.name, NAME);
     expect(user.email, EMAIL);
   });
@@ -22,14 +22,14 @@ void main() {
       "email": "$EMAIL",
       "pictureId": "$PICTURE_ID"
     }'''));
-    expect(user.uuid, UUID);
+    expect(user.token, UUID);
     expect(user.name, NAME);
     expect(user.email, EMAIL);
     expect(user.pictureId, PICTURE_ID);
   });
 
   test("Gym instance can be serialized to json string", () {
-    User user = new User(uuid: UUID, name: NAME, email: EMAIL);
+    User user = new User(token: UUID, name: NAME, email: EMAIL);
     String jsonString = json.encode(user.toJson());
     expect(jsonString,
         '{"uuid":"$UUID","name":"$NAME","email":"$EMAIL","pictureId":"$PICTURE_ID"}');

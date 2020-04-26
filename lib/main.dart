@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
           });
         },
         signedIn: (user) {
-          ApiService.uuid = user.uuid;
+          ApiService.token = user.token;
           FlutterSecureStorage()
               .write(key: STORAGE_KEY_USER, value: json.encode(user.toJson()));
           setState(() {
@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
         await AppleSignIn.getCredentialState(storedUser.appleIdCredentialUser);
     switch (credentialState.status) {
       case CredentialStatus.authorized:
-        ApiService.uuid = storedUser.uuid;
+        ApiService.token = storedUser.token;
         ApiService.getUser().then((user){
           setState(() {
             this.user = user;
