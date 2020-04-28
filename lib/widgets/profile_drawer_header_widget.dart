@@ -99,8 +99,8 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
             child: InkWell(
               onTap: editAccount,
               child: CircleAvatar(
-                foregroundColor: Colors.blue,
-                backgroundColor: Colors.deepPurple,
+                foregroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).primaryColor,
                 backgroundImage: CachedNetworkImageProvider(
                     this.widget.user.getPictureUrl()),
               ),

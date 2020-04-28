@@ -28,7 +28,7 @@ packages:
       name: app_settings
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "4.0.0"
   apple_sign_in:
     dependency: "direct main"
     description:
@@ -332,7 +332,7 @@ packages:
       name: flutter_rating_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0+2"
+    version: "3.0.1+1"
   flutter_secure_storage:
     dependency: "direct main"
     description:

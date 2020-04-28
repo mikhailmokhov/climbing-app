@@ -1,3 +1,4 @@
+import 'package:climbing/classes/gym_class.dart';
 import 'package:climbing/classes/climbing_route_class.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ class RoutesGrid extends StatefulWidget {
 }
 
 class _RoutesGridState extends State<RoutesGrid> {
+
+  Gym gym = new Gym.fromYelpMap(new Map());
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class _RoutesGridState extends State<RoutesGrid> {
             crossAxisSpacing: 4.0,
             padding: const EdgeInsets.all(4.0),
             childAspectRatio: (orientation == Orientation.portrait) ? 1.0 : 1.3,
-            children: gym.photos.map<Widget>((ClimbingRoute route) {
+            children: gym.routes.map<Widget>((ClimbingRoute route) {
               return RouteGridItem(
                 photo: route,
                 onBannerTap: (ClimbingRoute photo) {

@@ -127,7 +127,6 @@ class _GymWidgetState extends State<GymWidget> {
                 Icons.star,
                 color: Colors.white,
               ),
-              alpha: 100,
               itemCount: 4,
               itemSize: 20,
               itemPadding: EdgeInsets.symmetric(horizontal: 1.5),

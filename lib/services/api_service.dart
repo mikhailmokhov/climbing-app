@@ -61,10 +61,10 @@ class ApiService {
     return GymsResponse.fromResponse(response.data);
   }
 
-  static Future<bool> updateUser(User user) async {
+  static Future<User> updateUser(User user) async {
     Response response = await _dio.post("/user",
         data: user.toJson(), options: generateOptions());
-    return response.data;
+    return new User.fromJson(response.data);
   }
 
   static Future<User> getUser() async {

@@ -40,13 +40,10 @@ class EditAccountState extends State<EditAccount> {
 
   void updateAndClose(user) {
     _dialog = showProgressDialog(
-        backgroundColor: Theme
-            .of(context)
-            .primaryColor
-            .withOpacity(0.7),
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
         loadingText: "",
         context: context);
-    widget.updateUser(user).whenComplete((){
+    widget.updateUser(user).whenComplete(() {
       dismissProgressDialog();
       Navigator.pop(context, DismissDialogAction.save);
     });
@@ -72,8 +69,7 @@ class EditAccountState extends State<EditAccount> {
       flushbarPosition: FlushbarPosition.BOTTOM,
       isDismissible: true,
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,
-    )
-      ..show(context);
+    )..show(context);
   }
 
   void attemptToSave(BuildContext context) async {
@@ -81,16 +77,11 @@ class EditAccountState extends State<EditAccount> {
       if (imageChanged) {
         String extension = path.extension(_image.path);
         _dialog = showProgressDialog(
-            backgroundColor: Theme
-                .of(context)
-                .primaryColor
-                .withOpacity(0.7),
-            loadingText: S
-                .of(context)
-                .saving,
+            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+            loadingText: S.of(context).saving,
             context: context);
-        _image = await FlutterNativeImage.compressImage(_image.path, quality: 100,
-            targetWidth: 300, targetHeight: 300);
+        _image = await FlutterNativeImage.compressImage(_image.path,
+            quality: 100, targetWidth: 300, targetHeight: 300);
         ApiService.requestUploadPhotoUrl(extension).then((response) {
           ApiService.uploadFile(response.url, _image).then((_) {
             ApiService.updatePhotoUrl(response.fileId + extension)
@@ -126,6 +117,7 @@ class EditAccountState extends State<EditAccount> {
   @override
   initState() {
     super.initState();
+    assert(widget.user.name is String);
     nameController.text = widget.user.name;
     userNameController.text = widget.user.nickname;
   }
@@ -138,9 +130,7 @@ class EditAccountState extends State<EditAccount> {
           sourcePath: image.path,
           aspectRatioPresets: [CropAspectRatioPreset.square],
           androidUiSettings: AndroidUiSettings(
-              toolbarTitle: S
-                  .of(context)
-                  .cropper,
+              toolbarTitle: S.of(context).cropper,
               toolbarColor: Colors.deepOrange,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.square,
@@ -160,14 +150,10 @@ class EditAccountState extends State<EditAccount> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(S
-            .of(context)
-            .editProfile),
+        title: Text(S.of(context).editProfile),
         actions: <Widget>[
           FlatButton(
-            child: Text(S
-                .of(context)
-                .SAVE,
+            child: Text(S.of(context).SAVE,
                 style: theme.textTheme.bodyText1.copyWith(color: Colors.white)),
             onPressed: () {
               attemptToSave(context);
@@ -201,9 +187,7 @@ class EditAccountState extends State<EditAccount> {
                                     children: <Widget>[
                                       new ListTile(
                                         leading: new Icon(Icons.camera),
-                                        title: new Text(S
-                                            .of(context)
-                                            .camera),
+                                        title: new Text(S.of(context).camera),
                                         onTap: () {
                                           removeFocus(context);
                                           getImage(ImageSource.camera);
@@ -212,9 +196,7 @@ class EditAccountState extends State<EditAccount> {
                                       ),
                                       new ListTile(
                                         leading: new Icon(Icons.image),
-                                        title: new Text(S
-                                            .of(context)
-                                            .gallery),
+                                        title: new Text(S.of(context).gallery),
                                         onTap: () {
                                           removeFocus(context);
                                           getImage(ImageSource.gallery);
@@ -231,7 +213,7 @@ class EditAccountState extends State<EditAccount> {
                           backgroundImage: this._image != null
                               ? FileImage(this._image)
                               : CachedNetworkImageProvider(
-                              this.widget.user.getPictureUrl()),
+                                  this.widget.user.getPictureUrl()),
                         ))),
               ),
               Container(
@@ -240,9 +222,7 @@ class EditAccountState extends State<EditAccount> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    labelText: S
-                        .of(context)
-                        .fullName,
+                    labelText: S.of(context).fullName,
                     filled: false,
                   ),
                 ),
@@ -253,22 +233,16 @@ class EditAccountState extends State<EditAccount> {
                 child: TextFormField(
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return S
-                          .of(context)
-                          .usernameCanNotBeEmpty;
+                      return S.of(context).usernameCanNotBeEmpty;
                     } else if (value.contains(' ')) {
-                      return S
-                          .of(context)
-                          .usernameCanNotContainSpaces;
+                      return S.of(context).usernameCanNotContainSpaces;
                     } else {
                       return null;
                     }
                   },
                   controller: userNameController,
                   decoration: InputDecoration(
-                    labelText: S
-                        .of(context)
-                        .username,
+                    labelText: S.of(context).username,
                     alignLabelWithHint: false,
                     filled: false,
                   ),

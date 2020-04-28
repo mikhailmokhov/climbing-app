@@ -1,5 +1,5 @@
 name: climbing
-description: A new Flutter application.
+description: Application allowing to give a feedback to climbing route setters.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -13,7 +13,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_rating_bar: ^2.0.0+2
+  flutter_rating_bar: 3.0.1+1
   shared_preferences: ^0.5.6+3
   cached_network_image: ^2.1.0+1
   google_maps_flutter: ^0.5.26
@@ -28,7 +28,7 @@ dependencies:
   pretty_dio_logger: ^1.1.0
   url_launcher: ^5.4.2
   geolocator: ^5.3.1
-  app_settings: ^3.0.1
+  app_settings: 4.0.0
   location_permissions: ^2.0.5
   airplane_mode_detection: ^1.0.0
   path: ^1.7.0

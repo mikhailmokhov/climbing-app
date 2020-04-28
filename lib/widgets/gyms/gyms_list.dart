@@ -121,7 +121,6 @@ class _GymsListState extends State<GymsList> {
                                     color: Colors.deepOrangeAccent,
                                   ),
                                   rating: gym.rating,
-                                  alpha: 0,
                                   itemCount: 5,
                                   itemSize: 11,
                                   itemPadding:

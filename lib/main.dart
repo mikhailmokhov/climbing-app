@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   ApiService api;
   User user;
 
-  Future<bool> updateUser(User user) {
+  Future<User> updateUser(User user) {
     setState(() {
       this.user = user;
     });
