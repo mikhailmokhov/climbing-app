@@ -65,7 +65,10 @@ class _MyAppState extends State<MyApp> {
   finishAppleSignIn(
       AppleIdCredential appleIdCredential, BuildContext context) {
     var dialog = showProgressDialog(
-        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor
+            .withOpacity(0.7),
         loadingText: "",
         context: context);
     ApiService.appleSignIn(appleIdCredential)
@@ -142,7 +145,7 @@ class _MyAppState extends State<MyApp> {
             user = null;
           });
         },
-        signIn: (SignInProvider signInProvider) {
+        signIn: (SignInProvider signInProvider, BuildContext context) {
           initiateSignIn(signInProvider, context);
         },
         register: () {},

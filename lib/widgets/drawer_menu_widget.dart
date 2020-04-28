@@ -11,7 +11,7 @@ import 'profile_drawer_header_widget.dart';
 class DrawerMenu extends StatefulWidget {
   final User user;
   final Function signOut;
-  final Function(SignInProvider) signIn;
+  final Function(SignInProvider, BuildContext context) signIn;
   final Function register;
   final Function openSettings;
   final List<SignInProvider> signInProviderList;

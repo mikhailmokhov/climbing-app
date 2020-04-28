@@ -88,9 +88,10 @@ class ApiService {
 
   static Future<void> uploadFile(String url, File file) async {
     assert(url.isNotEmpty && file != null && file.existsSync());
-    await http.put(url,
-        body: file.readAsBytesSync(),
-        headers: {"Content-Type": resolveContentType(file)});
+    await http.put(url, body: file.readAsBytesSync(), headers: {
+      "Content-Type": resolveContentType(file),
+      "x-amx-canned-acl": "public-read" // this is needed to
+    });
   }
 
   static String resolveContentType(File file) {

@@ -27,7 +27,7 @@ enum ViewMode { list, map }
 class GymsView extends StatefulWidget {
   static const String routeName = '/gymslist';
   final User user;
-  final Function(SignInProvider) signIn;
+  final Function(SignInProvider, BuildContext context) signIn;
   final Function signOut, register, openSettings, editAccount;
   final List<SignInProvider> signInProviderList;
   final ApiService api;

@@ -12,7 +12,7 @@ import 'edit_profile_widget.dart';
 const double _kAccountDetailsHeight = 49.0;
 
 class AccountDrawerHeader extends StatefulWidget {
-  final Function(SignInProvider) signIn;
+  final Function(SignInProvider, BuildContext) signIn;
   final List<SignInProvider> signInProviderList;
   final Function onSignOutTap;
   final Future<bool> Function(User) updateUser;
@@ -77,7 +77,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
               showDialog(
                 context: context,
                 builder: (BuildContext passedContext) => SignInDialog(
-                  signIn: this.widget.signIn,
+                  signIn: (SignInProvider signInProvider){
+                    this.widget.signIn(signInProvider, context);
+                  },
                   providers: this.widget.signInProviderList,
                 ),
               );
