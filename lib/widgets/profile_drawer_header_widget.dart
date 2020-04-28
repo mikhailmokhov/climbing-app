@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/classes/user.dart';
 import 'package:climbing/generated/l10n.dart';
@@ -11,27 +12,20 @@ import 'edit_profile_widget.dart';
 const double _kAccountDetailsHeight = 49.0;
 
 class AccountDrawerHeader extends StatefulWidget {
-  final Function onNameEmailTap;
+  final Function(SignInProvider) signIn;
+  final List<SignInProvider> signInProviderList;
   final Function onSignOutTap;
-  final Function signedIn;
-  final Function onEditAccountTap;
   final Future<bool> Function(User) updateUser;
-  final bool isAppleSignInAvailable;
-  final bool isGoogleSignInAvailable;
   final User user;
   final ApiService api;
   final Future<bool> canVibrate;
 
-
   AccountDrawerHeader({
     Key key,
-    this.onNameEmailTap,
     @required this.onSignOutTap,
     @required this.user,
-    @required this.signedIn,
-    this.onEditAccountTap,
-    @required this.isAppleSignInAvailable,
-    @required this.isGoogleSignInAvailable,
+    @required this.signIn,
+    @required this.signInProviderList,
     @required this.api,
     @required this.canVibrate,
     @required this.updateUser,
@@ -42,7 +36,6 @@ class AccountDrawerHeader extends StatefulWidget {
 }
 
 class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
-
   editAccount() {
     widget.canVibrate.then((value) {
       Vibrate.feedback(FeedbackType.selection);
@@ -84,10 +77,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
               showDialog(
                 context: context,
                 builder: (BuildContext passedContext) => SignInDialog(
-                    signedIn: widget.signedIn,
-                    isAppleSignInAvailable: widget.isAppleSignInAvailable,
-                    isGoogleSignInAvailable: widget.isGoogleSignInAvailable,
-                    api: widget.api),
+                  signIn: this.widget.signIn,
+                  providers: this.widget.signInProviderList,
+                ),
               );
             }),
       ));
@@ -151,7 +143,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
               );
             },
             child: DefaultTextStyle(
-              style: Theme.of(context).primaryTextTheme.body2,
+              style: Theme.of(context).primaryTextTheme.bodyText1,
               child: Text(S.of(context).signOut),
             )),
       ));
@@ -174,7 +166,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: DefaultTextStyle(
-                                style: Theme.of(context).primaryTextTheme.body2,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .bodyText1,
                                 overflow: TextOverflow.fade,
                                 child: Text(this.widget.user.name.isEmpty
                                     ? ''
@@ -183,7 +177,8 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 2.0),
                             child: DefaultTextStyle(
-                              style: Theme.of(context).primaryTextTheme.body1,
+                              style:
+                                  Theme.of(context).primaryTextTheme.bodyText1,
                               overflow: TextOverflow.ellipsis,
                               child: Text(this.widget.user.nickname.isEmpty
                                   ? ''
@@ -205,7 +200,10 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                         onPressed: editAccount,
                         child: Icon(
                           Icons.mode_edit,
-                          color: Theme.of(context).primaryTextTheme.body2.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                           size: 20,
                         )),
                   ),

@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:climbing/classes/user.dart';
 import 'package:climbing/generated/l10n.dart';
+import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/widgets/gyms/gyms_view.dart';
 import 'package:climbing/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vibrate/vibrate.dart';
+import 'models/sign_in_with_apple_response.dart';
 import 'services/api_service.dart';
 import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
-void main() => runApp(
-    ProgressDialog(
+void main() => runApp(ProgressDialog(
       child: MyApp(),
     ));
-
 
 class MyApp extends StatefulWidget {
   @override
@@ -28,13 +28,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   static const String STORAGE_KEY_USER = 'user';
   final bool isGoogleSignInAvailable = true;
+  List<SignInProvider> signInProviderList = [SignInProvider.Google];
+  final canVibrate = Vibrate.canVibrate;
 
   ApiService api;
-  final canVibrate = Vibrate.canVibrate;
   User user;
-  bool isAppleSignInAvailable = false;
 
-  Future<bool> updateUser(User user){
+  Future<bool> updateUser(User user) {
     setState(() {
       this.user = user;
     });
@@ -45,10 +45,12 @@ class _MyAppState extends State<MyApp> {
   initState() {
     super.initState();
     AppleSignIn.isAvailable().then((isAvailable) {
-      setState(() {
-        isAppleSignInAvailable = isAvailable;
-        checkLoggedInState();
-      });
+      if(isAvailable && signInProviderList.indexOf(SignInProvider.Apple)==-1){
+        setState(() {
+          signInProviderList.add(SignInProvider.Apple);
+          checkLoggedInState();
+        });
+      }
     });
     AppleSignIn.onCredentialRevoked.listen((_) {
       if (user != null) ApiService.logout();
@@ -58,6 +60,53 @@ class _MyAppState extends State<MyApp> {
         user = null;
       });
     });
+  }
+
+  finishAppleSignIn(
+      AppleIdCredential appleIdCredential, BuildContext context) {
+    var dialog = showProgressDialog(
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+        loadingText: "",
+        context: context);
+    ApiService.appleSignIn(appleIdCredential)
+        .then((SignInWithAppleResponse signInWithAppleResponse) {
+      dialog.dismiss();
+      if (signInWithAppleResponse == null ||
+          signInWithAppleResponse.user == null)
+        throw Exception("Invalid signInWithAppleResponse");
+      ApiService.token = signInWithAppleResponse.user.token;
+      FlutterSecureStorage()
+          .write(key: STORAGE_KEY_USER, value: json.encode(signInWithAppleResponse.user.toJson()));
+      setState(() {
+        this.user = signInWithAppleResponse.user;
+      });
+    });
+  }
+
+  initiateSignIn(SignInProvider signInProvider, BuildContext context) async {
+    switch (signInProvider) {
+      // APPLE SIGN IN
+      case SignInProvider.Apple:
+        final AuthorizationResult result = await AppleSignIn.performRequests([
+          AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+        ]);
+        switch (result.status) {
+          case AuthorizationStatus.authorized:
+            finishAppleSignIn(result.credential, context);
+            break;
+          case AuthorizationStatus.error:
+            //TODO: handle authorization error
+            break;
+          case AuthorizationStatus.cancelled:
+            //TODO: handle case when user cancelled
+            break;
+        }
+        break;
+      // GOOGLE SIGN IN
+      case SignInProvider.Google:
+        // TODO: Handle this case.
+        break;
+    }
   }
 
   @override
@@ -93,13 +142,8 @@ class _MyAppState extends State<MyApp> {
             user = null;
           });
         },
-        signedIn: (user) {
-          ApiService.token = user.token;
-          FlutterSecureStorage()
-              .write(key: STORAGE_KEY_USER, value: json.encode(user.toJson()));
-          setState(() {
-            this.user = user;
-          });
+        signIn: (SignInProvider signInProvider) {
+          initiateSignIn(signInProvider, context);
         },
         register: () {},
         openSettings: () {
@@ -108,11 +152,10 @@ class _MyAppState extends State<MyApp> {
           });
         },
         editAccount: () {},
-        isAppleSignInAvailable: isAppleSignInAvailable,
-        isGoogleSignInAvailable: isGoogleSignInAvailable,
         api: api,
         canVibrate: canVibrate,
         updateUser: updateUser,
+        signInProviderList: signInProviderList,
       ),
     );
   }
@@ -128,11 +171,11 @@ class _MyAppState extends State<MyApp> {
     switch (credentialState.status) {
       case CredentialStatus.authorized:
         ApiService.token = storedUser.token;
-        ApiService.getUser().then((user){
+        ApiService.getUser().then((user) {
           setState(() {
             this.user = user;
           });
-        }).catchError((){
+        }).catchError(() {
           setState(() {
             this.user = storedUser;
           });

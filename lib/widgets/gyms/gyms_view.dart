@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:climbing/classes/gyms_response.dart';
 
 import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/widgets/gyms/gyms_list_empty_response.dart';
 import 'package:climbing/widgets/gyms/gyms_map.dart';
@@ -26,8 +27,9 @@ enum ViewMode { list, map }
 class GymsView extends StatefulWidget {
   static const String routeName = '/gymslist';
   final User user;
-  final Function signOut, signedIn, register, openSettings, editAccount;
-  final bool isAppleSignInAvailable, isGoogleSignInAvailable;
+  final Function(SignInProvider) signIn;
+  final Function signOut, register, openSettings, editAccount;
+  final List<SignInProvider> signInProviderList;
   final ApiService api;
   final Future<bool> canVibrate;
   final Future<dynamic> Function(User) updateUser;
@@ -35,16 +37,15 @@ class GymsView extends StatefulWidget {
   GymsView({
     @required this.user,
     @required this.signOut,
-    @required this.signedIn,
+    @required this.signIn,
     @required this.register,
     @required this.openSettings,
     @required this.editAccount,
     @required this.api,
     @required this.canVibrate,
     @required this.updateUser,
-    Key key,
-    this.isAppleSignInAvailable,
-    this.isGoogleSignInAvailable,
+    @required this.signInProviderList,
+    Key key
   }) : super(key: key);
 
   @override
@@ -180,7 +181,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       GymsResponse gymsResponse = await ApiService.getGyms(coordinates);
       setState(() {
         provider = gymsResponse.provider;
-        gyms = gymsResponse.gyms;
+        gyms = gymsResponse.businesses;
         pendingRequest = false;
       });
     } catch (error) {
@@ -373,15 +374,14 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           },
           child: mainViewWidget),
       drawer: DrawerMenu(
-          widget.user,
-          widget.signOut,
-          widget.signedIn,
-          widget.register,
-          widget.openSettings,
-          widget.isAppleSignInAvailable,
-          widget.isGoogleSignInAvailable,
-          widget.api,
-          widget.canVibrate,
+          user: widget.user,
+          signOut: widget.signOut,
+          signIn: widget.signIn,
+          register: widget.register,
+          openSettings: widget.openSettings,
+          signInProviderList: widget.signInProviderList,
+          api: widget.api,
+          canVibrate: widget.canVibrate,
           updateUser: this.widget.updateUser),
     );
   }

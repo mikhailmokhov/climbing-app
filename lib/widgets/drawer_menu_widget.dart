@@ -1,3 +1,4 @@
+import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/classes/grade_scale_class.dart';
 import 'package:climbing/classes/user.dart';
@@ -10,26 +11,25 @@ import 'profile_drawer_header_widget.dart';
 class DrawerMenu extends StatefulWidget {
   final User user;
   final Function signOut;
-  final Function signedIn;
+  final Function(SignInProvider) signIn;
   final Function register;
   final Function openSettings;
-  final bool isGoogleSignInAvailable;
-  final bool isAppleSignInAvailable;
+  final List<SignInProvider> signInProviderList;
   final ApiService api;
   final Future<bool> canVibrate;
   final Future<bool> Function(User) updateUser;
 
-  const DrawerMenu(
-    this.user,
-    this.signOut,
-    this.signedIn,
-    this.register,
-    this.openSettings,
-    this.isAppleSignInAvailable,
-    this.isGoogleSignInAvailable,
-    this.api,
-    this.canVibrate, {
-    Key key, @required this.updateUser,
+  const DrawerMenu({
+    @required this.user,
+    @required this.signOut,
+    @required this.signIn,
+    @required this.register,
+    @required this.openSettings,
+    @required this.signInProviderList,
+    @required this.api,
+    @required this.canVibrate,
+    @required this.updateUser,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -46,9 +46,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
     columnItems.add(AccountDrawerHeader(
       user: widget.user,
       onSignOutTap: widget.signOut,
-      signedIn: widget.signedIn,
-      isGoogleSignInAvailable: widget.isGoogleSignInAvailable,
-      isAppleSignInAvailable: widget.isAppleSignInAvailable,
+      signIn: widget.signIn,
+      signInProviderList: this.widget.signInProviderList,
       api: widget.api,
       canVibrate: widget.canVibrate,
       updateUser: this.widget.updateUser,
