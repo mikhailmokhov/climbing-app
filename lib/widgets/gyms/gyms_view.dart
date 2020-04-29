@@ -32,7 +32,7 @@ class GymsView extends StatefulWidget {
   final List<SignInProvider> signInProviderList;
   final ApiService api;
   final Future<bool> canVibrate;
-  final Future<dynamic> Function(User) updateUser;
+  final void Function(User) updateUserCallback;
 
   GymsView({
     @required this.user,
@@ -43,7 +43,7 @@ class GymsView extends StatefulWidget {
     @required this.editAccount,
     @required this.api,
     @required this.canVibrate,
-    @required this.updateUser,
+    @required this.updateUserCallback,
     @required this.signInProviderList,
     Key key
   }) : super(key: key);
@@ -382,7 +382,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           signInProviderList: widget.signInProviderList,
           api: widget.api,
           canVibrate: widget.canVibrate,
-          updateUser: this.widget.updateUser),
+          updateUserCallback: this.widget.updateUserCallback),
     );
   }
 }

@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "didntFindYourGym" : MessageLookupByLibrary.simpleMessage("Didn\'t find your gym?"),
     "difficulty" : MessageLookupByLibrary.simpleMessage("Difficulty"),
     "drawerMenuClearCache" : MessageLookupByLibrary.simpleMessage("Clear cache"),
+    "editPhoto" : MessageLookupByLibrary.simpleMessage("Edit Photo"),
     "editProfile" : MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "enableLocationService" : MessageLookupByLibrary.simpleMessage("You must enable Location service."),
     "french" : MessageLookupByLibrary.simpleMessage("French"),
@@ -63,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "near" : MessageLookupByLibrary.simpleMessage("Near"),
     "newRoute" : MessageLookupByLibrary.simpleMessage("New Route"),
     "newestFirst" : MessageLookupByLibrary.simpleMessage("Newest First"),
+    "nickname" : MessageLookupByLibrary.simpleMessage("Nickname"),
     "noGymsFound" : MessageLookupByLibrary.simpleMessage("No climbing gyms found nearby"),
     "noInternetConnection" : MessageLookupByLibrary.simpleMessage("No Internet Connection"),
     "openSettings" : MessageLookupByLibrary.simpleMessage("OPEN SETTINGS"),
@@ -87,7 +89,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "uk" : MessageLookupByLibrary.simpleMessage("UK"),
     "unhideBusiness" : MessageLookupByLibrary.simpleMessage("Unhide business"),
     "unhideBusinessQuestion" : MessageLookupByLibrary.simpleMessage("Are you sure you want to unhide this business?"),
-    "username" : MessageLookupByLibrary.simpleMessage("Username"),
     "usernameCanNotBeEmpty" : MessageLookupByLibrary.simpleMessage("Can\'t be empty"),
     "usernameCanNotContainSpaces" : MessageLookupByLibrary.simpleMessage("Can\'t contain spaces"),
     "yosemite" : MessageLookupByLibrary.simpleMessage("Yosemite")

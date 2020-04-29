@@ -61,10 +61,8 @@ class ApiService {
     return GymsResponse.fromResponse(response.data);
   }
 
-  static Future<User> updateUser(User user) async {
-    Response response = await _dio.post("/user",
-        data: user.toJson(), options: generateOptions());
-    return new User.fromJson(response.data);
+  static Future<void> updateUser(User user) async {
+    await _dio.post("/user", data: user.toJson(), options: generateOptions());
   }
 
   static Future<User> getUser() async {
@@ -86,17 +84,23 @@ class ApiService {
     return response.data;
   }
 
-  static Future<void> uploadFile(String url, File file) async {
+  static uploadFile(String url, File file) async {
     assert(url.isNotEmpty && file != null && file.existsSync());
-    await http.put(url, body: file.readAsBytesSync(), headers: {
-      "Content-Type": resolveContentType(file)
-    });
+    await http.put(url,
+        body: file.readAsBytesSync(),
+        headers: {"Content-Type": resolveContentType(file)});
   }
 
   static String resolveContentType(File file) {
     String mimeType = mime(file.path);
     if (mimeType == null) mimeType = 'text/plain; charset=UTF-8';
     return mimeType;
+  }
+
+  static Future<String> validateNickname(String nickname) async {
+    Response response = await _dio.get("/user/validateNickname",
+        queryParameters: {"nickname": nickname}, options: generateOptions());
+    return response.data;
   }
 
   static Future<void> addHomeGym(Gym gym) async {

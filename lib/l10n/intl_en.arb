@@ -25,7 +25,7 @@
   "browseGyms": "Browse Gyms",
   "editProfile": "Edit Profile",
   "fullName": "Full Name",
-  "username": "Username",
+  "nickname": "Nickname",
   "usernameCanNotBeEmpty": "Can't be empty",
   "usernameCanNotContainSpaces": "Can't contain spaces",
   "SAVE": "SAVE",
@@ -68,5 +68,6 @@
   "hideBusinessQuestion": "Are you sure you want to hide this business?",
   "unhideBusinessQuestion": "Are you sure you want to unhide this business?",
   "allGyms": "All Gyms",
-  "hiddenGyms": "Hidden Gyms"
+  "hiddenGyms": "Hidden Gyms",
+  "editPhoto": "Edit Photo"
 }

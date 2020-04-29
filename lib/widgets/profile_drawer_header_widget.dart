@@ -15,7 +15,7 @@ class AccountDrawerHeader extends StatefulWidget {
   final Function(SignInProvider, BuildContext) signIn;
   final List<SignInProvider> signInProviderList;
   final Function onSignOutTap;
-  final Future<bool> Function(User) updateUser;
+  final void Function(User) updateUserCallback;
   final User user;
   final ApiService api;
   final Future<bool> canVibrate;
@@ -28,7 +28,7 @@ class AccountDrawerHeader extends StatefulWidget {
     @required this.signInProviderList,
     @required this.api,
     @required this.canVibrate,
-    @required this.updateUser,
+    @required this.updateUserCallback,
   }) : super(key: key);
 
   @override
@@ -42,10 +42,10 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
     });
     Navigator.push(
         context,
-        MaterialPageRoute<DismissDialogAction>(
+        MaterialPageRoute(
           builder: (BuildContext context) => EditAccount(
             user: this.widget.user,
-            updateUser: this.widget.updateUser,
+            updateUserCallback: this.widget.updateUserCallback,
           ),
           fullscreenDialog: true,
         ));

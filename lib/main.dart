@@ -14,9 +14,9 @@ import 'models/sign_in_with_apple_response.dart';
 import 'services/api_service.dart';
 import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
-void main() => runApp(ProgressDialog(
-      child: MyApp(),
-    ));
+void main() => runApp(
+      MyApp(),
+    );
 
 class MyApp extends StatefulWidget {
   @override
@@ -34,18 +34,20 @@ class _MyAppState extends State<MyApp> {
   ApiService api;
   User user;
 
-  Future<User> updateUser(User user) {
+  void updateUserCallback(User updatedUser) {
+    FlutterSecureStorage()
+        .write(key: STORAGE_KEY_USER, value: json.encode(this.user.toJson()));
     setState(() {
-      this.user = user;
+      this.user = updatedUser;
     });
-    return ApiService.updateUser(this.user);
   }
 
   @override
   initState() {
     super.initState();
     AppleSignIn.isAvailable().then((isAvailable) {
-      if(isAvailable && signInProviderList.indexOf(SignInProvider.Apple)==-1){
+      if (isAvailable &&
+          signInProviderList.indexOf(SignInProvider.Apple) == -1) {
         setState(() {
           signInProviderList.add(SignInProvider.Apple);
           checkLoggedInState();
@@ -62,24 +64,21 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  finishAppleSignIn(
-      AppleIdCredential appleIdCredential, BuildContext context) {
+  finishAppleSignIn(AppleIdCredential appleIdCredential, BuildContext context) {
     var dialog = showProgressDialog(
-        backgroundColor: Theme
-            .of(context)
-            .primaryColor
-            .withOpacity(0.7),
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
         loadingText: "",
         context: context);
     ApiService.appleSignIn(appleIdCredential)
         .then((SignInWithAppleResponse signInWithAppleResponse) {
-      dialog.dismiss();
+      dialog?.dismiss();
       if (signInWithAppleResponse == null ||
           signInWithAppleResponse.user == null)
         throw Exception("Invalid signInWithAppleResponse");
       ApiService.token = signInWithAppleResponse.user.token;
-      FlutterSecureStorage()
-          .write(key: STORAGE_KEY_USER, value: json.encode(signInWithAppleResponse.user.toJson()));
+      FlutterSecureStorage().write(
+          key: STORAGE_KEY_USER,
+          value: json.encode(signInWithAppleResponse.user.toJson()));
       setState(() {
         this.user = signInWithAppleResponse.user;
       });
@@ -157,7 +156,7 @@ class _MyAppState extends State<MyApp> {
         editAccount: () {},
         api: api,
         canVibrate: canVibrate,
-        updateUser: updateUser,
+        updateUserCallback: updateUserCallback,
         signInProviderList: signInProviderList,
       ),
     );

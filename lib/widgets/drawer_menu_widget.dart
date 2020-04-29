@@ -17,7 +17,7 @@ class DrawerMenu extends StatefulWidget {
   final List<SignInProvider> signInProviderList;
   final ApiService api;
   final Future<bool> canVibrate;
-  final Future<bool> Function(User) updateUser;
+  final void Function(User) updateUserCallback;
 
   const DrawerMenu({
     @required this.user,
@@ -28,7 +28,7 @@ class DrawerMenu extends StatefulWidget {
     @required this.signInProviderList,
     @required this.api,
     @required this.canVibrate,
-    @required this.updateUser,
+    @required this.updateUserCallback,
     Key key,
   }) : super(key: key);
 
@@ -50,7 +50,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
       signInProviderList: this.widget.signInProviderList,
       api: widget.api,
       canVibrate: widget.canVibrate,
-      updateUser: this.widget.updateUser,
+      updateUserCallback: this.widget.updateUserCallback,
     ));
 
     // Browse gyms

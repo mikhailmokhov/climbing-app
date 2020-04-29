@@ -261,10 +261,10 @@ class S {
     );
   }
 
-  String get username {
+  String get nickname {
     return Intl.message(
-      'Username',
-      name: 'username',
+      'Nickname',
+      name: 'nickname',
       desc: '',
       args: [],
     );
@@ -652,6 +652,15 @@ class S {
     return Intl.message(
       'Hidden Gyms',
       name: 'hiddenGyms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get editPhoto {
+    return Intl.message(
+      'Edit Photo',
+      name: 'editPhoto',
       desc: '',
       args: [],
     );

@@ -35,7 +35,7 @@ class User {
   User.fromAppleIdCredentials(AppleIdCredential appleIdCredential) {
     this.token = '';
     this.email = appleIdCredential.email;
-    this.nickname = appleIdCredential.email;
+    this.nickname = '';
     this.name = appleIdCredential.fullName.givenName +
         ' ' +
         appleIdCredential.fullName.familyName;
