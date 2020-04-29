@@ -29,91 +29,81 @@ class EditAccount extends StatefulWidget {
 }
 
 class EditAccountState extends State<EditAccount> {
-  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController fullNameController = new TextEditingController();
   final TextEditingController nicknameController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   File _image;
-  bool imageChanged = false;
+  bool _imageChanged = false;
   Flushbar _flushbar;
   BuildContext _buildContext;
-  bool _controlsEnabled = true;
-  bool _active;
+  bool _widgetIsActive;
   bool _inAsyncCall = false;
   Timer _timer;
+  String _nicknameError = '';
+  String _fullNameError = '';
 
-  String _asyncNicknameValidationErrorMessage = '';
-
-  String _fullName;
-  String _nickname;
-
-  // Validate full name
-  String _validateFullName(String fullName) {
-    fullName = fullName.trim();
-    if (fullName.length > 20) {
-      return 'Name must be less than 20 characters';
+  String _fullNameValidator(String fullName) {
+    if (_fullNameError.length > 0) {
+      return _fullNameError;
     }
     return null;
   }
 
-  // Validate nickname
-  String _prevalidateNickname(String nickname) {
-    if (_asyncNicknameValidationErrorMessage.length > 0) {
-      String error = _asyncNicknameValidationErrorMessage;
+  String _nicknameValidator(String nickname) {
+    if (_nicknameError.length > 0) {
+      String error = _nicknameError;
       // disable message until after next async call
-      _asyncNicknameValidationErrorMessage = '';
+      //_nicknameError = '';
       return error;
     }
     return null;
   }
 
-  void removeFocus(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
+  Future<void> validateNicknameAsync(String value) async {
+    String errors = await ApiService.validateNickname(value);
+    if (errors.isNotEmpty) {
+      setState(() {
+        _nicknameError = errors;
+      });
     }
   }
 
-  void handleError(dynamic e) {
-//    setState(() {
-//      _controlsEnabled = true;
-//    });
-    _inAsyncCall = true;
-    //dismissProgressDialog();
-    _flushbar?.dismiss();
-    _flushbar = Flushbar(
-      message: ErrorUtils.toMessage(e),
-      backgroundColor: Colors.deepOrange,
-      flushbarStyle: FlushbarStyle.GROUNDED,
-      flushbarPosition: FlushbarPosition.BOTTOM,
-      isDismissible: true,
-      dismissDirection: FlushbarDismissDirection.VERTICAL,
-    )..show(_buildContext);
+  Future<void> validateFullNameAsync(String value) async {
+    String errors = await ApiService.validateFullName(value);
+    if (errors.isNotEmpty) {
+      setState(() {
+        _fullNameError = errors;
+      });
+    }
   }
 
   void save(BuildContext context) async {
     if (_inAsyncCall) return;
-    print("Saving!!!");
+
+    String fullName = fullNameController.text.trim();
+    String nickname = nicknameController.text.trim();
+
+    bool fullNameChanged = this.widget.user.name != fullName;
+    bool nicknameChanged = this.widget.user.nickname != nickname;
+
+    if (fullNameChanged) await validateFullNameAsync(fullName);
+    if (nicknameChanged) await validateNicknameAsync(nickname);
 
     if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+      print("Validated");
 
-      // dismiss keyboard during async call ?????
-      FocusScope.of(context).requestFocus(new FocusNode());
+      // Check if any data is changed at all
+      if (_imageChanged || fullNameChanged || nicknameChanged) {
+        // dismiss keyboard during async call
+        FocusScope.of(context).requestFocus(new FocusNode());
 
-      bool fullNameChanged = this.widget.user.name != _fullName;
-      bool nicknameChanged = this.widget.user.nickname != _nickname;
-
-      // Check if any data is changed
-      if (imageChanged || fullNameChanged || nicknameChanged) {
         // Start progress spinner
         setState(() {
           _inAsyncCall = true;
         });
 
-        if (nicknameChanged && !await isNicknameValid(_nickname)) return;
-
         // IMAGE
-        if (imageChanged) {
+        if (_imageChanged) {
           try {
             String extension = path.extension(_image.path);
             _image = await FlutterNativeImage.compressImage(_image.path,
@@ -131,12 +121,12 @@ class EditAccountState extends State<EditAccount> {
           }
         }
 
-        // TEXT FIELDS
-        if (nicknameChanged || nicknameChanged) {
+        // Save full name and nickname
+        if (fullNameChanged || nicknameChanged) {
           String oldName = this.widget.user.name;
           String oldNickname = this.widget.user.nickname;
-          this.widget.user.name = _fullName;
-          this.widget.user.nickname = _nickname;
+          this.widget.user.name = fullName;
+          this.widget.user.nickname = nickname;
           try {
             await ApiService.updateUser(this.widget.user);
           } catch (e) {
@@ -154,21 +144,41 @@ class EditAccountState extends State<EditAccount> {
         widget.updateUserCallback(this.widget.user);
       }
       // Close dialog
-      if (_active) Navigator.pop(context);
+      if (_widgetIsActive) Navigator.pop(context);
     }
   }
 
   @override
   void deactivate() {
-    _active = false;
+    _widgetIsActive = false;
     super.deactivate();
   }
 
   @override
   initState() {
     super.initState();
-    nameController.text = widget.user.name;
+    fullNameController.text = widget.user.name;
     nicknameController.text = widget.user.nickname;
+  }
+
+  void removeFocus(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
+  void handleError(dynamic e) {
+    _inAsyncCall = true;
+    _flushbar?.dismiss();
+    _flushbar = Flushbar(
+      message: ErrorUtils.toMessage(e),
+      backgroundColor: Colors.deepOrange,
+      flushbarStyle: FlushbarStyle.GROUNDED,
+      flushbarPosition: FlushbarPosition.BOTTOM,
+      isDismissible: true,
+      dismissDirection: FlushbarDismissDirection.VERTICAL,
+    )..show(_buildContext);
   }
 
   Future getImage(ImageSource source) async {
@@ -191,24 +201,11 @@ class EditAccountState extends State<EditAccount> {
         setState(() {
           _image = croppedFile;
         });
-        imageChanged = true;
+        _imageChanged = true;
       }
     } catch (e) {
       handleError(e);
     }
-  }
-
-  Future<bool> isNicknameValid(String value) async {
-    _asyncNicknameValidationErrorMessage =
-        await ApiService.validateNickname(value);
-    if (_asyncNicknameValidationErrorMessage != null &&
-        _asyncNicknameValidationErrorMessage.length > 0) {
-      setState(() {
-        _inAsyncCall = false;
-      });
-      return false;
-    }
-    return true;
   }
 
   void editPhoto(BuildContext context) {
@@ -247,7 +244,7 @@ class EditAccountState extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     _formKey.currentState?.validate();
-    _active = true;
+    _widgetIsActive = true;
     _buildContext = context;
     final ThemeData theme = Theme.of(context);
     return Scaffold(
@@ -255,14 +252,14 @@ class EditAccountState extends State<EditAccount> {
         title: Text(S.of(context).editProfile),
         actions: <Widget>[
           FlatButton(
-            child: Text(S.of(context).SAVE,
-                style: theme.textTheme.bodyText1.copyWith(color: Colors.white)),
-            onPressed: _controlsEnabled
-                ? () {
-                    save(context);
-                  }
-                : null,
-          ),
+              child: Text(S.of(context).SAVE,
+                  style:
+                      theme.textTheme.bodyText1.copyWith(color: Colors.white)),
+              onPressed: _inAsyncCall
+                  ? null
+                  : () {
+                      save(context);
+                    }),
         ],
       ),
       body: ModalProgressHUD(
@@ -284,11 +281,9 @@ class EditAccountState extends State<EditAccount> {
                             width: 172.0,
                             height: 172.0,
                             child: GestureDetector(
-                                onTap: _controlsEnabled
-                                    ? () {
-                                        editPhoto(context);
-                                      }
-                                    : null,
+                                onTap: () {
+                                  editPhoto(context);
+                                },
                                 child: CircleAvatar(
                                   backgroundImage: this._image != null
                                       ? FileImage(this._image)
@@ -303,11 +298,9 @@ class EditAccountState extends State<EditAccount> {
                                       color: Theme.of(context)
                                           .primaryIconTheme
                                           ?.color)),
-                              onPressed: _controlsEnabled
-                                  ? () {
-                                      editPhoto(context);
-                                    }
-                                  : null),
+                              onPressed: () {
+                                editPhoto(context);
+                              }),
                         )
                       ],
                     ),
@@ -316,26 +309,30 @@ class EditAccountState extends State<EditAccount> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     alignment: Alignment.bottomLeft,
                     child: TextFormField(
-                      enabled: _controlsEnabled,
-                      controller: nameController,
+                      controller: fullNameController,
                       decoration: InputDecoration(
                         labelText: S.of(context).fullName,
                       ),
-                      validator: _validateFullName,
-                      onSaved: (value) => _fullName = value.trim(),
+                      validator: _fullNameValidator,
+                      onChanged: (String value) {
+                        _fullNameError = '';
+                        if (_timer != null) _timer.cancel();
+                        _timer = Timer(Duration(seconds: 1), () {
+                          validateFullNameAsync(value);
+                        });
+                      },
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     alignment: Alignment.bottomLeft,
                     child: TextFormField(
-                      enabled: _controlsEnabled,
-                      validator: _prevalidateNickname,
-                      onSaved: (String value) => _nickname = value.trim(),
+                      validator: _nicknameValidator,
                       onChanged: (String value) {
+                        _nicknameError = '';
                         if (_timer != null) _timer.cancel();
                         _timer = Timer(Duration(seconds: 1), () {
-                          isNicknameValid(value);
+                          validateNicknameAsync(value);
                         });
                       },
                       controller: nicknameController,

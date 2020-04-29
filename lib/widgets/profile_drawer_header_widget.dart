@@ -168,6 +168,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: DefaultTextStyle(
+                                softWrap: false,
                                 style: Theme.of(context)
                                     .primaryTextTheme
                                     .bodyText1,
@@ -179,9 +180,10 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 2.0),
                             child: DefaultTextStyle(
+                              softWrap: false,
+                              overflow: TextOverflow.fade,
                               style:
                                   Theme.of(context).primaryTextTheme.bodyText1,
-                              overflow: TextOverflow.ellipsis,
                               child: Text(this.widget.user.nickname.isEmpty
                                   ? ''
                                   : this.widget.user.nickname),

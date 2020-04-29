@@ -97,9 +97,15 @@ class ApiService {
     return mimeType;
   }
 
-  static Future<String> validateNickname(String nickname) async {
+  static Future<String> validateFullName(String value) async {
+    Response response = await _dio.get("/user/validateFullName",
+        queryParameters: {"value": value}, options: generateOptions());
+    return response.data;
+  }
+
+  static Future<String> validateNickname(String value) async {
     Response response = await _dio.get("/user/validateNickname",
-        queryParameters: {"nickname": nickname}, options: generateOptions());
+        queryParameters: {"value": value}, options: generateOptions());
     return response.data;
   }
 
