@@ -126,7 +126,6 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                     title: Text(S.of(context).signOutQuestion),
                     actions: <Widget>[
                       RaisedButton(
-                        textColor: Colors.white,
                         child: Text(S.of(context).YES),
                         onPressed: () {
                           this.widget.onSignOutTap();

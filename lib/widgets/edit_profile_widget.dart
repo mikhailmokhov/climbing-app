@@ -293,11 +293,7 @@ class EditAccountState extends State<EditAccount> {
                         Container(
                           margin: const EdgeInsets.only(top: 10.0),
                           child: OutlineButton(
-                              child: Text(S.of(context).editPhoto,
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryIconTheme
-                                          ?.color)),
+                              child: Text(S.of(context).editPhoto),
                               onPressed: () {
                                 editPhoto(context);
                               }),
