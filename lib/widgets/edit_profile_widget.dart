@@ -33,16 +33,18 @@ class EditAccountState extends State<EditAccount> {
   final TextEditingController fullNameController = new TextEditingController();
   final TextEditingController nicknameController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  File _image;
-  bool _imageChanged = false;
-  Flushbar _flushbar;
+
   BuildContext _buildContext;
-  bool _widgetIsActive;
-  bool _inAsyncCall = false;
+  bool _widgetIsActive = false,
+      _inAsyncCall = false,
+      _canVibrate = false,
+      _imageChanged = false;
+
+  String _nicknameError = '', _fullNameError = '';
+
+  File _image;
+  Flushbar _flushbar;
   Timer _timer;
-  String _nicknameError = '';
-  String _fullNameError = '';
-  bool _canVibrate;
 
   String _fullNameValidator(String fullName) {
     if (_fullNameError.length > 0) {

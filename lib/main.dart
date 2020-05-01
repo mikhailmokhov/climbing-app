@@ -9,10 +9,10 @@ import 'package:climbing/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:vibrate/vibrate.dart';
 import 'models/sign_in_with_apple_response.dart';
 import 'services/api_service.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
 void main() => runApp(
       MyApp(),
@@ -28,9 +28,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   static const String STORAGE_KEY_USER = 'user';
   final bool isGoogleSignInAvailable = true;
-  List<SignInProvider> signInProviderList = [SignInProvider.Google];
   final canVibrate = Vibrate.canVibrate;
 
+  List<SignInProvider> signInProviderList = [SignInProvider.Google];
+  bool _inAsyncCall = false;
   ApiService api;
   User user;
 
@@ -65,13 +66,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   finishAppleSignIn(AppleIdCredential appleIdCredential, BuildContext context) {
-    var dialog = showProgressDialog(
-        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
-        loadingText: "",
-        context: context);
+    // Start progress spinner
+    setState(() {
+      _inAsyncCall = true;
+    });
     ApiService.appleSignIn(appleIdCredential)
         .then((SignInWithAppleResponse signInWithAppleResponse) {
-      dialog?.dismiss();
+      _inAsyncCall = false;
       if (signInWithAppleResponse == null ||
           signInWithAppleResponse.user == null)
         throw Exception("Invalid signInWithAppleResponse");
@@ -133,7 +134,9 @@ class _MyAppState extends State<MyApp> {
       themeMode: ThemeMode.system,
       darkTheme: darkThemeData,
       theme: lightThemeData,
-      home: GymsView(
+      home: ModalProgressHUD(
+      inAsyncCall: _inAsyncCall,
+      child: GymsView(
         user: user,
         signOut: () {
           FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
@@ -159,7 +162,7 @@ class _MyAppState extends State<MyApp> {
         updateUserCallback: updateUserCallback,
         signInProviderList: signInProviderList,
       ),
-    );
+    ));
   }
 
   void checkLoggedInState() async {
