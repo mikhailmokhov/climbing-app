@@ -11,12 +11,11 @@ import 'edit_profile_widget.dart';
 const double _kAccountDetailsHeight = 49.0;
 
 class AccountDrawerHeader extends StatefulWidget {
-  final Function(SignInProvider, BuildContext) signIn;
+  final Function(SignInProvider) signIn;
   final Set<SignInProvider> signInProviderSet;
   final Function onSignOutTap;
   final void Function(User) updateUserCallback;
   final User user;
-  final Future<bool> canVibrate;
 
   AccountDrawerHeader({
     Key key,
@@ -24,7 +23,6 @@ class AccountDrawerHeader extends StatefulWidget {
     @required this.user,
     @required this.signIn,
     @required this.signInProviderSet,
-    @required this.canVibrate,
     @required this.updateUserCallback,
   }) : super(key: key);
 
@@ -33,10 +31,10 @@ class AccountDrawerHeader extends StatefulWidget {
 }
 
 class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
+  bool _canVibrate = false;
+
   editAccount() {
-    widget.canVibrate.then((value) {
-      Vibrate.feedback(FeedbackType.selection);
-    });
+    if (_canVibrate) Vibrate.feedback(FeedbackType.selection);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -68,14 +66,12 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
             icon: Icon(Icons.account_circle,
                 color: Theme.of(context).primaryIconTheme?.color),
             onPressed: () {
-              widget.canVibrate.then((value) {
-                Vibrate.feedback(FeedbackType.light);
-              });
+              if (_canVibrate) Vibrate.feedback(FeedbackType.light);
               showDialog(
                 context: context,
                 builder: (BuildContext passedContext) => SignInDialog(
-                  signIn: (SignInProvider signInProvider){
-                    this.widget.signIn(signInProvider, context);
+                  signIn: (SignInProvider signInProvider) {
+                    this.widget.signIn(signInProvider);
                   },
                   signInProviderSet: this.widget.signInProviderSet,
                 ),
@@ -112,9 +108,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         top: 0.0,
         child: OutlineButton(
             onPressed: () {
-              widget.canVibrate.then((value) {
-                Vibrate.feedback(FeedbackType.light);
-              });
+              if (_canVibrate) Vibrate.feedback(FeedbackType.light);
               showDialog<void>(
                 context: context,
                 barrierDismissible: true,
@@ -237,5 +231,11 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Vibrate.canVibrate.then((value) => _canVibrate = value);
   }
 }

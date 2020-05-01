@@ -29,20 +29,16 @@ enum ViewMode { list, map }
 class GymsView extends StatefulWidget {
   static const String routeName = '/gymslist';
   final User user;
-  final Function(SignInProvider, BuildContext context) signIn;
-  final Function signOut, register, openSettings, editAccount;
+  final Function(SignInProvider) signIn;
+  final Function signOut, editAccount;
   final Set<SignInProvider> signInProviderSet;
-  final Future<bool> canVibrate;
   final void Function(User) updateUserCallback;
 
   GymsView({
     @required this.user,
     @required this.signOut,
     @required this.signIn,
-    @required this.register,
-    @required this.openSettings,
     @required this.editAccount,
-    @required this.canVibrate,
     @required this.updateUserCallback,
     @required this.signInProviderSet,
     Key key
@@ -66,6 +62,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   StreamSubscription connectivitySubscription;
   ConnectivityResult connectivityStatus;
   GymListViewMode gymListViewMode = GymListViewMode.allGyms;
+  bool _canVibrate = false;
 
   List<Gym> gyms = [];
   Coordinates coordinates;
@@ -193,6 +190,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   @override
   initState() {
     super.initState();
+    Vibrate.canVibrate.then((value) => _canVibrate = value);
     // subscribe to network connection change
     connectivitySubscription =
         Connectivity().onConnectivityChanged.listen(connectivityOnChange);
@@ -264,9 +262,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                       setState(() {
                         viewMode = ViewMode.map;
                       });
-                      widget.canVibrate.then((value) {
-                        Vibrate.feedback(FeedbackType.selection);
-                      });
+                      if(_canVibrate) Vibrate.feedback(FeedbackType.selection);
                     },
             )
           : IconButton(
@@ -276,9 +272,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                 setState(() {
                   viewMode = ViewMode.list;
                 });
-                widget.canVibrate.then((value) {
-                  Vibrate.feedback(FeedbackType.selection);
-                });
+                if(_canVibrate) Vibrate.feedback(FeedbackType.selection);
               },
             )
     ];
@@ -377,10 +371,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           user: widget.user,
           signOut: widget.signOut,
           signIn: widget.signIn,
-          register: widget.register,
-          openSettings: widget.openSettings,
           signInProviderSet: widget.signInProviderSet,
-          canVibrate: widget.canVibrate,
           updateUserCallback: this.widget.updateUserCallback),
     );
   }

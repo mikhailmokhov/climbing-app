@@ -39,6 +39,32 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  signIn(SignInProvider signInProvider) async {
+    switch (signInProvider) {
+    // APPLE SIGN IN
+      case SignInProvider.Apple:
+        final AuthorizationResult result = await AppleSignIn.performRequests([
+          AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+        ]);
+        switch (result.status) {
+          case AuthorizationStatus.authorized:
+            finishAppleSignIn(result.credential);
+            break;
+          case AuthorizationStatus.error:
+          //TODO: handle authorization error
+            break;
+          case AuthorizationStatus.cancelled:
+          //TODO: handle case when user cancelled
+            break;
+        }
+        break;
+    // GOOGLE SIGN IN
+      case SignInProvider.Google:
+      // TODO: Handle this case.
+        break;
+    }
+  }
+
   void signOut(){
     FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
     ApiService.logout();
@@ -62,7 +88,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  finishAppleSignIn(AppleIdCredential appleIdCredential, BuildContext context) {
+  finishAppleSignIn(AppleIdCredential appleIdCredential) {
     // Start progress spinner
     setState(() {
       _inAsyncCall = true;
@@ -80,32 +106,6 @@ class _MyAppState extends State<MyApp> {
         this._inAsyncCall = false;
       });
     });
-  }
-
-  initiateSignIn(SignInProvider signInProvider, BuildContext context) async {
-    switch (signInProvider) {
-      // APPLE SIGN IN
-      case SignInProvider.Apple:
-        final AuthorizationResult result = await AppleSignIn.performRequests([
-          AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-        ]);
-        switch (result.status) {
-          case AuthorizationStatus.authorized:
-            finishAppleSignIn(result.credential, context);
-            break;
-          case AuthorizationStatus.error:
-            //TODO: handle authorization error
-            break;
-          case AuthorizationStatus.cancelled:
-            //TODO: handle case when user cancelled
-            break;
-        }
-        break;
-      // GOOGLE SIGN IN
-      case SignInProvider.Google:
-        // TODO: Handle this case.
-        break;
-    }
   }
 
   @override
@@ -130,17 +130,8 @@ class _MyAppState extends State<MyApp> {
           child: GymsView(
             user: user,
             signOut: signOut,
-            signIn: (SignInProvider signInProvider, BuildContext context) {
-              initiateSignIn(signInProvider, context);
-            },
-            register: () {},
-            openSettings: () {
-              setState(() {
-                // Place code for opening settings
-              });
-            },
+            signIn: signIn,
             editAccount: () {},
-            canVibrate: canVibrate,
             updateUserCallback: updateUserCallback,
             signInProviderSet: signInProviderSet,
           ),
@@ -175,11 +166,9 @@ class _MyAppState extends State<MyApp> {
       case CredentialStatus.revoked:
         print("getCredentialState returned revoked");
         break;
-
       case CredentialStatus.notFound:
         print("getCredentialState returned not found");
         break;
-
       case CredentialStatus.transferred:
         print("getCredentialState returned not transferred");
         break;

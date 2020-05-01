@@ -1,5 +1,4 @@
 import 'package:climbing/enums/sign_in_provider_enum.dart';
-import 'package:climbing/services/api_service.dart';
 import 'package:climbing/models/grade_scale.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
@@ -11,21 +10,15 @@ import 'profile_drawer_header_widget.dart';
 class DrawerMenu extends StatefulWidget {
   final User user;
   final Function signOut;
-  final Function(SignInProvider, BuildContext context) signIn;
-  final Function register;
-  final Function openSettings;
+  final Function(SignInProvider) signIn;
   final Set<SignInProvider> signInProviderSet;
-  final Future<bool> canVibrate;
   final void Function(User) updateUserCallback;
 
   const DrawerMenu({
     @required this.user,
     @required this.signOut,
     @required this.signIn,
-    @required this.register,
-    @required this.openSettings,
     @required this.signInProviderSet,
-    @required this.canVibrate,
     @required this.updateUserCallback,
     Key key,
   }) : super(key: key);
@@ -36,6 +29,7 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   GradeScales _gradeScale = GradeScales.YSD;
+  bool _canVibrate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +40,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
       onSignOutTap: widget.signOut,
       signIn: widget.signIn,
       signInProviderSet: this.widget.signInProviderSet,
-      canVibrate: widget.canVibrate,
       updateUserCallback: this.widget.updateUserCallback,
     ));
 
@@ -67,9 +60,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
             setState(() {
               _gradeScale = newValue;
             });
-            widget.canVibrate.then((value) {
-              Vibrate.feedback(FeedbackType.selection);
-            });
+            if (_canVibrate) Vibrate.feedback(FeedbackType.selection);
           },
           items: <GradeScales>[
             GradeScales.YSD,
@@ -99,8 +90,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
             );
           }).toList(),
         ),
-        title: Text(S.of(context).gradingSystem),
-        onTap: widget.openSettings));
+        title: Text(S.of(context).gradingSystem)));
 
     return Drawer(
       child: Column(
@@ -108,5 +98,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
         children: columnItems,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Vibrate.canVibrate.then((value) => _canVibrate = value);
   }
 }
