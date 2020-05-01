@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d7c9088a-bf9a-4b35-a9bc-ba41fa261723" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1bH7G9WQe8IpbxmSXFh1eJboNip" />
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/ui" />
+      <recent name="$PROJECT_DIR$/lib/ui/buttons" />
+      <recent name="$PROJECT_DIR$/lib/enums" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/lib/ui/dialogs" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d7c9088a-bf9a-4b35-a9bc-ba41fa261723" name="Default Changelist" comment="" />
+      <created>1588277066648</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588277066648</updated>
+      <workItem from="1588277068129" duration="140000" />
+      <workItem from="1588277227587" duration="59000" />
+      <workItem from="1588277325771" duration="162000" />
+      <workItem from="1588282128030" duration="2026000" />
+      <workItem from="1588293615388" duration="14226000" />
+      <workItem from="1588356055321" duration="5010000" />
+      <workItem from="1588362046687" duration="6582000" />
+    </task>
+    <task id="LOCAL-00001" summary="Set up environment on macbook">
+      <created>1588303477611</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588303477611</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added vibration to user photo edit button">
+      <created>1588304552503</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588304552503</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Changed progress dialog for user sign in">
+      <created>1588305530564</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1588305530564</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Changes vibrate feedback type">
+      <created>1588346594747</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588346594747</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changed app icons, moved project files">
+      <created>1588358199580</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588358199581</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Major code refactoring">
+      <created>1588368167719</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1588368167719</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Major code refactoring">
+      <created>1588368191528</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1588368191528</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Removed unnecessary parameters">
+      <created>1588370091668</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1588370091668</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Set up environment on macbook" />
+    <MESSAGE value="Added vibration to user photo edit button" />
+    <MESSAGE value="Changed progress dialog for user sign in" />
+    <MESSAGE value="Changes vibrate feedback type" />
+    <MESSAGE value="Changed app icons, moved project files" />
+    <MESSAGE value="Major code refactoring" />
+    <MESSAGE value="Removed unnecessary parameters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed unnecessary parameters" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="466" y="184" key="#com.intellij.ide.util.MemberChooser" timestamp="1588369724341">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="466" y="184" key="#com.intellij.ide.util.MemberChooser/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588369724341" />
+    <state x="381" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1588277255604">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="381" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588277255604" />
+    <state x="391" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1588365772932">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="391" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588365772932" />
+    <state x="89" y="38" key="CommitChangelistDialog2" timestamp="1588370091547">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="89" y="38" key="CommitChangelistDialog2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588370091547" />
+    <state width="535" height="438" key="DebuggerActiveHint" timestamp="1588363199585">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="535" height="438" key="DebuggerActiveHint/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588363199585" />
+    <state x="139" y="100" key="DiffContextDialog" timestamp="1588294589783">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="139" y="100" key="DiffContextDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588294589783" />
+    <state width="812" height="1127" key="GridCell.Tab.0.bottom" timestamp="1588366454076">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.0.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366454076" />
+    <state width="812" height="1127" key="GridCell.Tab.0.center" timestamp="1588366454075">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.0.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366454075" />
+    <state width="812" height="1127" key="GridCell.Tab.0.left" timestamp="1588366454074">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.0.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366454074" />
+    <state width="812" height="1127" key="GridCell.Tab.0.right" timestamp="1588366454075">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.0.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366454075" />
+    <state width="812" height="1127" key="GridCell.Tab.1.bottom" timestamp="1588366453903">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.1.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366453903" />
+    <state width="812" height="1127" key="GridCell.Tab.1.center" timestamp="1588366453902">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.1.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366453902" />
+    <state width="812" height="1127" key="GridCell.Tab.1.left" timestamp="1588366453901">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.1.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366453901" />
+    <state width="812" height="1127" key="GridCell.Tab.1.right" timestamp="1588366453902">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state width="812" height="1127" key="GridCell.Tab.1.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366453902" />
+    <state x="-30" y="-790" key="IDE.errors.dialog" timestamp="1588354793422">
+      <screen x="-255" y="-1177" width="1920" height="1177" />
+    </state>
+    <state x="-30" y="-790" key="IDE.errors.dialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588354793422" />
+    <state x="516" y="170" key="RollbackChangesDialog" timestamp="1588303109936">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="516" y="170" key="RollbackChangesDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588303109936" />
+    <state x="82" y="63" width="1305" height="756" key="SettingsEditor" timestamp="1588366900631">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="82" y="63" width="1305" height="756" key="SettingsEditor/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588366900631" />
+    <state x="293" y="201" key="Vcs.Push.Dialog.v2" timestamp="1588370092983">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="293" y="201" key="Vcs.Push.Dialog.v2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588370092983" />
+    <state x="340" y="216" width="671" height="490" key="find.popup" timestamp="1588358900692">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="340" y="216" width="671" height="490" key="find.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588358900692" />
+    <state x="378" y="257" key="git4idea.merge.GitPullDialog" timestamp="1588303121184">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="378" y="257" key="git4idea.merge.GitPullDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588303121184" />
+    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1588368056826">
+      <screen x="0" y="23" width="1387" height="877" />
+    </state>
+    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588368056826" />
+  </component>
+</project>
