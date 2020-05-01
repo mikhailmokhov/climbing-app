@@ -122,6 +122,15 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
         return false;
       case TargetPlatform.iOS:
         return true;
+      case TargetPlatform.linux:
+        // TODO: Handle this case.
+        break;
+      case TargetPlatform.macOS:
+        // TODO: Handle this case.
+        break;
+      case TargetPlatform.windows:
+        // TODO: Handle this case.
+        break;
     }
     return null;
   }
@@ -155,7 +164,7 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
 
   @override
   Widget build(BuildContext context) {
-    final FlexibleSpaceBarSettings settings = context.inheritFromWidgetOfExactType(FlexibleSpaceBarSettings);
+    final FlexibleSpaceBarSettings settings = context.dependOnInheritedWidgetOfExactType();
     assert(settings != null, 'A FlexibleSpaceBar must be wrapped in the widget returned by FlexibleSpaceBar.createSettings().');
 
     final List<Widget> children = <Widget>[];
@@ -203,7 +212,7 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
       final ThemeData theme = Theme.of(context);
       final double opacity = settings.toolbarOpacity;
       if (opacity > 0.0) {
-        TextStyle titleStyle = theme.primaryTextTheme.title;
+        TextStyle titleStyle = theme.primaryTextTheme.headline6;
         titleStyle = titleStyle.copyWith(
             color: titleStyle.color.withOpacity(opacity),
 

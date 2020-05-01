@@ -1,15 +1,15 @@
-import 'package:climbing/classes/user.dart';
-import 'package:climbing/widgets/drawer_menu_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:climbing/generated/i18n.dart';
-
-void main() {
-  const String UUID = 'IBUUYU65viu*&kjlhbuKJHG';
-  const String NAME = 'Александр Хоннолд';
-  const String EMAIL = 'alex.honnold@gmail.com';
-  const String USERNAME = 'honnold';
-
+//import 'package:climbing/classes/user.dart';
+//import 'package:climbing/widgets/drawer_menu_widget.dart';
+//import 'package:flutter/material.dart';
+//import 'package:flutter_test/flutter_test.dart';
+//import 'package:climbing/generated/i18n.dart';
+//
+//void main() {
+//  const String UUID = 'IBUUYU65viu*&kjlhbuKJHG';
+//  const String NAME = 'Александр Хоннолд';
+//  const String EMAIL = 'alex.honnold@gmail.com';
+//  const String USERNAME = 'honnold';
+//
 //  testWidgets('Drawer signed in', (WidgetTester tester) async {
 //    final User user = User(token: UUID, name: NAME, nickname: USERNAME, email: EMAIL);
 //    bool userSignedIn = true;
@@ -43,4 +43,4 @@ void main() {
 //    await tester.tap(find.text('Sign In'));
 //    expect(userSignedIn, true);
 //  });
-}
+//}

@@ -24,7 +24,7 @@ class ApiService {
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
         ? "https://api.routesetter.app"
-        : "http://10.0.1.5:8080"
+        : "http://localhost:8080"
     ..options.connectTimeout = 60000
     ..options.receiveTimeout = 60000
     ..interceptors.add(PrettyDioLogger(

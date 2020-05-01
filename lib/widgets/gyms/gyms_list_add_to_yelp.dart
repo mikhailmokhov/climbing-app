@@ -24,7 +24,7 @@ class AddItToYelp extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           Text(S.of(context).didntFindYourGym + " ",
-              style: themeData.textTheme.body2.copyWith(
+              style: themeData.textTheme.bodyText1.copyWith(
                   color: themeData.textTheme.caption.color,
                   fontSize: fontSize)),
           InkWell(
