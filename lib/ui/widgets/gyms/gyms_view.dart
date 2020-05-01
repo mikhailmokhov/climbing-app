@@ -3,24 +3,26 @@ import 'dart:async';
 import 'package:climbing/models/gyms_response.dart';
 
 import 'package:climbing/models/user.dart';
-import 'package:climbing/models/sign_in_provider_enum.dart';
+import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
-import 'package:climbing/widgets/gyms/gyms_list_empty_response.dart';
-import 'package:climbing/widgets/gyms/gyms_map.dart';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/gym.dart';
 import 'package:climbing/models/my_location.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/widgets/drawer_menu_widget.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:location_permissions/location_permissions.dart';
 import 'package:vibrate/vibrate.dart';
 import 'package:flushbar/flushbar.dart';
+import '../drawer_menu_widget.dart';
 import '../gym_widget.dart';
 
 import 'gyms_list.dart';
 import 'disabled_location_utils.dart';
+import 'gyms_list_empty_response.dart';
+import 'gyms_map.dart';
 
 enum ViewMode { list, map }
 
@@ -29,8 +31,7 @@ class GymsView extends StatefulWidget {
   final User user;
   final Function(SignInProvider, BuildContext context) signIn;
   final Function signOut, register, openSettings, editAccount;
-  final List<SignInProvider> signInProviderList;
-  final ApiService api;
+  final Set<SignInProvider> signInProviderSet;
   final Future<bool> canVibrate;
   final void Function(User) updateUserCallback;
 
@@ -41,10 +42,9 @@ class GymsView extends StatefulWidget {
     @required this.register,
     @required this.openSettings,
     @required this.editAccount,
-    @required this.api,
     @required this.canVibrate,
     @required this.updateUserCallback,
-    @required this.signInProviderList,
+    @required this.signInProviderSet,
     Key key
   }) : super(key: key);
 
@@ -379,8 +379,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
           signIn: widget.signIn,
           register: widget.register,
           openSettings: widget.openSettings,
-          signInProviderList: widget.signInProviderList,
-          api: widget.api,
+          signInProviderSet: widget.signInProviderSet,
           canVibrate: widget.canVibrate,
           updateUserCallback: this.widget.updateUserCallback),
     );

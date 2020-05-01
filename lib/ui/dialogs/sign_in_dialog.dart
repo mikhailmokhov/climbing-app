@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:climbing/models/sign_in_provider_enum.dart';
+import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/widgets/buttons/my_apple_sign_in_button.dart';
-import 'package:climbing/widgets/buttons/my_google_sign_in_button.dart';
+import 'package:climbing/ui/buttons/my_apple_sign_in_button.dart';
+import 'package:climbing/ui/buttons/my_google_sign_in_button.dart';
 import 'package:flutter/material.dart';
 
 class SignInDialog extends StatelessWidget {
@@ -11,9 +11,9 @@ class SignInDialog extends StatelessWidget {
   static const double BUTTON_PADDING = 10;
 
   final Function(SignInProvider) signIn;
-  final List<SignInProvider> providers;
+  final Set<SignInProvider> signInProviderSet;
 
-  SignInDialog({Key key, @required this.signIn, @required this.providers})
+  SignInDialog({Key key, @required this.signIn, @required this.signInProviderSet})
       : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class SignInDialog extends StatelessWidget {
 
     List<Widget> items = [];
     //APPLE
-    if (providers.indexOf(SignInProvider.Apple) != -1) {
+    if (signInProviderSet.contains(SignInProvider.Apple)) {
       items.add(Padding(
           padding: const EdgeInsets.all(BUTTON_PADDING),
           child: MyAppleSignInButton(
@@ -37,7 +37,7 @@ class SignInDialog extends StatelessWidget {
               })));
     }
     //GOOGLE
-    if (providers.indexOf(SignInProvider.Google) != -1) {
+    if (signInProviderSet.contains(SignInProvider.Google)) {
       items.add(Padding(
           padding: const EdgeInsets.all(BUTTON_PADDING),
           child: MyGoogleSignInButton(

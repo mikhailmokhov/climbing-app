@@ -1,4 +1,4 @@
-import 'package:climbing/models/grade_scale_class.dart';
+import 'package:climbing/models/grade_scale.dart';
 
 ///
 /// Describes properties and serialization methods of gym instance

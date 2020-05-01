@@ -5,7 +5,7 @@ import 'package:climbing/models/request_photo_upload_url_response.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/utils/ErrorUtils.dart';
+import 'package:climbing/utils/error_utils.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +30,7 @@ class EditAccount extends StatefulWidget {
 }
 
 class EditAccountState extends State<EditAccount> {
+  static const int SERVER_VALIDATE_DELAY_MILLS = 500;
   final TextEditingController fullNameController = new TextEditingController();
   final TextEditingController nicknameController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -56,8 +57,6 @@ class EditAccountState extends State<EditAccount> {
   String _nicknameValidator(String nickname) {
     if (_nicknameError.length > 0) {
       String error = _nicknameError;
-      // disable message until after next async call
-      //_nicknameError = '';
       return error;
     }
     return null;
@@ -317,7 +316,10 @@ class EditAccountState extends State<EditAccount> {
                       onChanged: (String value) {
                         _fullNameError = '';
                         if (_timer != null) _timer.cancel();
-                        _timer = Timer(Duration(seconds: 1), () {
+                        _timer = Timer(
+                            Duration(
+                                milliseconds: EditAccountState
+                                    .SERVER_VALIDATE_DELAY_MILLS), () {
                           validateFullNameAsync(value);
                         });
                       },
@@ -331,7 +333,10 @@ class EditAccountState extends State<EditAccount> {
                       onChanged: (String value) {
                         _nicknameError = '';
                         if (_timer != null) _timer.cancel();
-                        _timer = Timer(Duration(seconds: 1), () {
+                        _timer = Timer(
+                            Duration(
+                                milliseconds: EditAccountState
+                                    .SERVER_VALIDATE_DELAY_MILLS), () {
                           validateNicknameAsync(value);
                         });
                       },

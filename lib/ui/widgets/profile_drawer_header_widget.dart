@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:climbing/models/sign_in_provider_enum.dart';
-import 'package:climbing/services/api_service.dart';
+import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/sign_in/sign_in_dialog.dart';
+import 'package:climbing/ui/dialogs/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
@@ -13,11 +12,10 @@ const double _kAccountDetailsHeight = 49.0;
 
 class AccountDrawerHeader extends StatefulWidget {
   final Function(SignInProvider, BuildContext) signIn;
-  final List<SignInProvider> signInProviderList;
+  final Set<SignInProvider> signInProviderSet;
   final Function onSignOutTap;
   final void Function(User) updateUserCallback;
   final User user;
-  final ApiService api;
   final Future<bool> canVibrate;
 
   AccountDrawerHeader({
@@ -25,8 +23,7 @@ class AccountDrawerHeader extends StatefulWidget {
     @required this.onSignOutTap,
     @required this.user,
     @required this.signIn,
-    @required this.signInProviderList,
-    @required this.api,
+    @required this.signInProviderSet,
     @required this.canVibrate,
     @required this.updateUserCallback,
   }) : super(key: key);
@@ -80,7 +77,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                   signIn: (SignInProvider signInProvider){
                     this.widget.signIn(signInProvider, context);
                   },
-                  providers: this.widget.signInProviderList,
+                  signInProviderSet: this.widget.signInProviderSet,
                 ),
               );
             }),

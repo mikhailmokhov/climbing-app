@@ -1,5 +1,5 @@
-import 'package:climbing/models/gym_class.dart';
-import 'package:climbing/models/climbing_route_class.dart';
+import 'package:climbing/models/gym.dart';
+import 'package:climbing/models/climbing_route.dart';
 import 'package:flutter/material.dart';
 
 class RoutesGrid extends StatefulWidget {

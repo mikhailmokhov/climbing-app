@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'gym_class.dart';
+import 'gym.dart';
 
 const String PLACES_APP_KEY = 'AIzaSyCJ4u7HC3AsvOMS_4w-mdkhLOP_deCLBcc';
 
-class PlacesApi {
+class GooglePlacesApi {
   static const String KEYWORD = 'climbing%20gym';
 
   static Future<List<Gym>> nearbySearch(
@@ -61,28 +61,3 @@ class PlacesPhoto {
         width.toString();
   }
 }
-
-//const USE_CACHE = false;
-//const String EXPIRATION = '_expiration';
-//refreshMap(LatLng(coordinates.latitude, coordinates.longitude));
-//    String dataKey = coordinates.latitude.toStringAsFixed(1) +
-//        ',' +
-//        coordinates.longitude.toStringAsFixed(1);
-//    String expirationKey = dataKey + EXPIRATION;
-
-//    SharedPreferences preferences = await SharedPreferences.getInstance();
-
-//    if (USE_CACHE &&
-//        preferences.containsKey(dataKey) &&
-//        preferences.containsKey(expirationKey) &&
-//        (DateTime.fromMillisecondsSinceEpoch(preferences.getInt(expirationKey))
-//            .isAfter(DateTime.now()))) {
-//      loadGyms(json.decode(preferences.getString(dataKey)));
-//    } else {
-//preferences.setString(dataKey, response.body);
-//preferences.setInt(dataKey + EXPIRATION,
-//          (DateTime.now())
-//              .add(Duration(days: 1))
-//              .millisecondsSinceEpoch);
-// If that response was not OK, throw an error.
-//throw Exception('Failed to load post');

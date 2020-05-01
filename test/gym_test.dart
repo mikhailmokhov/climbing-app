@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/gym.dart';
 import 'package:test/test.dart';
 
 void main() {

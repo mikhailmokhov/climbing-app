@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_appavailability/flutter_appavailability.dart';
 
-class OpenYelp extends StatelessWidget {
+class OpenYelpButton extends StatelessWidget {
   final String url;
   final double opacity;
   final double width;
 
-  OpenYelp({@required this.url, @required this.opacity, @required this.width, Key key, })
+  OpenYelpButton({@required this.url, @required this.opacity, @required this.width, Key key, })
       : super(key: key);
 
   _launchURL() async {

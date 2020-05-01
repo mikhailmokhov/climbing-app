@@ -1,5 +1,5 @@
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/models/authority.dart';
+import 'package:climbing/models/user_authority.dart';
 import 'package:climbing/enums/role.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -14,7 +14,7 @@ class User {
   String pictureId = '';
   String photoUrl = '';
   String appleIdCredentialUser;
-  List<Authority> authorities = List<Authority>();
+  List<UserAuthority> authorities = List<UserAuthority>();
 
   User(
       {this.googleId,
@@ -54,12 +54,12 @@ class User {
             : '' {
     if (json['authorities'] is List)
       for (final authority in json['authorities'])
-        this.authorities.add(Authority.fromJson(authority));
+        this.authorities.add(UserAuthority.fromJson(authority));
   }
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> authoritiesMap = [];
-    for (final Authority authority in authorities)
+    for (final UserAuthority authority in authorities)
       authoritiesMap.add(authority.toJson());
     return {
       'token': this.token,
@@ -75,7 +75,7 @@ class User {
   }
 
   bool isAdmin() {
-    for (final Authority authority in authorities)
+    for (final UserAuthority authority in authorities)
       if (authority.authority == Role.ROLE_ADMIN) return true;
     return false;
   }

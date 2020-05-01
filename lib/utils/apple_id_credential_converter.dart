@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:apple_sign_in/apple_id_credential.dart';
 
-class AppleIdCredentialConverter extends AppleIdCredential {
+class AppleIdCredentialConverter {
   static Map<String, dynamic> toMap(AppleIdCredential appleIdCredential) => {
         "identityToken": String.fromCharCodes(appleIdCredential.identityToken),
         "authorizationCode":

@@ -1,7 +1,7 @@
 import 'package:climbing/models/my_location.dart';
-import 'package:climbing/models/places_api.dart';
+import 'package:climbing/models/google_places_api.dart';
 
-import 'climbing_route_class.dart';
+import 'climbing_route.dart';
 
 //TODO create YelpBusiness class
 

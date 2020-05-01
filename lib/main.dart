@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/models/sign_in_provider_enum.dart';
-import 'package:climbing/widgets/gyms/gyms_view.dart';
-import 'package:climbing/widgets/theme.dart';
+import 'package:climbing/enums/sign_in_provider_enum.dart';
+import 'package:climbing/ui/widgets/gyms/gyms_view.dart';
+import 'package:climbing/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -14,9 +14,7 @@ import 'package:vibrate/vibrate.dart';
 import 'models/sign_in_with_apple_response.dart';
 import 'services/api_service.dart';
 
-void main() => runApp(
-      MyApp(),
-    );
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -29,10 +27,8 @@ class _MyAppState extends State<MyApp> {
   static const String STORAGE_KEY_USER = 'user';
   final bool isGoogleSignInAvailable = true;
   final canVibrate = Vibrate.canVibrate;
-
-  List<SignInProvider> signInProviderList = [SignInProvider.Google];
+  final Set<SignInProvider> signInProviderSet = Set();
   bool _inAsyncCall = false;
-  ApiService api;
   User user;
 
   void updateUserCallback(User updatedUser) {
@@ -43,25 +39,26 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void signOut(){
+    FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
+    ApiService.logout();
+    setState(() {
+      user = null;
+    });
+  }
+
   @override
   initState() {
     super.initState();
     AppleSignIn.isAvailable().then((isAvailable) {
-      if (isAvailable &&
-          signInProviderList.indexOf(SignInProvider.Apple) == -1) {
-        setState(() {
-          signInProviderList.add(SignInProvider.Apple);
-          checkLoggedInState();
-        });
-      }
+      if (!isAvailable) return;
+      checkLoggedInState();
+      setState(() {
+        signInProviderSet.add(SignInProvider.Apple);
+      });
     });
     AppleSignIn.onCredentialRevoked.listen((_) {
-      if (user != null) ApiService.logout();
-      //TODO: add logic for revoked credentials
-      setState(() {
-        print('Credentials revoked');
-        user = null;
-      });
+      signOut();
     });
   }
 
@@ -72,16 +69,15 @@ class _MyAppState extends State<MyApp> {
     });
     ApiService.appleSignIn(appleIdCredential)
         .then((SignInWithAppleResponse signInWithAppleResponse) {
-      _inAsyncCall = false;
-      if (signInWithAppleResponse == null ||
-          signInWithAppleResponse.user == null)
-        throw Exception("Invalid signInWithAppleResponse");
+      assert(signInWithAppleResponse != null &&
+          signInWithAppleResponse.user != null);
       ApiService.token = signInWithAppleResponse.user.token;
       FlutterSecureStorage().write(
           key: STORAGE_KEY_USER,
           value: json.encode(signInWithAppleResponse.user.toJson()));
       setState(() {
         this.user = signInWithAppleResponse.user;
+        this._inAsyncCall = false;
       });
     });
   }
@@ -113,56 +109,42 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
-        S.delegate,
-        // You need to add them if you are using the material library.
-        // The material components uses this delegates to provide default
-        // localization
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
-      title: 'Climbing app',
-      themeMode: ThemeMode.system,
-      darkTheme: darkThemeData,
-      theme: lightThemeData,
-      home: ModalProgressHUD(
-      inAsyncCall: _inAsyncCall,
-      child: GymsView(
-        user: user,
-        signOut: () {
-          FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
-          ApiService.logout().then((response) {
-            print(response);
-          });
-          setState(() {
-            user = null;
-          });
-        },
-        signIn: (SignInProvider signInProvider, BuildContext context) {
-          initiateSignIn(signInProvider, context);
-        },
-        register: () {},
-        openSettings: () {
-          setState(() {
-            // Place code for opening settings
-          });
-        },
-        editAccount: () {},
-        api: api,
-        canVibrate: canVibrate,
-        updateUserCallback: updateUserCallback,
-        signInProviderList: signInProviderList,
-      ),
-    ));
+        localizationsDelegates: [
+          S.delegate,
+          // You need to add them if you are using the material library.
+          // The material components uses this delegates to provide default
+          // localization
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
+        title: 'Routesetter',
+        themeMode: ThemeMode.system,
+        darkTheme: darkThemeData,
+        theme: lightThemeData,
+        home: ModalProgressHUD(
+          inAsyncCall: _inAsyncCall,
+          child: GymsView(
+            user: user,
+            signOut: signOut,
+            signIn: (SignInProvider signInProvider, BuildContext context) {
+              initiateSignIn(signInProvider, context);
+            },
+            register: () {},
+            openSettings: () {
+              setState(() {
+                // Place code for opening settings
+              });
+            },
+            editAccount: () {},
+            canVibrate: canVibrate,
+            updateUserCallback: updateUserCallback,
+            signInProviderSet: signInProviderSet,
+          ),
+        ));
   }
 
   void checkLoggedInState() async {

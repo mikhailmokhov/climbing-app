@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/gym.dart';
 import 'package:flutter/material.dart';
-import 'package:climbing/models/climbing_route_class.dart';
+import 'package:climbing/models/climbing_route.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 

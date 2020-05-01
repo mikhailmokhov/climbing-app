@@ -1,7 +1,7 @@
 import 'package:climbing/models/gyms_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/gym.dart';
 import 'package:climbing/models/my_location.dart';
 import 'package:climbing/generated/l10n.dart';
 

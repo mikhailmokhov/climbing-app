@@ -1,4 +1,4 @@
-import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/gym.dart';
 import 'package:climbing/models/my_location.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';

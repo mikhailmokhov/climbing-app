@@ -1,4 +1,4 @@
-import 'gym_class.dart';
+import 'gym.dart';
 
 class GymsResponse {
   List<Gym> businesses = [];

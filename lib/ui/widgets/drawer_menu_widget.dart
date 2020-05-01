@@ -1,6 +1,6 @@
-import 'package:climbing/models/sign_in_provider_enum.dart';
+import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
-import 'package:climbing/models/grade_scale_class.dart';
+import 'package:climbing/models/grade_scale.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +14,7 @@ class DrawerMenu extends StatefulWidget {
   final Function(SignInProvider, BuildContext context) signIn;
   final Function register;
   final Function openSettings;
-  final List<SignInProvider> signInProviderList;
-  final ApiService api;
+  final Set<SignInProvider> signInProviderSet;
   final Future<bool> canVibrate;
   final void Function(User) updateUserCallback;
 
@@ -25,8 +24,7 @@ class DrawerMenu extends StatefulWidget {
     @required this.signIn,
     @required this.register,
     @required this.openSettings,
-    @required this.signInProviderList,
-    @required this.api,
+    @required this.signInProviderSet,
     @required this.canVibrate,
     @required this.updateUserCallback,
     Key key,
@@ -47,8 +45,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
       user: widget.user,
       onSignOutTap: widget.signOut,
       signIn: widget.signIn,
-      signInProviderList: this.widget.signInProviderList,
-      api: widget.api,
+      signInProviderSet: this.widget.signInProviderSet,
       canVibrate: widget.canVibrate,
       updateUserCallback: this.widget.updateUserCallback,
     ));

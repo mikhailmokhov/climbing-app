@@ -1,5 +1,5 @@
-import 'package:climbing/models/gym_class.dart';
-import 'package:climbing/widgets/gyms/rating_bar_yelp.dart';
+import 'package:climbing/models/gym.dart';
+import 'package:climbing/ui/widgets/gyms/rating_bar_yelp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
