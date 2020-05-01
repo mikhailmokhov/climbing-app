@@ -1,7 +1,7 @@
 import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
-import 'package:climbing/classes/grade_scale_class.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/grade_scale_class.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';

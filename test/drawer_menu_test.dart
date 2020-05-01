@@ -2,7 +2,7 @@
 //import 'package:climbing/widgets/drawer_menu_widget.dart';
 //import 'package:flutter/material.dart';
 //import 'package:flutter_test/flutter_test.dart';
-//import 'package:climbing/generated/i18n.dart';
+//import 'package:climbing/generated/i18n_old.dart';
 //
 //void main() {
 //  const String UUID = 'IBUUYU65viu*&kjlhbuKJHG';

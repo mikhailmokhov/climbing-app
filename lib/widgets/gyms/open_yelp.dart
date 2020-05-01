@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 //import 'package:flutter_appavailability/flutter_appavailability.dart';
@@ -6,8 +5,10 @@ import 'package:url_launcher/url_launcher.dart';
 class OpenYelp extends StatelessWidget {
   final String url;
   final double opacity;
+  final double width;
 
-  OpenYelp(this.url, this.opacity, {Key key}) : super(key: key);
+  OpenYelp({@required this.url, @required this.opacity, @required this.width, Key key, })
+      : super(key: key);
 
   _launchURL() async {
     //TODO add code for handling launching Yelp app
@@ -21,11 +22,11 @@ class OpenYelp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       child: InkWell(
         onTap: _launchURL,
-        child: Image.asset("res/yelp/logo_default@2x.png",
-            width: 44,
+        child: Image.asset("assets/yelp/logo_default@2x.png",
+            width: this.width,
             color: Color.fromRGBO(255, 255, 255, opacity),
             colorBlendMode: BlendMode.modulate),
       ),

@@ -1,4 +1,4 @@
-import 'package:climbing/classes/my_location.dart';
+import 'package:climbing/models/my_location.dart';
 import 'package:test/test.dart';
 
 void main() {

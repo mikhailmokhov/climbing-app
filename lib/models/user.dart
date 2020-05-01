@@ -1,6 +1,6 @@
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/classes/authority.dart';
-import 'package:climbing/classes/role.dart';
+import 'package:climbing/models/authority.dart';
+import 'package:climbing/enums/role.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ///

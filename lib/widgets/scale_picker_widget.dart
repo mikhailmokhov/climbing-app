@@ -1,4 +1,4 @@
-import 'package:climbing/classes/grade_scale_class.dart';
+import 'package:climbing/models/grade_scale_class.dart';
 import 'package:flutter/material.dart';
 import 'package:climbing/generated/l10n.dart';
 

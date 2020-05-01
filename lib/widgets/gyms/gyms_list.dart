@@ -1,8 +1,8 @@
-import 'package:climbing/classes/gyms_response.dart';
+import 'package:climbing/models/gyms_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:climbing/classes/gym_class.dart';
-import 'package:climbing/classes/my_location.dart';
+import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/my_location.dart';
 import 'package:climbing/generated/l10n.dart';
 
 import 'gyms_list_add_to_yelp.dart';
@@ -94,7 +94,7 @@ class _GymsListState extends State<GymsList> {
                     trailing: new ClipRRect(
                       borderRadius: new BorderRadius.circular(2.0),
                       child: FadeInImage.assetNetwork(
-                          placeholder: 'images/gym-placeholder.jpg',
+                          placeholder: 'assets/images/gym-placeholder.jpg',
                           image: gym.getImageUrl() != null
                               ? gym.getImageUrl()
                               : 'https://birkeland.uib.no/wp-content/themes/bcss/images/no.png',

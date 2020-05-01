@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:climbing/classes/gyms_response.dart';
+import 'package:climbing/models/gyms_response.dart';
 
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/widgets/gyms/gyms_list_empty_response.dart';
 import 'package:climbing/widgets/gyms/gyms_map.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:climbing/classes/gym_class.dart';
-import 'package:climbing/classes/my_location.dart';
+import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/my_location.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/widgets/drawer_menu_widget.dart';
 import 'package:geolocator/geolocator.dart';

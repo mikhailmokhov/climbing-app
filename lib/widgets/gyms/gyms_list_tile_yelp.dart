@@ -1,4 +1,4 @@
-import 'package:climbing/classes/gym_class.dart';
+import 'package:climbing/models/gym_class.dart';
 import 'package:climbing/widgets/gyms/rating_bar_yelp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class GymsListTileYelp extends StatelessWidget {
             leading: new ClipRRect(
               borderRadius: new BorderRadius.circular(2.0),
               child: FadeInImage.assetNetwork(
-                  placeholder: 'images/gym-placeholder.jpg',
+                  placeholder: 'assets/images/gym-placeholder.jpg',
                   image: gym.getImageUrl() != null
                       ? gym.getImageUrl()
                       //TODO replace image by an asset

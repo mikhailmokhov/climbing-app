@@ -1,13 +1,14 @@
-import 'package:climbing/classes/grade_scale_class.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/grade_scale_class.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/services/api_service.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:climbing/classes/climbing_route_class.dart';
-import 'package:climbing/classes/gym_class.dart';
+import 'package:climbing/models/climbing_route_class.dart';
+import 'package:climbing/models/gym_class.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'gyms/open_yelp.dart';
 import 'my_flexible_space_bar.dart';
 
 class GymWidget extends StatefulWidget {
@@ -218,6 +219,20 @@ class _GymWidgetState extends State<GymWidget> {
               collapseMode: CollapseMode.parallax,
             ),
           ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Row(
+                children: [
+                  Text("Test1"),
+                  Text("Test2"),
+                  OpenYelp(
+                    url: this.widget.gym.yelpUrl,
+                    opacity: 1, width: 70,
+                  )
+                ],
+              )
+            ]),
+          ),
           SliverPadding(
             padding: const EdgeInsets.only(top: 2.0),
             sliver: SliverGrid.count(
@@ -225,7 +240,7 @@ class _GymWidgetState extends State<GymWidget> {
               mainAxisSpacing: 2.0,
               crossAxisSpacing: 2.0,
               childAspectRatio: 0.666,
-              children: gridTiles,
+              children: [],
             ),
           ),
         ],

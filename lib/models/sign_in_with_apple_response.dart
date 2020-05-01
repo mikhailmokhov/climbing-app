@@ -1,4 +1,4 @@
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/user.dart';
 
 class SignInWithAppleResponse {
   User user;

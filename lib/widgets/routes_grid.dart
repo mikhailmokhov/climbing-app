@@ -1,5 +1,5 @@
-import 'package:climbing/classes/gym_class.dart';
-import 'package:climbing/classes/climbing_route_class.dart';
+import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/climbing_route_class.dart';
 import 'package:flutter/material.dart';
 
 class RoutesGrid extends StatefulWidget {
@@ -94,10 +94,10 @@ class RouteGridItem extends StatelessWidget {
         showPhoto(context);
       },
       child: Hero(
-        key: Key('images/powered_by_google_on_white2x.png'),
+        key: Key('assets/images/powered_by_google_on_white2x.png'),
         tag: 'Some tag',
         child: Image.asset(
-          'images/powered_by_google_on_white2x.png',
+          'assets/images/powered_by_google_on_white2x.png',
           fit: BoxFit.cover,
         ),
       ),

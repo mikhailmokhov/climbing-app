@@ -1,5 +1,5 @@
 
-import 'package:climbing/classes/role.dart';
+import 'package:climbing/enums/role.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
 class Authority {

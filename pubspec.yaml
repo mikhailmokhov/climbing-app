@@ -58,10 +58,17 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.5
+
   flutter_test:
     sdk: flutter
 
   test: ^1.5.1
+
+flutter_icons:
+  android: false
+  ios: true
+  image_path: "assets/images/icon-foreground-432x432.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -77,30 +84,30 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/gym-placeholder.jpg
-    - images/honnold.png
-    - images/powered_by_google_on_white2x.png
-    - res/yelp/regular_0@2x.png
-    - res/yelp/regular_1@2x.png
-    - res/yelp/regular_1_half@2x.png
-    - res/yelp/regular_2@2x.png
-    - res/yelp/regular_2_half@2x.png
-    - res/yelp/regular_3@2x.png
-    - res/yelp/regular_3_half@2x.png
-    - res/yelp/regular_4@2x.png
-    - res/yelp/regular_4_half@2x.png
-    - res/yelp/regular_5@2x.png
-    - res/yelp/logo_default@2x.png
+    - assets/images/gym-placeholder.jpg
+    - assets/images/honnold.png
+    - assets/images/powered_by_google_on_white2x.png
+    - assets/yelp/regular_0@2x.png
+    - assets/yelp/regular_1@2x.png
+    - assets/yelp/regular_1_half@2x.png
+    - assets/yelp/regular_2@2x.png
+    - assets/yelp/regular_2_half@2x.png
+    - assets/yelp/regular_3@2x.png
+    - assets/yelp/regular_3_half@2x.png
+    - assets/yelp/regular_4@2x.png
+    - assets/yelp/regular_4_half@2x.png
+    - assets/yelp/regular_5@2x.png
+    - assets/yelp/logo_default@2x.png
 
   fonts:
     - family: RobotoGoogle
       fonts:
-        - asset: res/fonts/Roboto-Medium.ttf
+        - asset: assets/fonts/Roboto-Medium.ttf
           weight: 500
 
     - family: LatoGoogle
       fonts:
-          - asset: res/fonts/Lato-Regular.ttf
+          - asset: assets/fonts/Lato-Regular.ttf
             weight: 500
 
 

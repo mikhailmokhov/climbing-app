@@ -1,5 +1,5 @@
-import 'package:climbing/classes/my_location.dart';
-import 'package:climbing/classes/places_api.dart';
+import 'package:climbing/models/my_location.dart';
+import 'package:climbing/models/places_api.dart';
 
 import 'climbing_route_class.dart';
 

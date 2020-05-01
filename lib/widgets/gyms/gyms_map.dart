@@ -1,6 +1,6 @@
-import 'package:climbing/classes/gym_class.dart';
-import 'package:climbing/classes/my_location.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/my_location.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

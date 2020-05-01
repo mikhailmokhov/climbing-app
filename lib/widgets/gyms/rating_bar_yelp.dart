@@ -7,16 +7,16 @@ class YelpRatingBar extends StatelessWidget {
   final String assetName;
 
   static final Map<double, String> assets = {
-    0: "res/yelp/regular_0@2x.png",
-    1: "res/yelp/regular_1@2x.png",
-    1.5: "res/yelp/regular_1_half@2x.png",
-    2: "res/yelp/regular_2@2x.png",
-    2.5: "res/yelp/regular_2_half@2x.png",
-    3: "res/yelp/regular_3@2x.png",
-    3.5: "res/yelp/regular_3_half@2x.png",
-    4: "res/yelp/regular_4@2x.png",
-    4.5: "res/yelp/regular_4_half@2x.png",
-    5: "res/yelp/regular_5@2x.png"
+    0: "assets/yelp/regular_0@2x.png",
+    1: "assets/yelp/regular_1@2x.png",
+    1.5: "assets/yelp/regular_1_half@2x.png",
+    2: "assets/yelp/regular_2@2x.png",
+    2.5: "assets/yelp/regular_2_half@2x.png",
+    3: "assets/yelp/regular_3@2x.png",
+    3.5: "assets/yelp/regular_3_half@2x.png",
+    4: "assets/yelp/regular_4@2x.png",
+    4.5: "assets/yelp/regular_4_half@2x.png",
+    5: "assets/yelp/regular_5@2x.png"
   };
 
   YelpRatingBar(double rating, int reviewCount, {Key key})

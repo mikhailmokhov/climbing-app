@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/models/sign_in_provider_enum.dart';
 import 'package:climbing/widgets/gyms/gyms_view.dart';

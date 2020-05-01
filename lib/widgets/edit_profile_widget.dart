@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:climbing/services/api_service.dart';
 import 'package:climbing/models/request_photo_upload_url_response.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/utils/ErrorUtils.dart';
 import 'package:flushbar/flushbar.dart';

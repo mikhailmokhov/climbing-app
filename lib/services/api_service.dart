@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/classes/gym_class.dart';
-import 'package:climbing/classes/gyms_response.dart';
-import 'package:climbing/classes/my_location.dart';
-import 'package:climbing/classes/user.dart';
+import 'package:climbing/models/gym_class.dart';
+import 'package:climbing/models/gyms_response.dart';
+import 'package:climbing/models/my_location.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/models/request_photo_upload_url_response.dart';
 import 'package:climbing/models/sign_in_with_apple_response.dart';
 import 'package:climbing/sign_in/apple/apple_id_credential_converter.dart';
@@ -24,7 +24,7 @@ class ApiService {
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
         ? "https://api.routesetter.app"
-        : "http://localhost:8080"
+        : "https://api.routesetter.app" //"http://localhost:8080"
     ..options.connectTimeout = 60000
     ..options.receiveTimeout = 60000
     ..interceptors.add(PrettyDioLogger(
