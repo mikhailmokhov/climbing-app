@@ -15,6 +15,7 @@ import 'package:path/path.dart' as path;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:vibrate/vibrate.dart';
 
 class EditAccount extends StatefulWidget {
   final User user;
@@ -41,6 +42,7 @@ class EditAccountState extends State<EditAccount> {
   Timer _timer;
   String _nicknameError = '';
   String _fullNameError = '';
+  bool _canVibrate;
 
   String _fullNameValidator(String fullName) {
     if (_fullNameError.length > 0) {
@@ -90,8 +92,6 @@ class EditAccountState extends State<EditAccount> {
     if (nicknameChanged) await validateNicknameAsync(nickname);
 
     if (_formKey.currentState.validate()) {
-      print("Validated");
-
       // Check if any data is changed at all
       if (_imageChanged || fullNameChanged || nicknameChanged) {
         // dismiss keyboard during async call
@@ -157,6 +157,7 @@ class EditAccountState extends State<EditAccount> {
   @override
   initState() {
     super.initState();
+    Vibrate.canVibrate.then((value) => _canVibrate = value);
     fullNameController.text = widget.user.name;
     nicknameController.text = widget.user.nickname;
   }
@@ -209,6 +210,7 @@ class EditAccountState extends State<EditAccount> {
   }
 
   void editPhoto(BuildContext context) {
+    if (_canVibrate) Vibrate.feedback(FeedbackType.light);
     showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
