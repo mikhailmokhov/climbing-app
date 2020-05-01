@@ -212,7 +212,7 @@ class EditAccountState extends State<EditAccount> {
   }
 
   void editPhoto(BuildContext context) {
-    if (_canVibrate) Vibrate.feedback(FeedbackType.light);
+    if (_canVibrate) Vibrate.feedback(FeedbackType.selection);
     showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
