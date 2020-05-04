@@ -1,4 +1,5 @@
 import 'package:climbing/models/gyms_response.dart';
+import 'package:climbing/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:climbing/models/gym.dart';
@@ -19,9 +20,10 @@ class GymsList extends StatefulWidget {
   final Coordinates coordinates;
   final GymsProvider provider;
   final GymListViewMode gymListViewMode;
+  final User user;
 
   GymsList(this.refreshList, this.gymOnTap, this.refreshIndicatorKey, this.gyms,
-      this.coordinates, this.provider, this.gymListViewMode,
+      this.coordinates, this.provider, this.gymListViewMode, this.user,
       {Key key})
       : super(key: key);
 
@@ -83,7 +85,7 @@ class _GymsListState extends State<GymsList> {
         final Gym gym = visibleWidgets[index > 0 ? index - 1 : index];
 
         return widget.provider == GymsProvider.YELP
-            ? GymsListTileYelp(widget.gymOnTap, gym)
+            ? GymsListTileYelp(widget.gymOnTap, gym, widget.user)
             : Container(
                 child: ListTile(
                     dense: false,

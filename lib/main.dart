@@ -31,12 +31,11 @@ class _MyAppState extends State<MyApp> {
   bool _inAsyncCall = false;
   User user;
 
-  void updateUserCallback(User updatedUser) {
+  void updateUserCallback() {
     FlutterSecureStorage()
         .write(key: STORAGE_KEY_USER, value: json.encode(this.user.toJson()));
-    setState(() {
-      this.user = updatedUser;
-    });
+    print("User updated");
+    setState(() { });
   }
 
   signIn(SignInProvider signInProvider) async {

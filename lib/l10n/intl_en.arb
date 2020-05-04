@@ -69,5 +69,6 @@
   "unhideBusinessQuestion": "Are you sure you want to unhide this business?",
   "allGyms": "All Gyms",
   "hiddenGyms": "Hidden Gyms",
-  "editPhoto": "Edit Photo"
+  "editPhoto": "Edit Photo",
+  "openYelpPage": "Open Yelp page"
 }

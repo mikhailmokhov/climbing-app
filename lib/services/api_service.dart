@@ -20,11 +20,12 @@ import 'package:enum_to_string/enum_to_string.dart';
 
 class ApiService {
   static String token;
+  static const PATH = "/api/v1";
 
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
-        ? "https://api.routesetter.app"
-        : "https://api.routesetter.app" //"http://localhost:8080"
+        ? "https://api.routesetter.app" + PATH
+        : "http://localhost:8080" + PATH
     ..options.connectTimeout = 60000
     ..options.receiveTimeout = 60000
     ..interceptors.add(PrettyDioLogger(
@@ -47,7 +48,7 @@ class ApiService {
     Response response = await _dio.post("/user/login/apple",
         data: AppleIdCredentialConverter.toMap(appleIdCredential));
     SignInWithAppleResponse responseObject =
-        SignInWithAppleResponse.fromJson(response.data);
+    SignInWithAppleResponse.fromJson(response.data);
     return responseObject;
   }
 
@@ -57,7 +58,7 @@ class ApiService {
 
   static Future<GymsResponse> getGyms(Coordinates coordinates) async {
     final Response response =
-        await _dio.get("/gyms", queryParameters: coordinates.toMap());
+    await _dio.get("/gyms", queryParameters: coordinates.toMap());
     return GymsResponse.fromResponse(response.data);
   }
 
@@ -68,6 +69,20 @@ class ApiService {
   static Future<User> getUser() async {
     Response response = await _dio.get("/user", options: generateOptions());
     return new User.fromJson(response.data);
+  }
+
+  static Future<String> addHomeGym(GymsProvider provider, String id) async {
+    Response response =  await _dio.post("/user/gyms",
+        queryParameters: {"provider": EnumToString.parse(provider), "id": id},
+        options: generateOptions());
+    return response.data;
+  }
+
+  static Future<void> removeHomeGym(String gymId) async {
+    Response response =  await _dio.delete("/user/gyms",
+        queryParameters: {"gymId": gymId},
+        options: generateOptions());
+    return response.data;
   }
 
   static Future<RequestPhotoUploadUrlResponse> requestUploadPhotoUrl(
@@ -109,12 +124,6 @@ class ApiService {
     return response.data;
   }
 
-  static Future<void> addHomeGym(Gym gym) async {
-    await _dio.post("/user/gyms",
-        queryParameters: {"gymId": gym.id}, options: generateOptions());
-    return;
-  }
-
   static Future<void> setVisibility(Gym gym, bool visibility) async {
     String idProvider;
     String id;
@@ -135,8 +144,8 @@ class ApiService {
         options: generateOptions());
   }
 
-  static Future<void> purgeYelpCacheForCoordinates(
-      double latitude, double longitude) async {
+  static Future<void> purgeYelpCacheForCoordinates(double latitude,
+      double longitude) async {
     await _dio.delete("/gyms/cache/yelp",
         queryParameters: {"latitude": latitude, "longitude": longitude},
         options: generateOptions());

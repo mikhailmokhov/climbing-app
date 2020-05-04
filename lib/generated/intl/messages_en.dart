@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noGymsFound" : MessageLookupByLibrary.simpleMessage("No climbing gyms found nearby"),
     "noInternetConnection" : MessageLookupByLibrary.simpleMessage("No Internet Connection"),
     "openSettings" : MessageLookupByLibrary.simpleMessage("OPEN SETTINGS"),
+    "openYelpPage" : MessageLookupByLibrary.simpleMessage("Open Yelp page"),
     "purgeAllCache" : MessageLookupByLibrary.simpleMessage("Purge all Yelp cache"),
     "purgeCurrentCoordinatesCache" : MessageLookupByLibrary.simpleMessage("Purge current coordinates Yelp cache"),
     "refresh" : MessageLookupByLibrary.simpleMessage("Refresh"),

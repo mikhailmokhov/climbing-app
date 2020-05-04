@@ -665,6 +665,15 @@ class S {
       args: [],
     );
   }
+
+  String get openYelpPage {
+    return Intl.message(
+      'Open Yelp page',
+      name: 'openYelpPage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

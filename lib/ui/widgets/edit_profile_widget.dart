@@ -19,7 +19,7 @@ import 'package:vibrate/vibrate.dart';
 
 class EditAccount extends StatefulWidget {
   final User user;
-  final void Function(User) updateUserCallback;
+  final void Function() updateUserCallback;
 
   const EditAccount(
       {Key key, @required this.user, @required this.updateUserCallback})
@@ -142,7 +142,7 @@ class EditAccountState extends State<EditAccount> {
         _inAsyncCall = false;
 
         // Pass updated use to parent widgets
-        widget.updateUserCallback(this.widget.user);
+        widget.updateUserCallback();
       }
       // Close dialog
       if (_widgetIsActive) Navigator.pop(context);
@@ -172,15 +172,7 @@ class EditAccountState extends State<EditAccount> {
 
   void handleError(dynamic e) {
     _inAsyncCall = true;
-    _flushbar?.dismiss();
-    _flushbar = Flushbar(
-      message: ErrorUtils.toMessage(e),
-      backgroundColor: Colors.deepOrange,
-      flushbarStyle: FlushbarStyle.GROUNDED,
-      flushbarPosition: FlushbarPosition.BOTTOM,
-      isDismissible: true,
-      dismissDirection: FlushbarDismissDirection.VERTICAL,
-    )..show(_buildContext);
+    ErrorUtils.showError(_flushbar, e, _buildContext);
   }
 
   Future getImage(ImageSource source) async {

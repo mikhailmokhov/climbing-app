@@ -8,7 +8,7 @@ import 'climbing_route.dart';
 ///
 /// Describes properties and serialization methods of gym instance
 class Gym {
-  final String id;
+  String id;
   final String name;
   final String city;
   List<ClimbingRoute> routes;
@@ -25,6 +25,7 @@ class Gym {
   final int ratingsCount;
   final Coordinates coordinates;
   final bool hidden;
+  bool homeGym;
 
   /// Google specific method
   static String _getCityFromVicinity(String vicinity) {
@@ -37,7 +38,7 @@ class Gym {
   }
 
   Gym.fromYelpMap(Map<String, dynamic> json)
-      : id = '',
+      : id = json['internalGymId'],
         googleId = '',
         yelpRating = json['yelpRating'],
         yelpReviewCount = json['yelpReviewCount'],
@@ -65,6 +66,7 @@ class Gym {
         name = json['name'],
         hidden = json['hidden'],
         yelpImageUrl = null,
+        homeGym = json['homeGym'],
         coordinates = Coordinates(json['geometry']['location']['lat'],
             json['geometry']['location']['lng']),
         this.city = json.containsKey('city')
@@ -108,7 +110,8 @@ class Gym {
       'hidden': hidden,
       'lng': coordinates.longitude,
       'lat': coordinates.latitude,
-      'google_photos': googlePhotosMap
+      'google_photos': googlePhotosMap,
+      'homeGym': homeGym
     };
   }
 }

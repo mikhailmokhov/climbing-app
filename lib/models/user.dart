@@ -15,6 +15,7 @@ class User {
   String photoUrl = '';
   String appleIdCredentialUser;
   List<UserAuthority> authorities = List<UserAuthority>();
+  List<String> homeGymIds= List<String>();
 
   User(
       {this.googleId,
@@ -55,6 +56,9 @@ class User {
     if (json['authorities'] is List)
       for (final authority in json['authorities'])
         this.authorities.add(UserAuthority.fromJson(authority));
+    if (json['homeGymIds'] is List)
+      for (final homeGymId in json['homeGymIds'])
+        this.homeGymIds.add(homeGymId);
   }
 
   Map<String, dynamic> toJson() {
@@ -70,7 +74,8 @@ class User {
       'pictureId': this.pictureId,
       'photoUrl': this.photoUrl,
       'appleIdCredentialUser': this.appleIdCredentialUser,
-      'authorities': authoritiesMap
+      'authorities': authoritiesMap,
+      'homeGymIds': homeGymIds
     };
   }
 

@@ -14,7 +14,7 @@ class AccountDrawerHeader extends StatefulWidget {
   final Function(SignInProvider) signIn;
   final Set<SignInProvider> signInProviderSet;
   final Function onSignOutTap;
-  final void Function(User) updateUserCallback;
+  final void Function() updateUserCallback;
   final User user;
 
   AccountDrawerHeader({

@@ -1,13 +1,14 @@
+import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OpenYelpButton extends StatelessWidget {
   final String url;
-  final double opacity;
-  final double width;
 
-  OpenYelpButton({@required this.url, @required this.opacity, @required this.width, Key key, })
-      : super(key: key);
+  OpenYelpButton({
+    @required this.url,
+    Key key,
+  }) : super(key: key);
 
   _launchURL() async {
     //TODO add code for handling launching Yelp app
@@ -21,13 +22,26 @@ class OpenYelpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        onTap: _launchURL,
-        child: Image.asset("assets/yelp/logo_default@2x.png",
-            width: this.width,
-            color: Color.fromRGBO(255, 255, 255, opacity),
-            colorBlendMode: BlendMode.modulate),
+    return             Container(
+      child: Tooltip(
+        message: S.of(context).openYelpPage,
+        child: SizedBox(
+          width: 62,
+          child: OutlineButton(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3.0)),
+              onPressed: _launchURL,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    "assets/yelp/logo_default@2x.png",
+                    height: 21,
+                  ),
+                ],
+              )),
+        ),
       ),
     );
   }

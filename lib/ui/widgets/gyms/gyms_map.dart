@@ -13,8 +13,9 @@ class GymsMap extends StatefulWidget {
   final Function setCoordinates;
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
   final User user;
+  final void Function() updateUserCallback;
 
-  GymsMap(this.coordinates, this.gyms, this.setCoordinates, this.refreshIndicatorKey, this.user, {Key key})
+  GymsMap(this.coordinates, this.gyms, this.setCoordinates, this.refreshIndicatorKey, this.user, this.updateUserCallback, {Key key})
       : super(key: key);
 
   @override
@@ -37,7 +38,7 @@ class _GymsMapState extends State<GymsMap> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user)),
+                MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user, widget.updateUserCallback)),
               );
             },
             title: gym.name,

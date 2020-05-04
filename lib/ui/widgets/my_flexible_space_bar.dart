@@ -207,6 +207,16 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
             namesRoute: true,
             child: widget.title,
           );
+          break;
+        case TargetPlatform.linux:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.macOS:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.windows:
+          // TODO: Handle this case.
+          break;
       }
 
       final ThemeData theme = Theme.of(context);
@@ -215,7 +225,6 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
         TextStyle titleStyle = theme.primaryTextTheme.headline6;
         titleStyle = titleStyle.copyWith(
             color: titleStyle.color.withOpacity(opacity),
-
         );
         final bool effectiveCenterTitle = _getEffectiveCenterTitle(theme);
         final EdgeInsetsGeometry padding = widget.titlePadding ??

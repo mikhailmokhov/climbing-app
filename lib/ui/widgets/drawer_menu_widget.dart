@@ -5,14 +5,14 @@ import 'package:climbing/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
-import 'profile_drawer_header_widget.dart';
+import 'account_drawer_header_widget.dart';
 
 class DrawerMenu extends StatefulWidget {
   final User user;
   final Function signOut;
   final Function(SignInProvider) signIn;
   final Set<SignInProvider> signInProviderSet;
-  final void Function(User) updateUserCallback;
+  final void Function() updateUserCallback;
 
   const DrawerMenu({
     @required this.user,

@@ -32,7 +32,7 @@ class GymsView extends StatefulWidget {
   final Function(SignInProvider) signIn;
   final Function signOut, editAccount;
   final Set<SignInProvider> signInProviderSet;
-  final void Function(User) updateUserCallback;
+  final void Function() updateUserCallback;
 
   GymsView({
     @required this.user,
@@ -71,10 +71,14 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   Flushbar flushbar;
   bool pendingRequest = false;
 
+  void _updateUsersHomeGymsCallback(){
+    setState(() { });
+  }
+
   gymOnTap(Gym gym, BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user)),
+      MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user, _updateUsersHomeGymsCallback)),
     );
   }
 
@@ -234,11 +238,11 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
         mainViewWidget = EmptyResponse();
       } else {
         mainViewWidget = GymsList(onRefresh, gymOnTap, _refreshIndicatorKey, gyms,
-            coordinates, provider, gymListViewMode);
+            coordinates, provider, gymListViewMode, widget.user);
       }
     } else {
       mainViewWidget = GymsMap(coordinates, gyms, setCoordinates,
-          _refreshIndicatorKey, this.widget.user);
+          _refreshIndicatorKey, this.widget.user, this.widget.updateUserCallback);
     }
 
     List<Widget> actions = <Widget>[

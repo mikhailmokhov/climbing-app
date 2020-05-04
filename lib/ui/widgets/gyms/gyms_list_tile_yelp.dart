@@ -1,4 +1,5 @@
 import 'package:climbing/models/gym.dart';
+import 'package:climbing/models/user.dart';
 import 'package:climbing/ui/widgets/gyms/rating_bar_yelp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,10 @@ import 'package:flutter/material.dart';
 class GymsListTileYelp extends StatelessWidget {
   final Function(Gym gym, BuildContext context) onTap;
   final Gym gym;
+  final User user;
 
-  const GymsListTileYelp(this.onTap, this.gym, {Key key}) : super(key: key);
+  const GymsListTileYelp(this.onTap, this.gym, this.user, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,8 @@ class GymsListTileYelp extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +48,16 @@ class GymsListTileYelp extends StatelessWidget {
                       Row(
                         children: <Widget>[Text(gym.city)],
                       ),
-                    ])
+                    ]),
+                Expanded(
+                  child: user!=null && user.homeGymIds != null && gym.id!=null &&
+                          user.homeGymIds.contains(gym.id)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [Icon(Icons.home, color: Colors.amber,)],
+                        )
+                      : Text(""),
+                )
               ],
             )));
   }
