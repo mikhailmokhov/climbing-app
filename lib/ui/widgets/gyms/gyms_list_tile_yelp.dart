@@ -39,22 +39,30 @@ class GymsListTileYelp extends StatelessWidget {
             ),
             subtitle: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       YelpRatingBar(gym.yelpRating, gym.yelpReviewCount),
-                      Row(
-                        children: <Widget>[Text(gym.city)],
-                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 4),
+                        child: Text(gym.city, style: TextStyle(fontSize: 13),),
+                      )
                     ]),
                 Expanded(
-                  child: user!=null && user.homeGymIds != null && gym.id!=null &&
+                  child: user != null &&
+                          user.homeGymIds != null &&
+                          gym.id != null &&
                           user.homeGymIds.contains(gym.id)
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: [Icon(Icons.home, color: Colors.amber,)],
+                          children: [
+                            Icon(
+                              Icons.bookmark,
+                              color: Colors.redAccent,
+                            )
+                          ],
                         )
                       : Text(""),
                 )

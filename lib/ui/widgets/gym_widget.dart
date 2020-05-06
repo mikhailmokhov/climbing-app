@@ -1,14 +1,19 @@
+import 'dart:async';
+
+import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/models/gyms_response.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/services/api_service.dart';
-import 'package:climbing/ui/buttons/toggleable_icon_button.dart';
+import 'package:climbing/ui/buttons/bookmark_button.dart';
 import 'package:climbing/models/climbing_route.dart';
 import 'package:climbing/models/gym.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/utils/error_utils.dart';
+import 'package:climbing/utils/utils.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vibrate/vibrate.dart';
 import 'gym_title_yelp.dart';
 import 'my_flexible_space_bar.dart';
 
@@ -16,9 +21,13 @@ class GymWidget extends StatefulWidget {
   static const String routeName = '/gym';
   final Gym gym;
   final User user;
+  final Set<SignInProvider> signInProviderSet;
   final void Function() updateUserCallback;
+  final Future<bool> Function(SignInProvider) signIn;
 
-  const GymWidget(this.gym, this.user, this.updateUserCallback, {Key key})
+  const GymWidget(
+      this.gym, this.user, this.updateUserCallback, this.signIn, this.signInProviderSet,
+      {Key key})
       : super(key: key);
 
   @override
@@ -32,48 +41,88 @@ class _GymWidgetState extends State<GymWidget> {
   List<ClimbingRoute> routes = [];
   Flushbar _flushbar;
   BuildContext _buildContext;
+  bool _savingBookmarkInProgress = false;
+  bool _removingBookmarkInProgress = false;
+  bool _saveBookmarkAfterSignIn = false;
+  Timer _timer;
+  bool _canVibrate = false;
 
-  void handleError(dynamic e) {
-    ErrorUtils.showError(_flushbar, e, _buildContext);
+  _launchURL(String url) async {
+    //TODO add code for handling launching Yelp app
+    //yelp4:///search?terms=Coffee
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
-  void _saveAsHomeGym() async {
+  void handleError(dynamic e) {
+    Utils.showError(_flushbar, e, _buildContext);
+  }
+
+  void _triggerBookmark(bool selected) {
+    if (_timer != null) _timer.cancel();
+    _timer = Timer(Duration(milliseconds: 500), () {
+      if (selected && !widget.user.homeGymIds.contains(widget.gym.id)) {
+        _saveBookmark();
+      } else if (!selected && widget.user.homeGymIds.contains(widget.gym.id)) {
+        _removeBookmark();
+      }
+    });
+  }
+
+  void _saveBookmark() async {
     assert(widget.user != null);
     String gymId;
     try {
+      _savingBookmarkInProgress = true;
       if (widget.gym.id != null && widget.gym.id.isNotEmpty) {
-        gymId = await ApiService.addHomeGym(
+        gymId = await ApiService.saveBookmark(
             GymsProvider.INTERNAL, this.widget.gym.id);
       } else if (widget.gym.yelpId != null && widget.gym.yelpId.isNotEmpty) {
-        gymId = await ApiService.addHomeGym(
+        gymId = await ApiService.saveBookmark(
             GymsProvider.YELP, this.widget.gym.yelpId);
       } else if (widget.gym.googleId != null && widget.gym.googleId.isEmpty) {
-        gymId = await ApiService.addHomeGym(
+        gymId = await ApiService.saveBookmark(
             GymsProvider.GOOGLE, this.widget.gym.googleId);
       } else {
         throw Exception("Gym does not have any ids");
       }
+      _savingBookmarkInProgress = false;
       if (gymId == null || gymId.isEmpty) throw Exception("Gym id is invalid");
-      setState(() {
-        widget.gym.id = gymId;
-        if (!widget.user.homeGymIds.contains(gymId))
-          widget.user.homeGymIds.add(gymId);
-      });
+      if (!_timer.isActive &&
+          !_savingBookmarkInProgress &&
+          !_removingBookmarkInProgress) {
+        setState(() {
+          widget.gym.id = gymId;
+          if (!widget.user.homeGymIds.contains(gymId))
+            widget.user.homeGymIds.add(gymId);
+        });
+      }
       widget.updateUserCallback();
     } catch (e) {
+      _savingBookmarkInProgress = false;
       handleError(e);
     }
   }
 
-  void _removeHomeGym() async {
+  void _removeBookmark() async {
     assert(widget.user != null);
     try {
+      _removingBookmarkInProgress = true;
       await ApiService.removeHomeGym(widget.gym.id);
-      setState(() {
-        widget.user.homeGymIds.remove(widget.gym.id);
-      });
+      _removingBookmarkInProgress = false;
+      if (!_timer.isActive &&
+          !_savingBookmarkInProgress &&
+          !_removingBookmarkInProgress) {
+        setState(() {
+          widget.user.homeGymIds.remove(widget.gym.id);
+        });
+      }
       widget.updateUserCallback();
     } catch (e) {
+      _removingBookmarkInProgress = false;
       handleError(e);
     }
   }
@@ -81,6 +130,11 @@ class _GymWidgetState extends State<GymWidget> {
   @override
   initState() {
     super.initState();
+    Vibrate.canVibrate.then((value) => _canVibrate = value);
+    if(_saveBookmarkAfterSignIn) {
+      _saveBookmarkAfterSignIn = false;
+      _saveBookmark();
+    }
 //    RoutesProvider.getRoutes(this.widget.gym.googleId).then((result) {
 //      setState(() {
 //        routes = result;
@@ -225,7 +279,7 @@ class _GymWidgetState extends State<GymWidget> {
               centerTitle: true,
               title: SizedBox(
                   width: 250.0,
-                  child: AutoSizeText("",
+                  child: AutoSizeText(widget.gym.name,
                       textAlign: TextAlign.center,
                       style: new TextStyle(shadows: [
                         Shadow(
@@ -258,32 +312,73 @@ class _GymWidgetState extends State<GymWidget> {
                 ],
               ),
               collapseMode: CollapseMode.parallax,
+              onYelpLogoTap: (){
+                if (_canVibrate)
+                  Vibrate.feedback(FeedbackType.selection);
+                _launchURL(widget.gym.yelpUrl);
+              },
             ),
           ),
           SliverList(
             delegate: SliverChildListDelegate([
               Container(
-                padding: EdgeInsets.only(top: 10, left: 17, right: 17),
+                padding: EdgeInsets.only(top: 10, left: 17, right: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GymTitleYelp(widget.gym.name, widget.gym.yelpRating,
                         widget.gym.yelpReviewCount),
-                    widget.user != null
-                        ? ToggleableIconButton(
-                            tooltip: "Save as a home gym",
+                    widget.user == null
+                        ? BookmarkButton(
+                            tooltip: S.of(context).saveToBookmarks,
+                            onTap: () {
+                              showDialog<void>(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (BuildContext dialogContext) {
+                                  return AlertDialog(
+                                    title: Text(
+                                        "You need to be signed to manage bookmarks"),
+                                    actions: <Widget>[
+                                      RaisedButton(
+                                        child: Text("Sign in / Sign up"),
+                                        onPressed: () {
+                                          Navigator.pop(dialogContext);
+                                          Utils.showSignInDialog(context, widget.signInProviderSet, (SignInProvider signInProvider){
+                                            widget.signIn(signInProvider).then((bool signedIn){
+                                              _saveBookmarkAfterSignIn = true;
+                                            });
+                                          });
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          Navigator.pop(dialogContext);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            size: 35,
+                            feedbackVibration: true,
+                            icon: Icons.bookmark_border,
+                          )
+                        : BookmarkButton.toggleable(
+                            tooltip: S.of(context).saveToBookmarks,
                             selected: widget.user != null &&
                                 widget.user.homeGymIds != null &&
                                 widget.gym.id != null &&
                                 widget.user.homeGymIds.contains(widget.gym.id),
-                            onTap: (bool selected) {
-                              selected ? _saveAsHomeGym() : _removeHomeGym();
-                            },
+                            onChange: _triggerBookmark,
                             size: 35,
-                            icon: Icons.home,
+                            iconSelected: Icons.bookmark,
+                            iconUnselected: Icons.bookmark_border,
+                            feedbackVibration: true,
                           )
-                        : Text("")
                   ],
                 ),
               ),
@@ -309,8 +404,12 @@ class _GymWidgetState extends State<GymWidget> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text("ROUTE"),
+        icon: Icon(
+          Icons.add,
+        ),
+        backgroundColor: Colors.white,
         onPressed: () {
           //ImagePicker.pickImage(source: ImageSource.gallery).then((image){
 

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/ui/dialogs/sign_in_dialog.dart';
+import 'package:climbing/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
@@ -67,15 +67,8 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                 color: Theme.of(context).primaryIconTheme?.color),
             onPressed: () {
               if (_canVibrate) Vibrate.feedback(FeedbackType.light);
-              showDialog(
-                context: context,
-                builder: (BuildContext passedContext) => SignInDialog(
-                  signIn: (SignInProvider signInProvider) {
-                    this.widget.signIn(signInProvider);
-                  },
-                  signInProviderSet: this.widget.signInProviderSet,
-                ),
-              );
+              Utils.showSignInDialog(
+                  context, widget.signInProviderSet, this.widget.signIn);
             }),
       ));
     } else {

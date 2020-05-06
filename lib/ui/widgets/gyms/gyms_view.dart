@@ -29,20 +29,20 @@ enum ViewMode { list, map }
 class GymsView extends StatefulWidget {
   static const String routeName = '/gymslist';
   final User user;
-  final Function(SignInProvider) signIn;
+  final Future<bool> Function(SignInProvider) signIn;
   final Function signOut, editAccount;
   final Set<SignInProvider> signInProviderSet;
   final void Function() updateUserCallback;
 
-  GymsView({
-    @required this.user,
-    @required this.signOut,
-    @required this.signIn,
-    @required this.editAccount,
-    @required this.updateUserCallback,
-    @required this.signInProviderSet,
-    Key key
-  }) : super(key: key);
+  GymsView(
+      {@required this.user,
+      @required this.signOut,
+      @required this.signIn,
+      @required this.editAccount,
+      @required this.updateUserCallback,
+      @required this.signInProviderSet,
+      Key key})
+      : super(key: key);
 
   @override
   _GymsViewState createState() => _GymsViewState();
@@ -71,14 +71,16 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
   Flushbar flushbar;
   bool pendingRequest = false;
 
-  void _updateUsersHomeGymsCallback(){
-    setState(() { });
+  void _updateUsersHomeGymsCallback() {
+    setState(() {});
   }
 
   gymOnTap(Gym gym, BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user, _updateUsersHomeGymsCallback)),
+      MaterialPageRoute(
+          builder: (context) => GymWidget(gym, this.widget.user,
+              _updateUsersHomeGymsCallback, widget.signIn, widget.signInProviderSet)),
     );
   }
 
@@ -237,12 +239,19 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
       if (gyms?.length == 0 && provider != null) {
         mainViewWidget = EmptyResponse();
       } else {
-        mainViewWidget = GymsList(onRefresh, gymOnTap, _refreshIndicatorKey, gyms,
-            coordinates, provider, gymListViewMode, widget.user);
+        mainViewWidget = GymsList(onRefresh, gymOnTap, _refreshIndicatorKey,
+            gyms, coordinates, provider, gymListViewMode, widget.user);
       }
     } else {
-      mainViewWidget = GymsMap(coordinates, gyms, setCoordinates,
-          _refreshIndicatorKey, this.widget.user, this.widget.updateUserCallback);
+      mainViewWidget = GymsMap(
+          coordinates,
+          gyms,
+          setCoordinates,
+          _refreshIndicatorKey,
+          this.widget.user,
+          this.widget.updateUserCallback,
+          widget.signIn,
+          widget.signInProviderSet);
     }
 
     List<Widget> actions = <Widget>[
@@ -266,7 +275,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                       setState(() {
                         viewMode = ViewMode.map;
                       });
-                      if(_canVibrate) Vibrate.feedback(FeedbackType.selection);
+                      if (_canVibrate) Vibrate.feedback(FeedbackType.selection);
                     },
             )
           : IconButton(
@@ -276,7 +285,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
                 setState(() {
                   viewMode = ViewMode.list;
                 });
-                if(_canVibrate) Vibrate.feedback(FeedbackType.selection);
+                if (_canVibrate) Vibrate.feedback(FeedbackType.selection);
               },
             )
     ];
@@ -284,8 +293,7 @@ class _GymsViewState extends State<GymsView> with WidgetsBindingObserver {
     Widget titleWidget;
     if (this.widget.user != null && this.widget.user.isAdmin()) {
       // MORE ACTIONS POPUP MENU
-      actions.add(
-          PopupMenuButton<GymListPopupMenuItems>(
+      actions.add(PopupMenuButton<GymListPopupMenuItems>(
         onSelected: _popupMenuSelect,
         itemBuilder: (BuildContext context) =>
             <PopupMenuItem<GymListPopupMenuItems>>[

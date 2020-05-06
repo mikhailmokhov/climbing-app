@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "requestError" : MessageLookupByLibrary.simpleMessage("Request Error"),
     "reviews" : MessageLookupByLibrary.simpleMessage("Reviews"),
     "routes" : MessageLookupByLibrary.simpleMessage("Routes"),
+    "saveToBookmarks" : MessageLookupByLibrary.simpleMessage("Save to bookmarks"),
     "saving" : MessageLookupByLibrary.simpleMessage("Saving"),
     "searchThisArea" : MessageLookupByLibrary.simpleMessage("Search this area"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),

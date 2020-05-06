@@ -1,3 +1,4 @@
+import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/models/gym.dart';
 import 'package:climbing/models/my_location.dart';
 import 'package:climbing/models/user.dart';
@@ -14,8 +15,12 @@ class GymsMap extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
   final User user;
   final void Function() updateUserCallback;
+  final Future<bool> Function(SignInProvider) signIn;
+  final Set<SignInProvider> signInProviderSet;
 
-  GymsMap(this.coordinates, this.gyms, this.setCoordinates, this.refreshIndicatorKey, this.user, this.updateUserCallback, {Key key})
+  GymsMap(this.coordinates, this.gyms, this.setCoordinates,
+      this.refreshIndicatorKey, this.user, this.updateUserCallback, this.signIn, this.signInProviderSet,
+      {Key key})
       : super(key: key);
 
   @override
@@ -38,7 +43,13 @@ class _GymsMapState extends State<GymsMap> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GymWidget(gym, this.widget.user, widget.updateUserCallback)),
+                MaterialPageRoute(
+                    builder: (context) => GymWidget(
+                        gym,
+                        this.widget.user,
+                        widget.updateUserCallback,
+                        widget.signIn,
+                        widget.signInProviderSet)),
               );
             },
             title: gym.name,
@@ -106,12 +117,9 @@ class _GymsMapState extends State<GymsMap> {
   }
 }
 
-Coordinates _getCenterCoordinates(LatLngBounds latLngBounds){
+Coordinates _getCenterCoordinates(LatLngBounds latLngBounds) {
   return Coordinates(
-      (latLngBounds.southwest.latitude +
-          latLngBounds.northeast.latitude) /
-          2,
-      (latLngBounds.southwest.longitude +
-          latLngBounds.northeast.longitude) /
+      (latLngBounds.southwest.latitude + latLngBounds.northeast.latitude) / 2,
+      (latLngBounds.southwest.longitude + latLngBounds.northeast.longitude) /
           2);
 }

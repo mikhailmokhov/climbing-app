@@ -5,7 +5,7 @@ import 'package:climbing/models/request_photo_upload_url_response.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/utils/error_utils.dart';
+import 'package:climbing/utils/utils.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -172,7 +172,7 @@ class EditAccountState extends State<EditAccount> {
 
   void handleError(dynamic e) {
     _inAsyncCall = true;
-    ErrorUtils.showError(_flushbar, e, _buildContext);
+    Utils.showError(_flushbar, e, _buildContext);
   }
 
   Future getImage(ImageSource source) async {

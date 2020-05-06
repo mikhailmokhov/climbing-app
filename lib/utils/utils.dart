@@ -1,10 +1,25 @@
+import 'package:climbing/enums/sign_in_provider_enum.dart';
+import 'package:climbing/ui/dialogs/sign_in_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ErrorUtils {
+class Utils {
+
+  static void showSignInDialog(BuildContext context, Set<SignInProvider> signInProviderSet, void Function(SignInProvider) signIn){
+    showDialog(
+      context: context,
+      builder: (BuildContext passedContext) => SignInDialog(
+        signIn: (SignInProvider signInProvider) {
+          signIn(signInProvider);
+        },
+        signInProviderSet: signInProviderSet,
+      ),
+    );
+  }
+
   static String toMessage(dynamic e) {
     String errorText = "";
     if (e is Error || e is PlatformException) {
@@ -32,7 +47,7 @@ class ErrorUtils {
   static void showError(Flushbar flushbar, dynamic e, BuildContext context) {
     flushbar?.dismiss();
     flushbar = Flushbar(
-      message: ErrorUtils.toMessage(e),
+      message: Utils.toMessage(e),
       backgroundColor: Colors.deepOrange,
       flushbarStyle: FlushbarStyle.GROUNDED,
       flushbarPosition: FlushbarPosition.BOTTOM,

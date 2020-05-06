@@ -32,40 +32,67 @@ class _MyAppState extends State<MyApp> {
   User user;
 
   void updateUserCallback() {
-    FlutterSecureStorage()
+    const FlutterSecureStorage()
         .write(key: STORAGE_KEY_USER, value: json.encode(this.user.toJson()));
-    print("User updated");
-    setState(() { });
+    setState(() {
+      this.user = this.user;
+    });
   }
 
-  signIn(SignInProvider signInProvider) async {
+  Future<bool> signIn(SignInProvider signInProvider) async {
     switch (signInProvider) {
-    // APPLE SIGN IN
+      // APPLE SIGN IN
       case SignInProvider.Apple:
         final AuthorizationResult result = await AppleSignIn.performRequests([
-          AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+          const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
         ]);
         switch (result.status) {
           case AuthorizationStatus.authorized:
-            finishAppleSignIn(result.credential);
+            return finishAppleSignIn(result.credential);
             break;
           case AuthorizationStatus.error:
-          //TODO: handle authorization error
+            //TODO: handle authorization error
             break;
           case AuthorizationStatus.cancelled:
-          //TODO: handle case when user cancelled
+            //TODO: handle case when user cancelled
             break;
         }
         break;
-    // GOOGLE SIGN IN
+      // GOOGLE SIGN IN
       case SignInProvider.Google:
-      // TODO: Handle this case.
+        // TODO: Handle this case.
         break;
+    }
+    return false;
+  }
+
+  /// Return true if signed is, otherwise false
+  Future<bool> finishAppleSignIn(AppleIdCredential appleIdCredential) async {
+    // Start progress spinner
+    setState(() {
+      _inAsyncCall = true;
+    });
+    try {
+      SignInWithAppleResponse signInWithAppleResponse =
+      await ApiService.appleSignIn(appleIdCredential);
+      assert(signInWithAppleResponse != null &&
+          signInWithAppleResponse.user != null);
+      ApiService.token = signInWithAppleResponse.user.token;
+      const FlutterSecureStorage().write(
+          key: STORAGE_KEY_USER,
+          value: json.encode(signInWithAppleResponse.user.toJson()));
+      setState(() {
+        this.user = signInWithAppleResponse.user;
+        this._inAsyncCall = false;
+      });
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 
-  void signOut(){
-    FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
+  void signOut() {
+    const FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
     ApiService.logout();
     setState(() {
       user = null;
@@ -84,26 +111,6 @@ class _MyAppState extends State<MyApp> {
     });
     AppleSignIn.onCredentialRevoked.listen((_) {
       signOut();
-    });
-  }
-
-  finishAppleSignIn(AppleIdCredential appleIdCredential) {
-    // Start progress spinner
-    setState(() {
-      _inAsyncCall = true;
-    });
-    ApiService.appleSignIn(appleIdCredential)
-        .then((SignInWithAppleResponse signInWithAppleResponse) {
-      assert(signInWithAppleResponse != null &&
-          signInWithAppleResponse.user != null);
-      ApiService.token = signInWithAppleResponse.user.token;
-      FlutterSecureStorage().write(
-          key: STORAGE_KEY_USER,
-          value: json.encode(signInWithAppleResponse.user.toJson()));
-      setState(() {
-        this.user = signInWithAppleResponse.user;
-        this._inAsyncCall = false;
-      });
     });
   }
 

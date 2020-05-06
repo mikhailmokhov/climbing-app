@@ -70,5 +70,6 @@
   "allGyms": "All Gyms",
   "hiddenGyms": "Hidden Gyms",
   "editPhoto": "Edit Photo",
-  "openYelpPage": "Open Yelp page"
+  "openYelpPage": "Open Yelp page",
+  "saveToBookmarks": "Save to bookmarks"
 }

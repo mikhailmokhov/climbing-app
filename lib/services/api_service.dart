@@ -20,12 +20,12 @@ import 'package:enum_to_string/enum_to_string.dart';
 
 class ApiService {
   static String token;
-  static const PATH = "/api/v1";
+  static const ROOT_PATH = "/api/v1";
 
   static final Dio _dio = Dio()
     ..options.baseUrl = Foundation.kReleaseMode
-        ? "https://api.routesetter.app" + PATH
-        : "http://localhost:8080" + PATH
+        ? "https://api.routesetter.app" + ROOT_PATH
+        : "http://10.0.1.6:8080" + ROOT_PATH
     ..options.connectTimeout = 60000
     ..options.receiveTimeout = 60000
     ..interceptors.add(PrettyDioLogger(
@@ -71,7 +71,7 @@ class ApiService {
     return new User.fromJson(response.data);
   }
 
-  static Future<String> addHomeGym(GymsProvider provider, String id) async {
+  static Future<String> saveBookmark(GymsProvider provider, String id) async {
     Response response =  await _dio.post("/user/gyms",
         queryParameters: {"provider": EnumToString.parse(provider), "id": id},
         options: generateOptions());

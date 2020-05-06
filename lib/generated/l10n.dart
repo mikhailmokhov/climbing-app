@@ -674,6 +674,15 @@ class S {
       args: [],
     );
   }
+
+  String get saveToBookmarks {
+    return Intl.message(
+      'Save to bookmarks',
+      name: 'saveToBookmarks',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
