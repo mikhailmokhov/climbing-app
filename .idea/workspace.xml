@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7c9088a-bf9a-4b35-a9bc-ba41fa261723" name="Default Changelist" comment="Work in progress">
-      <change afterPath="$PROJECT_DIR$/lib/ui/buttons/bookmark_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/.last_build_id" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/.last_build_id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/intl/messages_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/intl/messages_en.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/l10n.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/l10n.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/intl_en.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/intl_en.arb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/api_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/toggleable_icon_button.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/account_drawer_header_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/account_drawer_header_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/edit_profile_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/edit_profile_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gym_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gym_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_tile_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_tile_yelp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_map.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/my_flexible_space_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/my_flexible_space_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/error_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.dart" afterDir="false" />
-    </list>
+    <list default="true" id="d7c9088a-bf9a-4b35-a9bc-ba41fa261723" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,7 +73,7 @@
       <workItem from="1588362046687" duration="15331000" />
       <workItem from="1588428093935" duration="41619000" />
       <workItem from="1588629754942" duration="19820000" />
-      <workItem from="1588708472302" duration="12041000" />
+      <workItem from="1588708472302" duration="12347000" />
     </task>
     <task id="LOCAL-00001" summary="Set up environment on macbook">
       <created>1588303477611</created>
@@ -170,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588562620403</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Work in progress">
+      <created>1588728478851</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1588728478851</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,10 +199,10 @@
       <screen x="0" y="23" width="1387" height="877" />
     </state>
     <state x="35" y="146" key="#xdebugger.evaluate/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588560070355" />
-    <state x="89" y="38" key="CommitChangelistDialog2" timestamp="1588638082274">
+    <state x="89" y="38" key="CommitChangelistDialog2" timestamp="1588728478617">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="89" y="38" key="CommitChangelistDialog2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588638082274" />
+    <state x="89" y="38" key="CommitChangelistDialog2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588728478617" />
     <state width="535" height="438" key="DebuggerActiveHint" timestamp="1588561590611">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
@@ -266,10 +255,10 @@
       <screen x="0" y="23" width="1387" height="877" />
     </state>
     <state x="82" y="62" width="1305" height="756" key="SettingsEditor/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588713057700" />
-    <state x="293" y="201" key="Vcs.Push.Dialog.v2" timestamp="1588562712035">
+    <state x="293" y="201" key="Vcs.Push.Dialog.v2" timestamp="1588728484891">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="293" y="201" key="Vcs.Push.Dialog.v2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588562712035" />
+    <state x="293" y="201" key="Vcs.Push.Dialog.v2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588728484891" />
     <state x="227" y="135" width="987" height="709" key="find.popup" timestamp="1588713161553">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
