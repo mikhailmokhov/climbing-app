@@ -246,7 +246,7 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
       }
 
       final ThemeData theme = Theme.of(context);
-      if (opacity<0.9) {
+      if (opacity<0.99) {
         TextStyle titleStyle = theme.primaryTextTheme.headline6;
         titleStyle = titleStyle.copyWith(
           color: titleStyle.color.withOpacity(1.0 - opacity),

@@ -338,8 +338,7 @@ class _GymWidgetState extends State<GymWidget> {
                                 barrierDismissible: true,
                                 builder: (BuildContext dialogContext) {
                                   return AlertDialog(
-                                    title: Text(
-                                        "You need to be signed to manage bookmarks"),
+                                    title: Text(S.of(context).youNeedToBeSignedIn),
                                     actions: <Widget>[
                                       RaisedButton(
                                         child: Text("Sign in / Sign up"),
@@ -405,9 +404,9 @@ class _GymWidgetState extends State<GymWidget> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label: Text("ROUTE"),
+        label: Text("POST ROUTE"),
         icon: Icon(
-          Icons.add,
+          Icons.photo_camera,
         ),
         backgroundColor: Colors.white,
         onPressed: () {

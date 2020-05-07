@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unhideBusinessQuestion" : MessageLookupByLibrary.simpleMessage("Are you sure you want to unhide this business?"),
     "usernameCanNotBeEmpty" : MessageLookupByLibrary.simpleMessage("Can\'t be empty"),
     "usernameCanNotContainSpaces" : MessageLookupByLibrary.simpleMessage("Can\'t contain spaces"),
-    "yosemite" : MessageLookupByLibrary.simpleMessage("Yosemite")
+    "yosemite" : MessageLookupByLibrary.simpleMessage("Yosemite"),
+    "youNeedToBeSignedIn" : MessageLookupByLibrary.simpleMessage("You need to be signed in")
   };
 }

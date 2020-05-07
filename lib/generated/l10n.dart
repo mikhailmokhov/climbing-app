@@ -683,6 +683,15 @@ class S {
       args: [],
     );
   }
+
+  String get youNeedToBeSignedIn {
+    return Intl.message(
+      'You need to be signed in',
+      name: 'youNeedToBeSignedIn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

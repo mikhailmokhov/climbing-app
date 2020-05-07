@@ -71,5 +71,6 @@
   "hiddenGyms": "Hidden Gyms",
   "editPhoto": "Edit Photo",
   "openYelpPage": "Open Yelp page",
-  "saveToBookmarks": "Save to bookmarks"
+  "saveToBookmarks": "Save to bookmarks",
+  "youNeedToBeSignedIn": "You need to be signed in"
 }
