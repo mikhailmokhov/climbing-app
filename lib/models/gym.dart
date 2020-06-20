@@ -1,117 +1,102 @@
-import 'package:climbing/models/my_location.dart';
-import 'package:climbing/models/google_places_api.dart';
-
-import 'climbing_route.dart';
-
-//TODO create YelpBusiness class
+import 'package:climbing/enums/gyms_provider.dart';
+import 'coordinates.dart';
+import 'gym_id.dart';
 
 ///
 /// Describes properties and serialization methods of gym instance
 class Gym {
-  String id;
-  final String name;
-  final String city;
-  List<ClimbingRoute> routes;
+  Gym(
+      // Common
+      this.id,
+      this._name,
+      this.city,
+      this.yelpId,
+      this.googleId,
+      this.visible,
+      this.distance,
+      this.coordinates,
 
-  /// Google specific fields
-  final String googleId;
+      // YELP specific fields
+      this._yelpName,
+      this.yelpImageUrl,
+      this.yelpUrl,
+      this.yelpRating,
+      this.yelpReviewCount,
+      this.yelpCoordinates,
+      this.yelpCity,
+      this.yelpDistance);
+
+  factory Gym.fromJson(Map<String, dynamic> json) {
+    return Gym(
+      json['id'] as String,
+      json['name'] as String,
+      json['city'] == null ? '' : json['city'] as String,
+      json['yelpId'] as String,
+      json['googleId'] as String,
+      json['visible'] as bool ?? true,
+      json['distance'] as double,
+      json['coordinates'] is Map<String, double>
+          ? Coordinates.fromJson(json['coordinates'] as Map<String, double>)
+          : null,
+      json['yelpName'] as String,
+      json['yelpImageUrl'] as String,
+      json['yelpUrl'] as String,
+      json['yelpRating'] as double,
+      json['yelpReviewCount'] as int,
+      json['yelpCoordinates'] is Map<String, dynamic>
+          ? Coordinates.fromJson(json['yelpCoordinates'] as Map<String, dynamic>)
+          : null,
+      json['yelpCity'] as String,
+      json['yelpDistance'] as double,
+    );
+  }
+
+  /// Common properties
+  String id;
+  final String _name;
+  final String city;
   final String yelpId;
+  final String googleId;
+  bool visible;
+  final double distance;
+  final Coordinates coordinates;
+
+  /// YELP specific
+  final String _yelpName;
   final String yelpImageUrl;
   final String yelpUrl;
   final double yelpRating;
   final int yelpReviewCount;
-  final List<PlacesPhoto> googlePhotos = [];
-  final double rating;
-  final int ratingsCount;
-  final Coordinates coordinates;
-  final bool hidden;
-  bool homeGym;
+  final Coordinates yelpCoordinates;
+  final String yelpCity;
+  final double yelpDistance;
 
-  /// Google specific method
-  static String _getCityFromVicinity(String vicinity) {
-    List<String> list = vicinity.split(',');
-    if (list.length > 1) {
-      return list.last.trim();
+  String getName() {
+    if (_name != null) {
+      return _name;
+    } else if (_yelpName != null) {
+      return _yelpName;
     } else {
-      return vicinity;
+      return '';
     }
-  }
-
-  Gym.fromYelpMap(Map<String, dynamic> json)
-      : id = json['internalGymId'],
-        googleId = '',
-        yelpRating = json['yelpRating'],
-        yelpReviewCount = json['yelpReviewCount'],
-        yelpId = json['id'],
-        yelpUrl = json['yelpUrl'],
-        routes = [],
-        rating = json['rating'],
-        ratingsCount = json['yelpReviewCount'],
-        name = json['name'],
-        coordinates = Coordinates(
-            json['coordinates']['latitude'], json['coordinates']['longitude']),
-        city = json['location']['city'],
-        yelpImageUrl = json['yelpImageUrl'],
-        hidden = json['hidden'];
-
-  /// Google specific deserializer from Places API json response
-  Gym.fromGoogleJson(Map<String, dynamic> json)
-      : id = '',
-        yelpId = '',
-        yelpRating = null,
-        yelpReviewCount = null,
-        yelpUrl = null,
-        routes = [],
-        googleId = json['place_id'],
-        name = json['name'],
-        hidden = json['hidden'],
-        yelpImageUrl = null,
-        homeGym = json['homeGym'],
-        coordinates = Coordinates(json['geometry']['location']['lat'],
-            json['geometry']['location']['lng']),
-        this.city = json.containsKey('city')
-            ? json['city']
-            : _getCityFromVicinity(json['vicinity']),
-        this.rating = (json['rating'] is int || json['rating'] is double)
-            ? json['rating'].toDouble()
-            : null,
-        this.ratingsCount = (json['user_ratings_total'] is int)
-            ? json['user_ratings_total']
-            : null {
-    if (json['photos'] is List)
-      for (final photo in json['photos'])
-        this.googlePhotos.add(PlacesPhoto.fromJson(photo));
   }
 
   String getImageUrl({int width}) {
-    if (googlePhotos.length > 0) {
-      return googlePhotos[0].getUrl(width: width);
+    return yelpImageUrl;
+  }
+
+  @override
+  String toString() {
+    return 'Gym(id:$id, name:$_name, city:$city, visible:$visible, yelpId:$yelpId)';
+  }
+
+  GymId getFirstGymId() {
+    if (id != null) {
+      return GymId(id, GymProvider.INTERNAL);
+    } else if (yelpId != null) {
+      return GymId(yelpId, GymProvider.YELP);
     } else {
-      return yelpImageUrl;
+      throw Exception('Gym does not have an id');
     }
-  }
-
-  bool isYelpRating() {
-    return yelpRating != null;
-  }
-
-  /// Generic serializer
-  Map<String, dynamic> toJson() {
-    List<Map<String, dynamic>> googlePhotosMap = [];
-    for (final PlacesPhoto photo in googlePhotos)
-      googlePhotosMap.add(photo.toJson());
-    return {
-      'id': id,
-      'place_id': googleId,
-      'name': name,
-      'user_ratings_total': ratingsCount,
-      'rating': rating,
-      'city': city,
-      'hidden': hidden,
-      'lng': coordinates.longitude,
-      'lat': coordinates.latitude,
-      'google_photos': googlePhotosMap,
-      'homeGym': homeGym
-    };
   }
 }

@@ -1,12 +1,12 @@
 import 'package:climbing/models/user.dart';
 
 class SignInWithAppleResponse {
+  SignInWithAppleResponse.fromJson(Map<String, dynamic> json)
+      : user = User.fromJson(json['user'] as Map<String, dynamic>),
+        newUserFlag = json['newUserFlag'] as bool,
+        token = json['token'] as String;
+
   User user;
   bool newUserFlag;
   String token;
-
-  SignInWithAppleResponse.fromJson(Map<String, dynamic> json)
-      : this.user = new User.fromJson(json["user"]),
-        this.newUserFlag = json["newUserFlag"],
-        this.token = json["token"];
 }

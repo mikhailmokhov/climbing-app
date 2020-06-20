@@ -29,15 +29,15 @@ class MyFlexibleSpaceBar extends StatefulWidget {
   /// Creates a flexible space bar.
   ///
   /// Most commonly used in the [AppBar.flexibleSpace] field.
-  const MyFlexibleSpaceBar({
-    Key key,
-    this.title,
-    this.background,
-    this.centerTitle,
-    this.titlePadding,
-    this.collapseMode = CollapseMode.parallax,
-    this.onYelpLogoTap
-  })  : assert(collapseMode != null),
+  const MyFlexibleSpaceBar(
+      {Key key,
+      this.title,
+      this.background,
+      this.centerTitle,
+      this.titlePadding,
+      this.collapseMode = CollapseMode.parallax,
+      this.onYelpLogoTap})
+      : assert(collapseMode != null),
         super(key: key);
 
   /// The primary contents of the flexible space bar when expanded.
@@ -115,7 +115,9 @@ class MyFlexibleSpaceBar extends StatefulWidget {
 
 class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
   bool _getEffectiveCenterTitle(ThemeData theme) {
-    if (widget.centerTitle != null) return widget.centerTitle;
+    if (widget.centerTitle != null) {
+      return widget.centerTitle;
+    }
     assert(theme.platform != null);
     switch (theme.platform) {
       case TargetPlatform.android:
@@ -124,20 +126,17 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
       case TargetPlatform.iOS:
         return true;
       case TargetPlatform.linux:
-        // TODO: Handle this case.
-        break;
       case TargetPlatform.macOS:
-        // TODO: Handle this case.
-        break;
       case TargetPlatform.windows:
-        // TODO: Handle this case.
-        break;
+      // Do nothing
     }
     return null;
   }
 
   Alignment _getTitleAlignment(bool effectiveCenterTitle) {
-    if (effectiveCenterTitle) return Alignment.bottomCenter;
+    if (effectiveCenterTitle) {
+      return Alignment.bottomCenter;
+    }
     final TextDirection textDirection = Directionality.of(context);
     assert(textDirection != null);
     switch (textDirection) {
@@ -177,14 +176,12 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
     // 1.0 -> Collapsed to toolbar
     final double t =
         (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent)
-            .clamp(0.0, 1.0);
+            .clamp(0.0, 1.0) as double;
 
-    final double fadeStart =
-    math.max(0.0, 1.0 - kToolbarHeight / deltaExtent);
+    final double fadeStart = math.max(0.0, 1.0 - kToolbarHeight / deltaExtent);
     const double fadeEnd = 1.0;
     assert(fadeStart <= fadeEnd);
-    double opacity = 1.0 - Interval(fadeStart, fadeEnd).transform(t);
-
+    final double opacity = 1.0 - Interval(fadeStart, fadeEnd).transform(t);
 
     // background image
     if (widget.background != null) {
@@ -207,7 +204,7 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
               opacity: opacity,
               child: InkWell(
                 child: Image.asset(
-                  "assets/yelp/logo_default@2x.png",
+                  'assets/yelp/logo_default@2x.png',
                   width: 58,
                 ),
                 onTap: widget.onYelpLogoTap,
@@ -217,9 +214,6 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
         }
       }
     }
-
-
-
 
     if (widget.title != null) {
       Widget title;
@@ -235,18 +229,13 @@ class _MyFlexibleSpaceBarState extends State<MyFlexibleSpaceBar> {
           );
           break;
         case TargetPlatform.linux:
-          // TODO: Handle this case.
-          break;
         case TargetPlatform.macOS:
-          // TODO: Handle this case.
-          break;
         case TargetPlatform.windows:
-          // TODO: Handle this case.
-          break;
+        // Do nothing
       }
 
       final ThemeData theme = Theme.of(context);
-      if (opacity<0.99) {
+      if (opacity < 0.99) {
         TextStyle titleStyle = theme.primaryTextTheme.headline6;
         titleStyle = titleStyle.copyWith(
           color: titleStyle.color.withOpacity(1.0 - opacity),

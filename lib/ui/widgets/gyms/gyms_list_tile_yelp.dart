@@ -1,16 +1,21 @@
 import 'package:climbing/models/gym.dart';
 import 'package:climbing/models/user.dart';
+import 'package:climbing/screens/gym_screen.dart';
+import 'package:climbing/screens/gyms_screen.dart';
 import 'package:climbing/ui/widgets/gyms/rating_bar_yelp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GymsListTileYelp extends StatelessWidget {
-  final Function(Gym gym, BuildContext context) onTap;
+  const GymsListTileYelp({
+    Key key,
+    @required this.gym,
+    @required this.user,
+  }) : super(key: key);
+
+
   final Gym gym;
   final User user;
-
-  const GymsListTileYelp(this.onTap, this.gym, this.user, {Key key})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +24,21 @@ class GymsListTileYelp extends StatelessWidget {
             dense: false,
             isThreeLine: true,
             onTap: () {
-              onTap(gym, context);
+              Navigator.pushNamed(context, GymScreen.routeName,
+                  arguments: GymScreenArguments(gym));
             },
-            leading: new ClipRRect(
-              borderRadius: new BorderRadius.circular(2.0),
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(2.0),
               child: FadeInImage.assetNetwork(
                   placeholder: 'assets/images/gym-placeholder.jpg',
-                  image: gym.getImageUrl() != null
-                      ? gym.getImageUrl()
-                      //TODO replace image by an asset
-                      : 'https://birkeland.uib.no/wp-content/themes/bcss/images/no.png',
+                  image: gym.yelpImageUrl ??
+                      'https://birkeland.uib.no/wp-content/themes/bcss/images/no.png',
                   width: 75,
                   height: 55,
                   fit: BoxFit.cover),
             ),
             title: Text(
-              gym.name,
+              gym.getName(),
               overflow: TextOverflow.ellipsis,
             ),
             subtitle: Row(
@@ -46,25 +50,28 @@ class GymsListTileYelp extends StatelessWidget {
                     children: <Widget>[
                       YelpRatingBar(gym.yelpRating, gym.yelpReviewCount),
                       Padding(
-                        padding: EdgeInsets.only(top: 4),
-                        child: Text(gym.city, style: TextStyle(fontSize: 13),),
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          gym.city,
+                          style: const TextStyle(fontSize: 13),
+                        ),
                       )
                     ]),
                 Expanded(
                   child: user != null &&
-                          user.homeGymIds != null &&
+                          user.bookmarks != null &&
                           gym.id != null &&
-                          user.homeGymIds.contains(gym.id)
+                          user.bookmarks.contains(gym.id)
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                          children: const <Widget>[
                             Icon(
                               Icons.bookmark,
                               color: Colors.redAccent,
                             )
                           ],
                         )
-                      : Text(""),
+                      : const Text(''),
                 )
               ],
             )));

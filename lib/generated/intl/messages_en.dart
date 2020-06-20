@@ -19,6 +19,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static m0(count) => "Hidden (${count})";
+
+  static m1(city) => "Near ${city}";
+
+  static m2(count) => "All Gyms (${count})";
+
+  static m3(count) => "Hidden Gyms (${count})";
+
+  static m4(count) => "Visible Gyms (${count})";
+
+  static m5(count) => "Visible (${count})";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "NO" : MessageLookupByLibrary.simpleMessage("NO"),
@@ -29,8 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "addNewRoute" : MessageLookupByLibrary.simpleMessage("Add new route"),
     "addRoute" : MessageLookupByLibrary.simpleMessage("Add Route"),
     "addToHomeGyms" : MessageLookupByLibrary.simpleMessage("Add to Home Gyms"),
-    "allGyms" : MessageLookupByLibrary.simpleMessage("All Gyms"),
-    "appTitle" : MessageLookupByLibrary.simpleMessage("Climbing App"),
+    "allowLocationService" : MessageLookupByLibrary.simpleMessage("Allow location service"),
+    "appTitle" : MessageLookupByLibrary.simpleMessage("Routesetter"),
     "australian" : MessageLookupByLibrary.simpleMessage("Australian"),
     "browseGyms" : MessageLookupByLibrary.simpleMessage("Browse Gyms"),
     "byContinuingYouAcceptOurPolicies" : MessageLookupByLibrary.simpleMessage("By continuing you accept our Terms of Use and Privacy Policy."),
@@ -52,16 +64,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "grades" : MessageLookupByLibrary.simpleMessage("Grades"),
     "gradingSystem" : MessageLookupByLibrary.simpleMessage("Grading System"),
     "gymsListTitle" : MessageLookupByLibrary.simpleMessage("Gyms"),
-    "hiddenGyms" : MessageLookupByLibrary.simpleMessage("Hidden Gyms"),
+    "hiddenWithCount" : m0,
     "hideBusiness" : MessageLookupByLibrary.simpleMessage("Hide Business"),
     "hideBusinessQuestion" : MessageLookupByLibrary.simpleMessage("Are you sure you want to hide this business?"),
+    "list" : MessageLookupByLibrary.simpleMessage("List"),
     "listView" : MessageLookupByLibrary.simpleMessage("List view"),
     "locationIsDisabled" : MessageLookupByLibrary.simpleMessage("Location is disabled"),
     "locationServiceIsDisabled" : MessageLookupByLibrary.simpleMessage("Location service is disabled."),
+    "locationServiceIsNotPermitted" : MessageLookupByLibrary.simpleMessage("Location service is not permitted"),
+    "map" : MessageLookupByLibrary.simpleMessage("Map"),
     "mapView" : MessageLookupByLibrary.simpleMessage("Map view"),
     "menu" : MessageLookupByLibrary.simpleMessage("Menu"),
     "moreActions" : MessageLookupByLibrary.simpleMessage("More actions"),
-    "near" : MessageLookupByLibrary.simpleMessage("Near"),
+    "nearWithCity" : m1,
     "newRoute" : MessageLookupByLibrary.simpleMessage("New Route"),
     "newestFirst" : MessageLookupByLibrary.simpleMessage("Newest First"),
     "nickname" : MessageLookupByLibrary.simpleMessage("Nickname"),
@@ -80,6 +95,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "saving" : MessageLookupByLibrary.simpleMessage("Saving"),
     "searchThisArea" : MessageLookupByLibrary.simpleMessage("Search this area"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "showAllGyms" : m2,
+    "showHiddenGyms" : m3,
+    "showVisibleGyms" : m4,
     "signInApple" : MessageLookupByLibrary.simpleMessage("Apple Sign In"),
     "signInGoogle" : MessageLookupByLibrary.simpleMessage("Google Sign In"),
     "signInSignUp" : MessageLookupByLibrary.simpleMessage("Sign In / Sign Up"),
@@ -93,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unhideBusinessQuestion" : MessageLookupByLibrary.simpleMessage("Are you sure you want to unhide this business?"),
     "usernameCanNotBeEmpty" : MessageLookupByLibrary.simpleMessage("Can\'t be empty"),
     "usernameCanNotContainSpaces" : MessageLookupByLibrary.simpleMessage("Can\'t contain spaces"),
+    "visibleWithCount" : m5,
     "yosemite" : MessageLookupByLibrary.simpleMessage("Yosemite"),
     "youNeedToBeSignedIn" : MessageLookupByLibrary.simpleMessage("You need to be signed in")
   };

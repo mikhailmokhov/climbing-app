@@ -1,60 +1,42 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/enums/sign_in_provider_enum.dart';
-import 'package:climbing/models/user.dart';
+import 'package:climbing/models/app_state.dart';
 import 'package:climbing/generated/l10n.dart';
+import 'package:climbing/screens/edit_profile_screen.dart';
 import 'package:climbing/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrate/vibrate.dart';
 
-import 'edit_profile_widget.dart';
+import '../../typedefs.dart';
 
 const double _kAccountDetailsHeight = 49.0;
 
-class AccountDrawerHeader extends StatefulWidget {
+class AccountDrawerHeader extends StatelessWidget {
+  const AccountDrawerHeader(
+      {Key key,
+      @required this.signOut,
+      @required this.appState,
+      @required this.signIn,
+      @required this.updateUser,
+      @required this.feedback})
+      : super(key: key);
+
   final Function(SignInProvider) signIn;
-  final Set<SignInProvider> signInProviderSet;
-  final Function onSignOutTap;
-  final void Function() updateUserCallback;
-  final User user;
-
-  AccountDrawerHeader({
-    Key key,
-    @required this.onSignOutTap,
-    @required this.user,
-    @required this.signIn,
-    @required this.signInProviderSet,
-    @required this.updateUserCallback,
-  }) : super(key: key);
-
-  @override
-  _AccountDrawerHeaderState createState() => _AccountDrawerHeaderState();
-}
-
-class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
-  bool _canVibrate = false;
-
-  editAccount() {
-    if (_canVibrate) Vibrate.feedback(FeedbackType.selection);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => EditAccount(
-            user: this.widget.user,
-            updateUserCallback: this.widget.updateUserCallback,
-          ),
-          fullscreenDialog: true,
-        ));
-  }
-
-  signOut() {
-    this.widget.onSignOutTap();
-  }
+  final SignOutCallback signOut;
+  final UpdateUserCallback updateUser;
+  final AppState appState;
+  final FeedbackCallback feedback;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> topRowItems = [];
-    List<Widget> rows = [];
-    if (this.widget.user == null) {
+    void _editAccount() {
+      feedback(FeedbackType.selection);
+      Navigator.pushNamed(context, EditProfileScreen.routeName);
+    }
+
+    final List<Widget> topRowItems = <Widget>[];
+    final List<Widget> rows = <Widget>[];
+    if (appState.user == null) {
       // Sign In button
       topRowItems.add(PositionedDirectional(
         end: 10.0,
@@ -66,9 +48,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
             icon: Icon(Icons.account_circle,
                 color: Theme.of(context).primaryIconTheme?.color),
             onPressed: () {
-              if (_canVibrate) Vibrate.feedback(FeedbackType.light);
+              feedback(FeedbackType.light);
               Utils.showSignInDialog(
-                  context, widget.signInProviderSet, this.widget.signIn);
+                  context, appState.signInProviderSet, signIn);
             }),
       ));
     } else {
@@ -77,18 +59,18 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         top: 0.0,
         left: 0.0,
         child: Semantics(
-          onTap: editAccount,
+          onTap: _editAccount,
           explicitChildNodes: true,
           child: SizedBox(
             width: 77.0,
             height: 77.0,
             child: InkWell(
-              onTap: editAccount,
+              onTap: _editAccount,
               child: CircleAvatar(
                 foregroundColor: Theme.of(context).primaryColor,
                 backgroundColor: Theme.of(context).primaryColor,
-                backgroundImage: CachedNetworkImageProvider(
-                    this.widget.user.getPictureUrl()),
+                backgroundImage:
+                    CachedNetworkImageProvider(appState.user.getPictureUrl()),
               ),
             ),
           ),
@@ -101,7 +83,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         top: 0.0,
         child: OutlineButton(
             onPressed: () {
-              if (_canVibrate) Vibrate.feedback(FeedbackType.light);
+              feedback(FeedbackType.light);
               showDialog<void>(
                 context: context,
                 barrierDismissible: true,
@@ -112,7 +94,7 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                       RaisedButton(
                         child: Text(S.of(context).YES),
                         onPressed: () {
-                          this.widget.onSignOutTap();
+                          signOut();
                           Navigator.pop(context);
                         },
                       ),
@@ -143,10 +125,10 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
               Expanded(
                 child: Container(
                   child: InkWell(
-                    onTap: editAccount,
+                    onTap: _editAccount,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: <Widget>[
                           Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 2.0),
@@ -156,9 +138,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                                     .primaryTextTheme
                                     .bodyText1,
                                 overflow: TextOverflow.fade,
-                                child: Text(this.widget.user.name.isEmpty
+                                child: Text(appState.user.name.isEmpty
                                     ? ''
-                                    : this.widget.user.name),
+                                    : appState.user.name),
                               )),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -167,9 +149,9 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                               overflow: TextOverflow.fade,
                               style:
                                   Theme.of(context).primaryTextTheme.bodyText1,
-                              child: Text(this.widget.user.nickname.isEmpty
+                              child: Text(appState.user.nickname.isEmpty
                                   ? ''
-                                  : this.widget.user.nickname),
+                                  : appState.user.nickname),
                             ),
                           )
                         ]),
@@ -183,8 +165,8 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
                   child: SizedBox(
                     width: 50,
                     child: OutlineButton(
-                        shape: CircleBorder(),
-                        onPressed: editAccount,
+                        shape: const CircleBorder(),
+                        onPressed: _editAccount,
                         child: Icon(
                           Icons.mode_edit,
                           color: Theme.of(context)
@@ -224,11 +206,5 @@ class _AccountDrawerHeaderState extends State<AccountDrawerHeader> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Vibrate.canVibrate.then((value) => _canVibrate = value);
   }
 }

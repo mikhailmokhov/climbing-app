@@ -1,62 +1,56 @@
-import 'package:climbing/enums/sign_in_provider_enum.dart';
+import 'package:climbing/models/coordinates.dart';
 import 'package:climbing/models/gym.dart';
-import 'package:climbing/models/my_location.dart';
-import 'package:climbing/models/user.dart';
+
 import 'package:climbing/generated/l10n.dart';
+import 'package:climbing/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../gym_widget.dart';
+import '../../../screens/gym_screen.dart';
 
 class GymsMap extends StatefulWidget {
+  const GymsMap(
+      {Key key,
+      @required this.gyms,
+      @required this.coordinates,
+      @required this.updateCoordinates,
+      @required this.updateUser,
+      @required this.signIn})
+      : super(key: key);
+
   final List<Gym> gyms;
   final Coordinates coordinates;
-  final Function setCoordinates;
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-  final User user;
-  final void Function() updateUserCallback;
-  final Future<bool> Function(SignInProvider) signIn;
-  final Set<SignInProvider> signInProviderSet;
-
-  GymsMap(this.coordinates, this.gyms, this.setCoordinates,
-      this.refreshIndicatorKey, this.user, this.updateUserCallback, this.signIn, this.signInProviderSet,
-      {Key key})
-      : super(key: key);
+  final UpdateCoordinatesCallback updateCoordinates;
+  final UpdateUserCallback updateUser;
+  final SignInCallback signIn;
 
   @override
   _GymsMapState createState() => _GymsMapState();
 }
 
 class _GymsMapState extends State<GymsMap> {
-  final Map<String, Marker> _markers = {};
+  final Map<String, Marker> _markers = <String, Marker>{};
   GoogleMapController mapController;
   Coordinates mapCenterCoordinates;
 
-  createMarkers() async {
+  Future<void> createMarkers() async {
     setState(() {
       _markers.clear();
-      for (final gym in widget.gyms) {
-        final marker = Marker(
-          markerId: MarkerId(gym.name),
-          position: LatLng(gym.coordinates.latitude, gym.coordinates.longitude),
+      for (final Gym gym in widget.gyms) {
+        final Marker marker = Marker(
+          markerId: MarkerId(gym.getImageUrl()),
+          position: LatLng(
+              gym.yelpCoordinates.latitude, gym.yelpCoordinates.longitude),
           infoWindow: InfoWindow(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => GymWidget(
-                        gym,
-                        this.widget.user,
-                        widget.updateUserCallback,
-                        widget.signIn,
-                        widget.signInProviderSet)),
-              );
+              Navigator.pushNamed(context, GymScreen.routeName,
+                  arguments: GymScreenArguments(gym));
             },
-            title: gym.name,
+            title: gym.getName(),
             snippet: gym.city,
           ),
         );
-        _markers[gym.coordinates.toString()] = marker;
+        _markers[gym.yelpCoordinates.toString()] = marker;
       }
 
       if (mapController != null)
@@ -102,13 +96,13 @@ class _GymsMapState extends State<GymsMap> {
                   mapController
                       .getVisibleRegion()
                       .then((LatLngBounds latLngBounds) {
-                    widget.setCoordinates(_getCenterCoordinates(latLngBounds));
-                    widget.refreshIndicatorKey.currentState?.show();
+                    widget
+                        .updateCoordinates(_getCenterCoordinates(latLngBounds));
                   });
                 },
                 label: Text(
                   S.of(context).searchThisArea,
-                  style: TextStyle(letterSpacing: 0.3),
+                  style: const TextStyle(letterSpacing: 0.3),
                 ),
               )),
         ),

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OpenYelpButton extends StatelessWidget {
-  final String url;
-
-  OpenYelpButton({
+  const OpenYelpButton({
     @required this.url,
     Key key,
   }) : super(key: key);
 
-  _launchURL() async {
-    //TODO add code for handling launching Yelp app
+  final String url;
+
+  Future<void>_launchURL() async {
+    // TODO(Mikhail): add code for handling launching Yelp app
     //yelp4:///search?terms=Coffee
     if (await canLaunch(url)) {
       await launch(url);
@@ -28,15 +28,15 @@ class OpenYelpButton extends StatelessWidget {
         child: SizedBox(
           width: 62,
           child: OutlineButton(
-              padding: EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.only(left: 10, right: 10),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0)),
               onPressed: _launchURL,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Image>[
                   Image.asset(
-                    "assets/yelp/logo_default@2x.png",
+                    'assets/yelp/logo_default@2x.png',
                     height: 21,
                   ),
                 ],

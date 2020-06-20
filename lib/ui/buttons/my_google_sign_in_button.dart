@@ -4,6 +4,14 @@ import 'my_apple_sign_in_button.dart';
 
 /// A button for Sign in With Apple
 class MyGoogleSignInButton extends StatefulWidget {
+  const MyGoogleSignInButton({
+    this.onPressed,
+    this.style = AppleSignInButtonStyle.white,
+    this.cornerRadius = 6,
+    this.text,
+  })  : assert(style != null),
+        assert(cornerRadius != null);
+
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
@@ -17,31 +25,23 @@ class MyGoogleSignInButton extends StatefulWidget {
 
   final String text;
 
-  const MyGoogleSignInButton({
-    this.onPressed,
-    this.style = AppleSignInButtonStyle.white,
-    this.cornerRadius = 6,
-    this.text,
-  })  : assert(style != null),
-        assert(cornerRadius != null);
-
   @override
   State<StatefulWidget> createState() => _MyGoogleSignInButtonState();
 }
 
 class _MyGoogleSignInButtonState extends State<MyGoogleSignInButton> {
   bool _isTapDown = false;
-  final greyFontColor = Color.fromRGBO(117, 117, 117, 1.0);
+  final Color greyFontColor = const Color.fromRGBO(117, 117, 117, 1.0);
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = widget.style == AppleSignInButtonStyle.black
+    final Color bgColor = widget.style == AppleSignInButtonStyle.black
         ? Colors.black
         : Colors.white;
-    final textColor = widget.style == AppleSignInButtonStyle.black
+    final Color textColor = widget.style == AppleSignInButtonStyle.black
         ? Colors.white
         : greyFontColor;
-    final borderColor = widget.style == AppleSignInButtonStyle.white
+    final Color borderColor = widget.style == AppleSignInButtonStyle.white
         ? Colors.white
         : greyFontColor;
 
@@ -53,8 +53,8 @@ class _MyGoogleSignInButtonState extends State<MyGoogleSignInButton> {
       },
       onTapCancel: () => setState(() => _isTapDown = false),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 100),
-        constraints: BoxConstraints(
+        duration: const Duration(milliseconds: 100),
+        constraints: const BoxConstraints(
           minHeight: 32,
           maxHeight: 64,
           minWidth: 200,
@@ -91,7 +91,7 @@ class _MyGoogleSignInButtonState extends State<MyGoogleSignInButton> {
                   letterSpacing: .3,
                   wordSpacing: -.5,
                   color: textColor,
-                  fontFamily: "RobotoGoogle"),
+                  fontFamily: 'RobotoGoogle'),
             ),
           ],
         )),
@@ -112,9 +112,9 @@ class _GoogleLogoPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.translate(0.0, 0.0);
-    canvas.scale((size.width / 48.000000), (size.height / 48.000000));
-    final paint = Paint();
-    paint.color = Color(0xffffc107);
+    canvas.scale(size.width / 48.000000, size.height / 48.000000);
+    final Paint paint = Paint();
+    paint.color = const Color(0xffffc107);
     canvas.drawPath(
         (Path()
           ..moveTo(43.611000, 20.083000)
@@ -144,7 +144,7 @@ class _GoogleLogoPainter extends CustomPainter {
               44.000000, 22.659000, 43.862000, 21.350000, 43.611000, 20.083000)
           ..close()),
         paint);
-    paint.color = Color(0xffff3d00);
+    paint.color = const Color(0xffff3d00);
     canvas.drawPath(
         (Path()
           ..moveTo(6.306000, 14.691000)
@@ -160,7 +160,7 @@ class _GoogleLogoPainter extends CustomPainter {
               16.318000, 4.000000, 9.656000, 8.337000, 6.306000, 14.691000)
           ..close()),
         paint);
-    paint.color = Color(0xff4caf50);
+    paint.color = const Color(0xff4caf50);
     canvas.drawPath(
         (Path()
           ..moveTo(24.000000, 44.000000)
@@ -176,7 +176,7 @@ class _GoogleLogoPainter extends CustomPainter {
               9.505000, 39.556000, 16.227000, 44.000000, 24.000000, 44.000000)
           ..close()),
         paint);
-    paint.color = Color(0xff1976d2);
+    paint.color = const Color(0xff1976d2);
     canvas.drawPath(
         (Path()
           ..moveTo(43.611000, 20.083000)

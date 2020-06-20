@@ -1,183 +1,25 @@
-import 'dart:convert';
-
-import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:climbing/models/user.dart';
-import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/enums/sign_in_provider_enum.dart';
-import 'package:climbing/ui/widgets/gyms/gyms_view.dart';
-import 'package:climbing/theme.dart';
+import 'package:climbing/repositories/user_repository.dart';
+import 'package:climbing/services/apple_sign_in_service.dart';
+import 'package:climbing/services/connectivity_service.dart';
+import 'package:climbing/services/haptic_feedback_service.dart';
+import 'package:climbing/services/location_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:vibrate/vibrate.dart';
-import 'models/sign_in_with_apple_response.dart';
-import 'services/api_service.dart';
 
-void main() => runApp(MyApp());
+import 'app.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _MyAppState();
-  }
-}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class _MyAppState extends State<MyApp> {
-  static const String STORAGE_KEY_USER = 'user';
-  final bool isGoogleSignInAvailable = true;
-  final canVibrate = Vibrate.canVibrate;
-  final Set<SignInProvider> signInProviderSet = Set();
-  bool _inAsyncCall = false;
-  User user;
-
-  void updateUserCallback() {
-    const FlutterSecureStorage()
-        .write(key: STORAGE_KEY_USER, value: json.encode(this.user.toJson()));
-    setState(() {
-      this.user = this.user;
-    });
-  }
-
-  Future<bool> signIn(SignInProvider signInProvider) async {
-    switch (signInProvider) {
-      // APPLE SIGN IN
-      case SignInProvider.Apple:
-        final AuthorizationResult result = await AppleSignIn.performRequests([
-          const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-        ]);
-        switch (result.status) {
-          case AuthorizationStatus.authorized:
-            return finishAppleSignIn(result.credential);
-            break;
-          case AuthorizationStatus.error:
-            //TODO: handle authorization error
-            break;
-          case AuthorizationStatus.cancelled:
-            //TODO: handle case when user cancelled
-            break;
-        }
-        break;
-      // GOOGLE SIGN IN
-      case SignInProvider.Google:
-        // TODO: Handle this case.
-        break;
-    }
-    return false;
-  }
-
-  /// Return true if signed is, otherwise false
-  Future<bool> finishAppleSignIn(AppleIdCredential appleIdCredential) async {
-    // Start progress spinner
-    setState(() {
-      _inAsyncCall = true;
-    });
-    try {
-      SignInWithAppleResponse signInWithAppleResponse =
-      await ApiService.appleSignIn(appleIdCredential);
-      assert(signInWithAppleResponse != null &&
-          signInWithAppleResponse.user != null);
-      ApiService.token = signInWithAppleResponse.user.token;
-      const FlutterSecureStorage().write(
-          key: STORAGE_KEY_USER,
-          value: json.encode(signInWithAppleResponse.user.toJson()));
-      setState(() {
-        this.user = signInWithAppleResponse.user;
-        this._inAsyncCall = false;
-      });
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  void signOut() {
-    const FlutterSecureStorage().delete(key: STORAGE_KEY_USER);
-    ApiService.logout();
-    setState(() {
-      user = null;
-    });
-  }
-
-  @override
-  initState() {
-    super.initState();
-    AppleSignIn.isAvailable().then((isAvailable) {
-      if (!isAvailable) return;
-      checkLoggedInState();
-      setState(() {
-        signInProviderSet.add(SignInProvider.Apple);
-      });
-    });
-    AppleSignIn.onCredentialRevoked.listen((_) {
-      signOut();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        localizationsDelegates: [
-          S.delegate,
-          // You need to add them if you are using the material library.
-          // The material components uses this delegates to provide default
-          // localization
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
-        title: 'Routesetter',
-        themeMode: ThemeMode.system,
-        darkTheme: darkThemeData,
-        theme: lightThemeData,
-        home: ModalProgressHUD(
-          inAsyncCall: _inAsyncCall,
-          child: GymsView(
-            user: user,
-            signOut: signOut,
-            signIn: signIn,
-            editAccount: () {},
-            updateUserCallback: updateUserCallback,
-            signInProviderSet: signInProviderSet,
-          ),
-        ));
-  }
-
-  void checkLoggedInState() async {
-    final String savedUserJsonString =
-        await FlutterSecureStorage().read(key: STORAGE_KEY_USER);
-    if (savedUserJsonString == null) return;
-    User storedUser = User.fromJson(json.decode(savedUserJsonString));
-    if (storedUser.appleIdCredentialUser == null) return;
-    final credentialState =
-        await AppleSignIn.getCredentialState(storedUser.appleIdCredentialUser);
-    switch (credentialState.status) {
-      case CredentialStatus.authorized:
-        ApiService.token = storedUser.token;
-        ApiService.getUser().then((user) {
-          setState(() {
-            this.user = user;
-          });
-        }).catchError(() {
-          setState(() {
-            this.user = storedUser;
-          });
-        });
-        break;
-      case CredentialStatus.error:
-        print(
-            "getCredentialState returned an error: ${credentialState.error.localizedDescription}");
-        break;
-      case CredentialStatus.revoked:
-        print("getCredentialState returned revoked");
-        break;
-      case CredentialStatus.notFound:
-        print("getCredentialState returned not found");
-        break;
-      case CredentialStatus.transferred:
-        print("getCredentialState returned not transferred");
-        break;
-    }
-  }
+  runApp(
+    ClimbingApp(
+      userRepository: UserRepository(
+        storage: const FlutterSecureStorage(),
+      ),
+      appleSignInService: AppleSignInService(),
+      hapticFeedbackService: HapticFeedbackService(),
+      connectivityService: ConnectivityService(),
+      locationService: LocationService(),
+    ),
+  );
 }

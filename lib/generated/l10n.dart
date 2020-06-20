@@ -8,18 +8,24 @@ import 'intl/messages_all.dart';
 // Made by Localizely
 // **************************************************************************
 
+// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+
 class S {
   S();
+  
+  static S current;
   
   static const AppLocalizationDelegate delegate =
     AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final String name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final String localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      return S();
+      S.current = S();
+      
+      return S.current;
     });
   } 
 
@@ -27,15 +33,17 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Routesetter`
   String get appTitle {
     return Intl.message(
-      'Climbing App',
+      'Routesetter',
       name: 'appTitle',
       desc: '',
       args: [],
     );
   }
 
+  /// `Clear cache`
   String get drawerMenuClearCache {
     return Intl.message(
       'Clear cache',
@@ -45,6 +53,7 @@ class S {
     );
   }
 
+  /// `Gyms`
   String get gymsListTitle {
     return Intl.message(
       'Gyms',
@@ -54,6 +63,7 @@ class S {
     );
   }
 
+  /// `Refresh`
   String get refresh {
     return Intl.message(
       'Refresh',
@@ -63,6 +73,7 @@ class S {
     );
   }
 
+  /// `Menu`
   String get menu {
     return Intl.message(
       'Menu',
@@ -72,6 +83,7 @@ class S {
     );
   }
 
+  /// `Sign In / Sign Up`
   String get signInSignUp {
     return Intl.message(
       'Sign In / Sign Up',
@@ -81,6 +93,7 @@ class S {
     );
   }
 
+  /// `Google Sign In`
   String get signInGoogle {
     return Intl.message(
       'Google Sign In',
@@ -90,6 +103,7 @@ class S {
     );
   }
 
+  /// `Apple Sign In`
   String get signInApple {
     return Intl.message(
       'Apple Sign In',
@@ -99,6 +113,7 @@ class S {
     );
   }
 
+  /// `Continue With Google`
   String get continueWithGoogle {
     return Intl.message(
       'Continue With Google',
@@ -108,6 +123,7 @@ class S {
     );
   }
 
+  /// `Continue With Apple`
   String get continueWithApple {
     return Intl.message(
       'Continue With Apple',
@@ -117,6 +133,7 @@ class S {
     );
   }
 
+  /// `Register`
   String get register {
     return Intl.message(
       'Register',
@@ -126,6 +143,7 @@ class S {
     );
   }
 
+  /// `Sign Out`
   String get signOut {
     return Intl.message(
       'Sign Out',
@@ -135,6 +153,7 @@ class S {
     );
   }
 
+  /// `Settings`
   String get settings {
     return Intl.message(
       'Settings',
@@ -144,6 +163,7 @@ class S {
     );
   }
 
+  /// `Routes`
   String get routes {
     return Intl.message(
       'Routes',
@@ -153,6 +173,7 @@ class S {
     );
   }
 
+  /// `Add Route`
   String get addRoute {
     return Intl.message(
       'Add Route',
@@ -162,6 +183,7 @@ class S {
     );
   }
 
+  /// `Add new route`
   String get addNewRoute {
     return Intl.message(
       'Add new route',
@@ -171,6 +193,7 @@ class S {
     );
   }
 
+  /// `New Route`
   String get newRoute {
     return Intl.message(
       'New Route',
@@ -180,6 +203,7 @@ class S {
     );
   }
 
+  /// `Difficulty`
   String get difficulty {
     return Intl.message(
       'Difficulty',
@@ -189,6 +213,7 @@ class S {
     );
   }
 
+  /// `Newest First`
   String get newestFirst {
     return Intl.message(
       'Newest First',
@@ -198,6 +223,7 @@ class S {
     );
   }
 
+  /// `Sort Routes`
   String get sortRoutes {
     return Intl.message(
       'Sort Routes',
@@ -207,6 +233,7 @@ class S {
     );
   }
 
+  /// `Grades`
   String get grades {
     return Intl.message(
       'Grades',
@@ -216,6 +243,7 @@ class S {
     );
   }
 
+  /// `Choose grade`
   String get chooseGrade {
     return Intl.message(
       'Choose grade',
@@ -225,6 +253,7 @@ class S {
     );
   }
 
+  /// `Grading System`
   String get gradingSystem {
     return Intl.message(
       'Grading System',
@@ -234,6 +263,7 @@ class S {
     );
   }
 
+  /// `Browse Gyms`
   String get browseGyms {
     return Intl.message(
       'Browse Gyms',
@@ -243,6 +273,7 @@ class S {
     );
   }
 
+  /// `Edit Profile`
   String get editProfile {
     return Intl.message(
       'Edit Profile',
@@ -252,6 +283,7 @@ class S {
     );
   }
 
+  /// `Full Name`
   String get fullName {
     return Intl.message(
       'Full Name',
@@ -261,6 +293,7 @@ class S {
     );
   }
 
+  /// `Nickname`
   String get nickname {
     return Intl.message(
       'Nickname',
@@ -270,6 +303,7 @@ class S {
     );
   }
 
+  /// `Can't be empty`
   String get usernameCanNotBeEmpty {
     return Intl.message(
       'Can\'t be empty',
@@ -279,6 +313,7 @@ class S {
     );
   }
 
+  /// `Can't contain spaces`
   String get usernameCanNotContainSpaces {
     return Intl.message(
       'Can\'t contain spaces',
@@ -288,6 +323,7 @@ class S {
     );
   }
 
+  /// `SAVE`
   String get SAVE {
     return Intl.message(
       'SAVE',
@@ -297,6 +333,7 @@ class S {
     );
   }
 
+  /// `Map view`
   String get mapView {
     return Intl.message(
       'Map view',
@@ -306,6 +343,7 @@ class S {
     );
   }
 
+  /// `List view`
   String get listView {
     return Intl.message(
       'List view',
@@ -315,6 +353,7 @@ class S {
     );
   }
 
+  /// `Request Error`
   String get requestError {
     return Intl.message(
       'Request Error',
@@ -324,6 +363,7 @@ class S {
     );
   }
 
+  /// `RETRY`
   String get RETRY {
     return Intl.message(
       'RETRY',
@@ -333,6 +373,7 @@ class S {
     );
   }
 
+  /// `Search this area`
   String get searchThisArea {
     return Intl.message(
       'Search this area',
@@ -342,6 +383,7 @@ class S {
     );
   }
 
+  /// `YES`
   String get YES {
     return Intl.message(
       'YES',
@@ -351,6 +393,7 @@ class S {
     );
   }
 
+  /// `NO`
   String get NO {
     return Intl.message(
       'NO',
@@ -360,6 +403,7 @@ class S {
     );
   }
 
+  /// `Are you sure you want to sign out?`
   String get signOutQuestion {
     return Intl.message(
       'Are you sure you want to sign out?',
@@ -369,6 +413,7 @@ class S {
     );
   }
 
+  /// `Yosemite`
   String get yosemite {
     return Intl.message(
       'Yosemite',
@@ -378,6 +423,7 @@ class S {
     );
   }
 
+  /// `French`
   String get french {
     return Intl.message(
       'French',
@@ -387,6 +433,7 @@ class S {
     );
   }
 
+  /// `UIAA`
   String get uiaa {
     return Intl.message(
       'UIAA',
@@ -396,6 +443,7 @@ class S {
     );
   }
 
+  /// `UK`
   String get uk {
     return Intl.message(
       'UK',
@@ -405,6 +453,7 @@ class S {
     );
   }
 
+  /// `Australian`
   String get australian {
     return Intl.message(
       'Australian',
@@ -414,6 +463,7 @@ class S {
     );
   }
 
+  /// `By continuing you accept our Terms of Use and Privacy Policy.`
   String get byContinuingYouAcceptOurPolicies {
     return Intl.message(
       'By continuing you accept our Terms of Use and Privacy Policy.',
@@ -423,6 +473,7 @@ class S {
     );
   }
 
+  /// `Reviews`
   String get reviews {
     return Intl.message(
       'Reviews',
@@ -432,15 +483,17 @@ class S {
     );
   }
 
-  String get near {
+  /// `Near {city}`
+  String nearWithCity(Object city) {
     return Intl.message(
-      'Near',
-      name: 'near',
+      'Near $city',
+      name: 'nearWithCity',
       desc: '',
-      args: [],
+      args: [city],
     );
   }
 
+  /// `Didn't find your gym?`
   String get didntFindYourGym {
     return Intl.message(
       'Didn\'t find your gym?',
@@ -450,6 +503,7 @@ class S {
     );
   }
 
+  /// `Add it to Yelp`
   String get addItToYelp {
     return Intl.message(
       'Add it to Yelp',
@@ -459,6 +513,7 @@ class S {
     );
   }
 
+  /// `No Internet Connection`
   String get noInternetConnection {
     return Intl.message(
       'No Internet Connection',
@@ -468,6 +523,7 @@ class S {
     );
   }
 
+  /// `You must turn on Location service to allow search climbing gyms nearby.`
   String get turnOnLocation {
     return Intl.message(
       'You must turn on Location service to allow search climbing gyms nearby.',
@@ -477,6 +533,7 @@ class S {
     );
   }
 
+  /// `Location service is disabled.`
   String get locationServiceIsDisabled {
     return Intl.message(
       'Location service is disabled.',
@@ -486,6 +543,17 @@ class S {
     );
   }
 
+  /// `Location service is not permitted`
+  String get locationServiceIsNotPermitted {
+    return Intl.message(
+      'Location service is not permitted',
+      name: 'locationServiceIsNotPermitted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location is disabled`
   String get locationIsDisabled {
     return Intl.message(
       'Location is disabled',
@@ -495,6 +563,7 @@ class S {
     );
   }
 
+  /// `You must enable Location service.`
   String get enableLocationService {
     return Intl.message(
       'You must enable Location service.',
@@ -504,6 +573,17 @@ class S {
     );
   }
 
+  /// `Allow location service`
+  String get allowLocationService {
+    return Intl.message(
+      'Allow location service',
+      name: 'allowLocationService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CANCEL`
   String get cancel {
     return Intl.message(
       'CANCEL',
@@ -513,6 +593,7 @@ class S {
     );
   }
 
+  /// `OPEN SETTINGS`
   String get openSettings {
     return Intl.message(
       'OPEN SETTINGS',
@@ -522,6 +603,7 @@ class S {
     );
   }
 
+  /// `No climbing gyms found nearby`
   String get noGymsFound {
     return Intl.message(
       'No climbing gyms found nearby',
@@ -531,6 +613,7 @@ class S {
     );
   }
 
+  /// `Saving`
   String get saving {
     return Intl.message(
       'Saving',
@@ -540,6 +623,7 @@ class S {
     );
   }
 
+  /// `Cropper`
   String get cropper {
     return Intl.message(
       'Cropper',
@@ -549,6 +633,7 @@ class S {
     );
   }
 
+  /// `Camera`
   String get camera {
     return Intl.message(
       'Camera',
@@ -558,6 +643,7 @@ class S {
     );
   }
 
+  /// `Gallery`
   String get gallery {
     return Intl.message(
       'Gallery',
@@ -567,6 +653,7 @@ class S {
     );
   }
 
+  /// `Hide Business`
   String get hideBusiness {
     return Intl.message(
       'Hide Business',
@@ -576,6 +663,7 @@ class S {
     );
   }
 
+  /// `Unhide business`
   String get unhideBusiness {
     return Intl.message(
       'Unhide business',
@@ -585,6 +673,7 @@ class S {
     );
   }
 
+  /// `Add to Home Gyms`
   String get addToHomeGyms {
     return Intl.message(
       'Add to Home Gyms',
@@ -594,6 +683,7 @@ class S {
     );
   }
 
+  /// `More actions`
   String get moreActions {
     return Intl.message(
       'More actions',
@@ -603,6 +693,7 @@ class S {
     );
   }
 
+  /// `Purge current coordinates Yelp cache`
   String get purgeCurrentCoordinatesCache {
     return Intl.message(
       'Purge current coordinates Yelp cache',
@@ -612,6 +703,7 @@ class S {
     );
   }
 
+  /// `Purge all Yelp cache`
   String get purgeAllCache {
     return Intl.message(
       'Purge all Yelp cache',
@@ -621,6 +713,7 @@ class S {
     );
   }
 
+  /// `Are you sure you want to hide this business?`
   String get hideBusinessQuestion {
     return Intl.message(
       'Are you sure you want to hide this business?',
@@ -630,6 +723,7 @@ class S {
     );
   }
 
+  /// `Are you sure you want to unhide this business?`
   String get unhideBusinessQuestion {
     return Intl.message(
       'Are you sure you want to unhide this business?',
@@ -639,24 +733,7 @@ class S {
     );
   }
 
-  String get allGyms {
-    return Intl.message(
-      'All Gyms',
-      name: 'allGyms',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get hiddenGyms {
-    return Intl.message(
-      'Hidden Gyms',
-      name: 'hiddenGyms',
-      desc: '',
-      args: [],
-    );
-  }
-
+  /// `Edit Photo`
   String get editPhoto {
     return Intl.message(
       'Edit Photo',
@@ -666,6 +743,7 @@ class S {
     );
   }
 
+  /// `Open Yelp page`
   String get openYelpPage {
     return Intl.message(
       'Open Yelp page',
@@ -675,6 +753,7 @@ class S {
     );
   }
 
+  /// `Save to bookmarks`
   String get saveToBookmarks {
     return Intl.message(
       'Save to bookmarks',
@@ -684,12 +763,83 @@ class S {
     );
   }
 
+  /// `You need to be signed in`
   String get youNeedToBeSignedIn {
     return Intl.message(
       'You need to be signed in',
       name: 'youNeedToBeSignedIn',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `List`
+  String get list {
+    return Intl.message(
+      'List',
+      name: 'list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Map`
+  String get map {
+    return Intl.message(
+      'Map',
+      name: 'map',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Visible Gyms ({count})`
+  String showVisibleGyms(Object count) {
+    return Intl.message(
+      'Visible Gyms ($count)',
+      name: 'showVisibleGyms',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Hidden Gyms ({count})`
+  String showHiddenGyms(Object count) {
+    return Intl.message(
+      'Hidden Gyms ($count)',
+      name: 'showHiddenGyms',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `All Gyms ({count})`
+  String showAllGyms(Object count) {
+    return Intl.message(
+      'All Gyms ($count)',
+      name: 'showAllGyms',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Hidden ({count})`
+  String hiddenWithCount(Object count) {
+    return Intl.message(
+      'Hidden ($count)',
+      name: 'hiddenWithCount',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Visible ({count})`
+  String visibleWithCount(Object count) {
+    return Intl.message(
+      'Visible ($count)',
+      name: 'visibleWithCount',
+      desc: '',
+      args: [count],
     );
   }
 }
@@ -713,7 +863,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   bool _isSupported(Locale locale) {
     if (locale != null) {
-      for (Locale supportedLocale in supportedLocales) {
+      for (var supportedLocale in supportedLocales) {
         if (supportedLocale.languageCode == locale.languageCode) {
           return true;
         }

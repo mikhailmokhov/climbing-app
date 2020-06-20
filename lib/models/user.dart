@@ -1,4 +1,5 @@
 import 'package:apple_sign_in/apple_sign_in.dart';
+import 'package:climbing/api/api.dart';
 import 'package:climbing/models/user_authority.dart';
 import 'package:climbing/enums/role.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -6,90 +7,100 @@ import 'package:google_sign_in/google_sign_in.dart';
 ///
 /// Describes user
 class User {
+  User(
+      this.token,
+      this.googleId,
+      this.name,
+      this.email,
+      this.nickname,
+      this.pictureId,
+      this.photoPath,
+      this.appleIdCredentialUser,
+      this.authorities,
+      this.bookmarks);
+
+  User.fromGoogleSignInAccount(GoogleSignInAccount googleSignInAccount)
+      : googleId = googleSignInAccount.id,
+        email = googleSignInAccount.email,
+        name = googleSignInAccount.displayName,
+        token = '',
+        photoPath = googleSignInAccount.photoUrl;
+
+  User.fromAppleIdCredentials(AppleIdCredential appleIdCredential) {
+    token = '';
+    email = appleIdCredential.email;
+    nickname = '';
+    name = appleIdCredential.fullName.givenName +
+        ' ' +
+        appleIdCredential.fullName.familyName;
+  }
+
+  User.fromJson(dynamic json)
+      : token = json['token'] as String,
+        googleId = json['googleId'] as String,
+        name = json['name'] as String ?? '',
+        email = json['email'] != null ? json['email'] as String : '',
+        nickname = json['nickname'] != null ? json['nickname'] as String : '',
+        pictureId =
+            json['pictureId'] != null ? json['pictureId'] as String : '',
+        photoPath =
+            json['photoPath'] != null ? json['photoPath'] as String : '',
+        appleIdCredentialUser = json['appleIdCredentialUser'] != null
+            ? json['appleIdCredentialUser'] as String
+            : '' {
+    if (json['authorities'] is List)
+      for (final dynamic authority in json['authorities'])
+        if (authority is Map<String, dynamic>)
+          authorities.add(UserAuthority.fromJson(authority));
+    if (json['bookmarks'] is List)
+      for (final dynamic homeGymId in json['bookmarks'])
+        if (homeGymId is String) {
+          bookmarks.add(homeGymId);
+        }
+  }
+
   String token;
   String googleId;
   String name = '';
   String email = '';
   String nickname = '';
   String pictureId = '';
-  String photoUrl = '';
+  String photoPath = '';
   String appleIdCredentialUser;
-  List<UserAuthority> authorities = List<UserAuthority>();
-  List<String> homeGymIds= List<String>();
-
-  User(
-      {this.googleId,
-      this.token,
-      this.nickname,
-      this.name,
-      this.email,
-      this.pictureId,
-      this.photoUrl});
-
-  User.fromGoogleSignInAccount(GoogleSignInAccount googleSignInAccount)
-      : this.googleId = googleSignInAccount.id,
-        this.email = googleSignInAccount.email,
-        this.name = googleSignInAccount.displayName,
-        this.token = '',
-        this.photoUrl = googleSignInAccount.photoUrl;
-
-  User.fromAppleIdCredentials(AppleIdCredential appleIdCredential) {
-    this.token = '';
-    this.email = appleIdCredential.email;
-    this.nickname = '';
-    this.name = appleIdCredential.fullName.givenName +
-        ' ' +
-        appleIdCredential.fullName.familyName;
-  }
-
-  User.fromJson(Map<String, dynamic> json)
-      : this.token = json['token'],
-        this.googleId = json['uuigoogleIdd'],
-        this.name = json['name'] != null ? json['name'] : '',
-        this.email = json['email'] != null ? json['email'] : '',
-        this.nickname = json['nickname'] != null ? json['nickname'] : '',
-        this.pictureId = json['pictureId'] != null ? json['pictureId'] : '',
-        this.photoUrl = json['photoUrl'] != null ? json['photoUrl'] : '',
-        this.appleIdCredentialUser = json['appleIdCredentialUser'] != null
-            ? json['appleIdCredentialUser']
-            : '' {
-    if (json['authorities'] is List)
-      for (final authority in json['authorities'])
-        this.authorities.add(UserAuthority.fromJson(authority));
-    if (json['homeGymIds'] is List)
-      for (final homeGymId in json['homeGymIds'])
-        this.homeGymIds.add(homeGymId);
-  }
+  List<UserAuthority> authorities = <UserAuthority>[];
+  Set<String> bookmarks = <String>{};
 
   Map<String, dynamic> toJson() {
-    List<Map<String, dynamic>> authoritiesMap = [];
+    final List<Map<String, dynamic>> authoritiesMap = <Map<String, dynamic>>[];
     for (final UserAuthority authority in authorities)
       authoritiesMap.add(authority.toJson());
-    return {
-      'token': this.token,
-      'googleId': this.googleId,
-      'name': this.name,
-      'nickname': this.nickname,
-      'email': this.email,
-      'pictureId': this.pictureId,
-      'photoUrl': this.photoUrl,
-      'appleIdCredentialUser': this.appleIdCredentialUser,
+    return <String, dynamic>{
+      'token': token,
+      'googleId': googleId,
+      'name': name,
+      'nickname': nickname,
+      'email': email,
+      'pictureId': pictureId,
+      'photoPath': photoPath,
+      'appleIdCredentialUser': appleIdCredentialUser,
       'authorities': authoritiesMap,
-      'homeGymIds': homeGymIds
+      'bookmarks': bookmarks.toList()
     };
   }
 
   bool isAdmin() {
     for (final UserAuthority authority in authorities)
-      if (authority.authority == Role.ROLE_ADMIN) return true;
+      if (authority.authority == Role.ROLE_ADMIN) {
+        return true;
+      }
     return false;
   }
 
   String getPictureUrl() {
-    if (photoUrl.isNotEmpty) {
-      return photoUrl;
+    if (photoPath.isNotEmpty) {
+      return CDN_PATH + photoPath;
     } else {
-      return 'http://mokhov.ca/honnold.png';
+      return CDN_PATH + '/avatar/av0.jpg';
     }
   }
 }

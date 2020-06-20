@@ -7,22 +7,23 @@ import 'package:climbing/ui/buttons/my_google_sign_in_button.dart';
 import 'package:flutter/material.dart';
 
 class SignInDialog extends StatelessWidget {
+  const SignInDialog({Key key, @required this.signIn, @required this.signInProviderSet})
+      : super(key: key);
+
   static const double CORNER_RADIUS = 4.0;
   static const double BUTTON_PADDING = 10;
 
   final Function(SignInProvider) signIn;
   final Set<SignInProvider> signInProviderSet;
 
-  SignInDialog({Key key, @required this.signIn, @required this.signInProviderSet})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Brightness brightness = Theme.of(context).brightness;
+    final Brightness brightness = Theme.of(context).brightness;
 
-    List<Widget> items = [];
+    List<Widget> items = <Widget>[];
     //APPLE
-    if (signInProviderSet.contains(SignInProvider.Apple)) {
+    if (signInProviderSet.contains(SignInProvider.APPLE)) {
       items.add(Padding(
           padding: const EdgeInsets.all(BUTTON_PADDING),
           child: MyAppleSignInButton(
@@ -32,12 +33,12 @@ class SignInDialog extends StatelessWidget {
                   : AppleSignInButtonStyle.black,
               cornerRadius: CORNER_RADIUS,
               onPressed: () {
-                this.signIn(SignInProvider.Apple);
+                signIn(SignInProvider.APPLE);
                 Navigator.pop(context);
               })));
     }
     //GOOGLE
-    if (signInProviderSet.contains(SignInProvider.Google)) {
+    if (signInProviderSet.contains(SignInProvider.GOOGLE)) {
       items.add(Padding(
           padding: const EdgeInsets.all(BUTTON_PADDING),
           child: MyGoogleSignInButton(
@@ -47,7 +48,7 @@ class SignInDialog extends StatelessWidget {
                   : AppleSignInButtonStyle.whiteOutline,
               cornerRadius: CORNER_RADIUS,
               onPressed: () {
-                this.signIn(SignInProvider.Google);
+                signIn(SignInProvider.GOOGLE);
                 Navigator.pop(context);
               })));
     }
@@ -63,7 +64,7 @@ class SignInDialog extends StatelessWidget {
       child: Text(
         S.of(context).byContinuingYouAcceptOurPolicies,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 12, color: Colors.grey),
+        style: const TextStyle(fontSize: 12, color: Colors.grey),
       ),
     ));
 

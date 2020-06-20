@@ -8,6 +8,14 @@ enum AppleSignInButtonStyle { black, whiteOutline, white }
 
 /// A button for Sign in With Apple
 class MyAppleSignInButton extends StatefulWidget {
+  const MyAppleSignInButton({
+    this.onPressed,
+    this.style = AppleSignInButtonStyle.white,
+    this.cornerRadius = 6,
+    this.text,
+  })  : assert(style != null),
+        assert(cornerRadius != null);
+
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
@@ -21,14 +29,6 @@ class MyAppleSignInButton extends StatefulWidget {
 
   final String text;
 
-  const MyAppleSignInButton({
-    this.onPressed,
-    this.style = AppleSignInButtonStyle.white,
-    this.cornerRadius = 6,
-    this.text,
-  })  : assert(style != null),
-        assert(cornerRadius != null);
-
   @override
   State<StatefulWidget> createState() => _MyAppleSignInButtonState();
 }
@@ -38,13 +38,13 @@ class _MyAppleSignInButtonState extends State<MyAppleSignInButton> {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = widget.style == AppleSignInButtonStyle.black
+    final Color bgColor = widget.style == AppleSignInButtonStyle.black
         ? Colors.black
         : Colors.white;
-    final textColor = widget.style == AppleSignInButtonStyle.black
+    final Color textColor = widget.style == AppleSignInButtonStyle.black
         ? Colors.white
         : Colors.black;
-    final borderColor = widget.style == AppleSignInButtonStyle.white
+    final Color borderColor = widget.style == AppleSignInButtonStyle.white
         ? Colors.white
         : Colors.black;
 
@@ -56,8 +56,8 @@ class _MyAppleSignInButtonState extends State<MyAppleSignInButton> {
       },
       onTapCancel: () => setState(() => _isTapDown = false),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 100),
-        constraints: BoxConstraints(
+        duration: const Duration(milliseconds: 100),
+        constraints: const BoxConstraints(
           minHeight: 32,
           maxHeight: 64,
           minWidth: 200,
@@ -104,13 +104,13 @@ class _MyAppleSignInButtonState extends State<MyAppleSignInButton> {
 }
 
 class _AppleLogoPainter extends CustomPainter {
-  final Color color;
-
   _AppleLogoPainter({@required this.color});
+
+  final Color color;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
+    final Paint paint = Paint()..color = color;
     canvas.drawPath(_getApplePath(size.width, size.height), paint);
   }
 

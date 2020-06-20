@@ -1,14 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7c9088a-bf9a-4b35-a9bc-ba41fa261723" name="Default Changelist" comment="">
+    <list default="true" id="377bc27d-7744-445f-9ce9-007108afc02c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/5/05b878e16bd605859dbea471a346a2c679a97077" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/9/09316a138295ea979643de27da35fd77bbeb9c11" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/8/2803c95a39fa17959b10e13bc51ca0bb4fb30e12" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/a/2ae1b39a7a8644c6c8f8b14a1cbd97398ad0d0dd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/b/3bf2be3bbaeca35458821fb6b9e88a53d75e3235" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/55c8a739dff7729693fe4e51d953be5753c33955" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/8/78fd49e1497a28ffb1b3427c12cd1de5760d935c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/c/9cdbdee720b4e608c7ce0abefc1f4666d5097303" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/c/9cf43f836865c48e41befa746889331e4df8b533" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/4/a4242fc56c6fe15a1e2ae551a90fad54b714c8b8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/8/a8ea5273939a12e805641671b79e5eaeaab1e231" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/a/aac6c36f1e494790bb37397421c369b7a8c5e1e9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/a/da3470bd599fab0dc9cca33c20246b64d7737626" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/b/dba050b5933dfcb7f59fffb1056167bc9ec3835a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/d/ddc05229766654b0dc9d9030740e8c1512ec01da" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/1/e1053239deac2db089c24589e119678c8a12729b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/3/e34d6aec628fec6de904f0f36b58506326162946" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/5/e5657b212f62004fd00e03953399092d6e6545ff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/e/fe0f7630d5d0ee4382f148621f4d078321c603d6" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/e/fe5ccae0d306ebb7e2ff632b3e83eba3471b5c91" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/api.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/api_gym_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/api_route_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/api_spaces.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/api_user_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/enums/gyms_provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/keys.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/app_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/coordinates.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/gym_id.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repositories/user_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/gyms_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/apple_sign_in_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/connectivity_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/haptic_feedback_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/location_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/sign_in_service_abstract.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/typedefs.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ui/widgets/take_picture_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/climbing-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/climbing-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mikhail_mokhov.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/mikhail_mokhov.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Flutter/.last_build_id" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/.last_build_id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/enums/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/enums/role.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/enums/sign_in_provider_enum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/enums/sign_in_provider_enum.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/generated/intl/messages_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/intl/messages_en.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/generated/l10n.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/l10n.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/l10n/intl_en.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/intl_en.arb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gym_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gym_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/climbing_route.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/climbing_route.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/google_places_api.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/grade_scale.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/gym.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/gym.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/gyms_response.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/my_location.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/my_location.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/request_photo_upload_url_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/request_photo_upload_url_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/sign_in_with_apple_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/sign_in_with_apple_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/user_authority.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/user_authority.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/bookmark_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/bookmark_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/my_apple_sign_in_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/my_apple_sign_in_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/my_google_sign_in_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/my_google_sign_in_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/open_yelp_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/open_yelp_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/toggleable_circle_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/toggleable_circle_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/dialogs/sign_in_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dialogs/sign_in_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/account_drawer_header_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/account_drawer_header_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/drawer_menu_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/drawer_menu_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/edit_profile_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/edit_profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gym_title_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gym_title_yelp.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gym_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gym_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/disabled_location_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/location_service_unavailable.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_add_to_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_add_to_yelp.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_empty_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_empty_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_tile_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_tile_yelp.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_map.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_view.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/rating_bar_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/rating_bar_yelp.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/my_flexible_space_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/my_flexible_space_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/routes_grid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/routes_grid.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/routes_tabs_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/scale_picker_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/apple_id_credential_converter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/apple_id_credential_converter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/gym_test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/location_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/location_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/user_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/user_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,12 +121,8 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1bH7G9WQe8IpbxmSXFh1eJboNip" />
-  <component name="ProjectReloadState">
-    <option name="STATE" value="1" />
-  </component>
+  <component name="ProjectId" id="1cgtDb9fhMOhnqpNA1qe3s4wSmt" />
   <component name="ProjectViewState">
-    <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,272 +132,123 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/ui/buttons" />
-    <property name="project.structure.last.edited" value="Problems" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/ui/buttons" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/ui" />
-      <recent name="$PROJECT_DIR$/lib/ui/buttons" />
-      <recent name="$PROJECT_DIR$/lib/enums" />
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/lib/ui/dialogs" />
+      <recent name="$PROJECT_DIR$/lib/screens" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="Counter increments smoke test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Counter increments smoke test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/widget_test.dart" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter Test.Counter increments smoke test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d7c9088a-bf9a-4b35-a9bc-ba41fa261723" name="Default Changelist" comment="" />
-      <created>1588277066648</created>
+      <changelist id="377bc27d-7744-445f-9ce9-007108afc02c" name="Default Changelist" comment="" />
+      <created>1590961945278</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1588277066648</updated>
-      <workItem from="1588277068129" duration="140000" />
-      <workItem from="1588277227587" duration="59000" />
-      <workItem from="1588277325771" duration="162000" />
-      <workItem from="1588282128030" duration="2026000" />
-      <workItem from="1588293615388" duration="14226000" />
-      <workItem from="1588356055321" duration="5010000" />
-      <workItem from="1588362046687" duration="15331000" />
-      <workItem from="1588428093935" duration="41619000" />
-      <workItem from="1588629754942" duration="19820000" />
-      <workItem from="1588708472302" duration="13855000" />
-      <workItem from="1588798150090" duration="989000" />
-      <workItem from="1588886740905" duration="972000" />
+      <updated>1590961945278</updated>
+      <workItem from="1590961946505" duration="64000" />
+      <workItem from="1591017110761" duration="7488000" />
+      <workItem from="1591037813649" duration="11617000" />
+      <workItem from="1591050042865" duration="9092000" />
+      <workItem from="1592598957204" duration="241000" />
+      <workItem from="1592599220380" duration="7256000" />
+      <workItem from="1592675433458" duration="3899000" />
     </task>
-    <task id="LOCAL-00001" summary="Set up environment on macbook">
-      <created>1588303477611</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1588303477611</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Added vibration to user photo edit button">
-      <created>1588304552503</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1588304552503</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Changed progress dialog for user sign in">
-      <created>1588305530564</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1588305530564</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Changes vibrate feedback type">
-      <created>1588346594747</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1588346594747</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Changed app icons, moved project files">
-      <created>1588358199580</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1588358199581</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Major code refactoring">
-      <created>1588368167719</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1588368167719</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Major code refactoring">
-      <created>1588368191528</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1588368191528</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Removed unnecessary parameters">
-      <created>1588370091668</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1588370091668</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Committed .idea folder">
-      <created>1588370201909</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1588370201909</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Changed readme">
-      <created>1588370354013</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1588370354013</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Work in progress">
-      <created>1588562620403</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1588562620403</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Work in progress">
-      <created>1588728478851</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1588728478851</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Work in progress">
-      <created>1588728648812</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1588728648812</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set up environment on macbook" />
-    <MESSAGE value="Added vibration to user photo edit button" />
-    <MESSAGE value="Changed progress dialog for user sign in" />
-    <MESSAGE value="Changes vibrate feedback type" />
-    <MESSAGE value="Changed app icons, moved project files" />
-    <MESSAGE value="Major code refactoring" />
-    <MESSAGE value="Removed unnecessary parameters" />
-    <MESSAGE value="Committed .idea folder" />
-    <MESSAGE value="Changed readme" />
-    <MESSAGE value="Work in progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="Work in progress" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="253" y="109" key="#Plugins" timestamp="1588428081018">
+    <state x="190" y="183" key="#xdebugger.evaluate" timestamp="1592602922606">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="253" y="109" key="#Plugins/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588428081018" />
-    <state x="466" y="184" key="#com.intellij.ide.util.MemberChooser" timestamp="1588431459696">
+    <state x="190" y="183" key="#xdebugger.evaluate/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602922606" />
+    <state width="581" height="438" key="DebuggerActiveHint" timestamp="1592602808273">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="466" y="184" key="#com.intellij.ide.util.MemberChooser/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588431459696" />
-    <state x="381" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1588277255604">
+    <state width="581" height="438" key="DebuggerActiveHint/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602808273" />
+    <state width="941" height="1127" key="GridCell.Tab.0.bottom" timestamp="1592681222065">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="381" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588277255604" />
-    <state x="391" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1588365772932">
+    <state width="941" height="1127" key="GridCell.Tab.0.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222065" />
+    <state width="900" height="977" key="GridCell.Tab.0.bottom/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021779" />
+    <state width="941" height="1127" key="GridCell.Tab.0.center" timestamp="1592681222063">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="391" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588365772932" />
-    <state x="35" y="146" key="#xdebugger.evaluate" timestamp="1588560070355">
+    <state width="941" height="1127" key="GridCell.Tab.0.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222063" />
+    <state width="900" height="977" key="GridCell.Tab.0.center/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021779" />
+    <state width="941" height="1127" key="GridCell.Tab.0.left" timestamp="1592681222062">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="35" y="146" key="#xdebugger.evaluate/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588560070355" />
-    <state x="89" y="38" width="1262" height="846" key="CommitChangelistDialog2" timestamp="1588728648688">
+    <state width="941" height="1127" key="GridCell.Tab.0.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222062" />
+    <state width="900" height="977" key="GridCell.Tab.0.left/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021778" />
+    <state width="941" height="1127" key="GridCell.Tab.0.right" timestamp="1592681222064">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="89" y="38" width="1262" height="846" key="CommitChangelistDialog2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588728648688" />
-    <state width="535" height="438" key="DebuggerActiveHint" timestamp="1588561590611">
+    <state width="941" height="1127" key="GridCell.Tab.0.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222064" />
+    <state width="900" height="977" key="GridCell.Tab.0.right/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021779" />
+    <state width="941" height="1127" key="GridCell.Tab.1.bottom" timestamp="1592681204890">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="535" height="438" key="DebuggerActiveHint/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588561590611" />
-    <state x="139" y="100" key="DiffContextDialog" timestamp="1588294589783">
+    <state width="941" height="1127" key="GridCell.Tab.1.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204890" />
+    <state width="900" height="977" key="GridCell.Tab.1.bottom/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021781" />
+    <state width="941" height="1127" key="GridCell.Tab.1.center" timestamp="1592681204890">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state x="139" y="100" key="DiffContextDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588294589783" />
-    <state width="812" height="1127" key="GridCell.Tab.0.bottom" timestamp="1588886779615">
+    <state width="941" height="1127" key="GridCell.Tab.1.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204890" />
+    <state width="900" height="977" key="GridCell.Tab.1.center/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021780" />
+    <state width="941" height="1127" key="GridCell.Tab.1.left" timestamp="1592681204889">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.0.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588886779615" />
-    <state width="812" height="1127" key="GridCell.Tab.0.center" timestamp="1588886779613">
+    <state width="941" height="1127" key="GridCell.Tab.1.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204889" />
+    <state width="900" height="977" key="GridCell.Tab.1.left/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021780" />
+    <state width="941" height="1127" key="GridCell.Tab.1.right" timestamp="1592681204890">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.0.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588886779613" />
-    <state width="812" height="1127" key="GridCell.Tab.0.left" timestamp="1588886779612">
+    <state width="941" height="1127" key="GridCell.Tab.1.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204890" />
+    <state width="900" height="977" key="GridCell.Tab.1.right/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021780" />
+    <state x="181" y="43" key="SettingsEditor" timestamp="1590962003472">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.0.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588886779612" />
-    <state width="812" height="1127" key="GridCell.Tab.0.right" timestamp="1588886779614">
+    <state x="181" y="43" key="SettingsEditor/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1590962003472" />
+    <state x="319" y="84" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1592602727328">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.0.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588886779614" />
-    <state width="812" height="1127" key="GridCell.Tab.1.bottom" timestamp="1588860305540">
+    <state x="319" y="84" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602727327" />
+    <state x="394" y="216" width="598" height="490" key="find.popup" timestamp="1592602670514">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.1.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588860305540" />
-    <state width="812" height="1127" key="GridCell.Tab.1.center" timestamp="1588860305540">
+    <state x="394" y="216" width="598" height="490" key="find.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602670514" />
+    <state width="735" height="710" key="javadoc.popup.new" timestamp="1591068987161">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.1.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588860305540" />
-    <state width="812" height="1127" key="GridCell.Tab.1.left" timestamp="1588860305540">
+    <state width="735" height="710" key="javadoc.popup.new/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1591068987161" />
+    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1591051228310">
       <screen x="0" y="23" width="1387" height="877" />
     </state>
-    <state width="812" height="1127" key="GridCell.Tab.1.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588860305540" />
-    <state width="812" height="1127" key="GridCell.Tab.1.right" timestamp="1588860305540">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="812" height="1127" key="GridCell.Tab.1.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588860305540" />
-    <state x="-30" y="-790" key="IDE.errors.dialog" timestamp="1588354793422">
-      <screen x="-255" y="-1177" width="1920" height="1177" />
-    </state>
-    <state x="-30" y="-790" key="IDE.errors.dialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588354793422" />
-    <state x="516" y="170" key="RollbackChangesDialog" timestamp="1588303109936">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="516" y="170" key="RollbackChangesDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588303109936" />
-    <state x="82" y="62" width="1305" height="756" key="SettingsEditor" timestamp="1588713057700">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="82" y="62" width="1305" height="756" key="SettingsEditor/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588713057700" />
-    <state x="293" y="201" key="Vcs.Push.Dialog.v2" timestamp="1588728654604">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="293" y="201" key="Vcs.Push.Dialog.v2/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588728654604" />
-    <state x="227" y="135" width="987" height="709" key="find.popup" timestamp="1588713161553">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="227" y="135" width="987" height="709" key="find.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588713161553" />
-    <state x="378" y="257" key="git4idea.merge.GitPullDialog" timestamp="1588303121184">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="378" y="257" key="git4idea.merge.GitPullDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588303121184" />
-    <state x="480" y="357" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1588728614506">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="480" y="357" key="git4idea.remote.GitConfigureRemotesDialog/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588728614506" />
-    <state width="714" height="532" key="javadoc.popup.new" timestamp="1588798219614">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="714" height="532" key="javadoc.popup.new/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588798219614" />
-    <state x="61" y="84" key="new project wizard" timestamp="1588707868006">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="61" y="84" key="new project wizard/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588707868006" />
-    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1588693002302">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1588693002302" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="dart-exception" />
-      </default-breakpoints>
-    </breakpoint-manager>
+    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1591051228310" />
   </component>
 </project>

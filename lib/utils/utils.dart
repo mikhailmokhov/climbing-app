@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Utils {
-
-  static void showSignInDialog(BuildContext context, Set<SignInProvider> signInProviderSet, void Function(SignInProvider) signIn){
-    showDialog(
+  static void showSignInDialog(
+      BuildContext context,
+      Set<SignInProvider> signInProviderSet,
+      void Function(SignInProvider) signIn) {
+    showDialog<void>(
       context: context,
       builder: (BuildContext passedContext) => SignInDialog(
         signIn: (SignInProvider signInProvider) {
@@ -21,32 +23,38 @@ class Utils {
   }
 
   static String toMessage(dynamic e) {
-    String errorText = "";
+    String errorText = '';
     if (e is Error || e is PlatformException) {
       errorText = e.toString();
     } else if (e is String) {
       errorText = e;
     } else if (e is DioError) {
-      DioError dioError = e;
+      final DioError dioError = e;
       if (dioError.response != null &&
           dioError.response.data is Map<String, dynamic>) {
-        Map<String, dynamic> map = dioError.response.data;
-        if (map.containsKey("status"))
-          errorText += map["status"].toString() + " ";
-        if (map.containsKey("error")) errorText += map["error"] + ": ";
-        if (map.containsKey("message")) errorText += map["message"] + " ";
+        final dynamic map = dioError.response.data;
+        if (map.containsKey('status') != null)
+          errorText += map['status'].toString() + ' ';
+        if (map.containsKey('error') != null) {
+          errorText += map['error']  + ': ' as String;
+        }
+        if (map.containsKey('message') != null) {
+          errorText += map['message'] + ' ' as String;
+        }
       } else {
         errorText = dioError.toString();
       }
     } else {
-      errorText = "Unknown Error";
+      errorText = 'Unknown Error';
     }
-    return errorText;
+    throw e;
+    return errorText.substring(0, 20);
   }
 
-  static void showError(Flushbar flushbar, dynamic e, BuildContext context) {
+  static void showError(
+      Flushbar<dynamic> flushbar, dynamic e, BuildContext context) {
     flushbar?.dismiss();
-    flushbar = Flushbar(
+    flushbar = Flushbar<dynamic>(
       message: Utils.toMessage(e),
       backgroundColor: Colors.deepOrange,
       flushbarStyle: FlushbarStyle.GROUNDED,

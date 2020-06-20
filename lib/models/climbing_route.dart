@@ -1,19 +1,11 @@
-import 'package:climbing/models/grade_scale.dart';
-
 ///
 /// Describes properties and serialization methods of gym instance
 class ClimbingRoute {
+  ClimbingRoute.fromJson(Map<String, String> json)
+      : id = json['route_id'],
+        name = json['route_name'];
+
   final String id;
-  String name = "";
-  GradeScale grade;
+  String name = '';
   double rating = 0.0;
-
-  ClimbingRoute.fromJson(Map<String, dynamic> json)
-      : this.id = json['route_id'],
-        this.name = json['route_name']{
-    if(json.containsKey('difficulty')){
-      this.grade = GradeScale(json['difficulty'].toDouble());
-    }
-  }
-
 }
