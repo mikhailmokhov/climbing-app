@@ -58,53 +58,53 @@ class LocationServiceUnavailable extends StatelessWidget {
   }
 }
 
-class OpenLocationSettingsDialog {
-  static void openSettings(
-      GeolocationStatus status, ServiceStatus serviceStatus) {
-    if (serviceStatus == ServiceStatus.disabled) {
-      AppSettings.openLocationSettings();
-    } else {
-      LocationPermissions().openAppSettings();
-    }
-  }
-
-  static Future<void> show(BuildContext context, GeolocationStatus status,
-      ServiceStatus serviceStatus) {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(
-                  Icons.location_off,
-                  color: Theme.of(context).disabledColor,
-                  size: 32,
-                ),
-              ),
-              Text(S.of(context).locationIsDisabled),
-            ],
-          ),
-          content: Text(S.of(context).turnOnLocation),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(S.of(context).cancel),
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-            ),
-            RaisedButton(
-              child: Text(S.of(context).openSettings),
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
-}
+// class OpenLocationSettingsDialog {
+//   static void openSettings(
+//       GeolocationStatus status, ServiceStatus serviceStatus) {
+//     if (serviceStatus == ServiceStatus.disabled) {
+//       AppSettings.openLocationSettings();
+//     } else {
+//       LocationPermissions().openAppSettings();
+//     }
+//   }
+//
+//   static Future<void> show(BuildContext context, GeolocationStatus status,
+//       ServiceStatus serviceStatus) {
+//     return showDialog<void>(
+//       context: context,
+//       barrierDismissible: true,
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Row(
+//             children: <Widget>[
+//               Padding(
+//                 padding: const EdgeInsets.only(right: 10),
+//                 child: Icon(
+//                   Icons.location_off,
+//                   color: Theme.of(context).disabledColor,
+//                   size: 32,
+//                 ),
+//               ),
+//               Text(S.of(context).locationIsDisabled),
+//             ],
+//           ),
+//           content: Text(S.of(context).turnOnLocation),
+//           actions: <Widget>[
+//             TextButton(
+//               child: Text(S.of(context).cancel),
+//               onPressed: () {
+//                 Navigator.pop(context, false);
+//               },
+//             ),
+//             ElevatedButton(
+//               child: Text(S.of(context).openSettings),
+//               onPressed: () {
+//                 Navigator.pop(context, true);
+//               },
+//             )
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }

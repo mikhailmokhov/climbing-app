@@ -2,6 +2,7 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:climbing/models/sign_in_with_apple_response.dart';
 import 'package:climbing/models/user.dart';
 import 'package:climbing/services/sign_in_service_abstract.dart';
+
 import '../api/api.dart' as api;
 
 class AppleSignInService implements SignInService {

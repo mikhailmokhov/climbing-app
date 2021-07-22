@@ -1,4 +1,5 @@
 import 'package:climbing/enums/gyms_provider.dart';
+
 import 'coordinates.dart';
 import 'gym_id.dart';
 
@@ -44,7 +45,8 @@ class Gym {
       json['yelpRating'] as double,
       json['yelpReviewCount'] as int,
       json['yelpCoordinates'] is Map<String, dynamic>
-          ? Coordinates.fromJson(json['yelpCoordinates'] as Map<String, dynamic>)
+          ? Coordinates.fromJson(
+              json['yelpCoordinates'] as Map<String, dynamic>)
           : null,
       json['yelpCity'] as String,
       json['yelpDistance'] as double,

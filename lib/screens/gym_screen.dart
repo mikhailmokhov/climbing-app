@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:camera/camera.dart';
+import 'package:climbing/api/api.dart' as api;
 import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/generated/l10n.dart';
-import 'package:climbing/api/api.dart' as api;
 import 'package:climbing/models/app_state.dart';
 import 'package:climbing/models/climbing_route.dart';
 import 'package:climbing/models/gym.dart';
@@ -131,19 +131,17 @@ class _GymScreenState extends State<GymScreen> {
             return AlertDialog(
               title: Text(S.of(context).hideBusinessQuestion),
               actions: <Widget>[
-                RaisedButton(
-                  textColor: Colors.white,
+                ElevatedButton(
+                  //textColor: Colors.white,
                   child: Text(S.of(context).YES),
                   onPressed: () {
                     api.setGymVisibility(gym.getFirstGymId(), false).then((_) {
                       Navigator.pop(context);
-                      widget.updateGym(
-                        gym, visible: false
-                      );
+                      widget.updateGym(gym, visible: false);
                     });
                   },
                 ),
-                FlatButton(
+                TextButton(
                   child: Text(S.of(context).NO),
                   onPressed: () {
                     Navigator.pop(context);
@@ -162,8 +160,8 @@ class _GymScreenState extends State<GymScreen> {
             return AlertDialog(
               title: Text(S.of(context).unhideBusinessQuestion),
               actions: <Widget>[
-                RaisedButton(
-                  textColor: Colors.white,
+                ElevatedButton(
+                  //textColor: Colors.white,
                   child: Text(S.of(context).YES),
                   onPressed: () {
                     api.setGymVisibility(gym.getFirstGymId(), true).then((_) {
@@ -172,7 +170,7 @@ class _GymScreenState extends State<GymScreen> {
                     });
                   },
                 ),
-                FlatButton(
+                TextButton(
                   child: Text(S.of(context).NO),
                   onPressed: () {
                     Navigator.pop(context);
@@ -329,7 +327,7 @@ class _GymScreenState extends State<GymScreen> {
                               return AlertDialog(
                                 title: Text(S.of(context).youNeedToBeSignedIn),
                                 actions: <Widget>[
-                                  RaisedButton(
+                                  ElevatedButton(
                                     child: Text(S.of(context).signInSignUp),
                                     onPressed: () {
                                       Navigator.pop(dialogContext);
@@ -346,7 +344,7 @@ class _GymScreenState extends State<GymScreen> {
                                       });
                                     },
                                   ),
-                                  FlatButton(
+                                  TextButton(
                                     child: Text(S.of(context).cancel),
                                     onPressed: () {
                                       Navigator.pop(dialogContext);

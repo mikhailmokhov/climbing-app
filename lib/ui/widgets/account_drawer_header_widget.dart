@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:climbing/enums/sign_in_provider_enum.dart';
-import 'package:climbing/models/app_state.dart';
 import 'package:climbing/generated/l10n.dart';
+import 'package:climbing/models/app_state.dart';
 import 'package:climbing/screens/edit_profile_screen.dart';
 import 'package:climbing/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class AccountDrawerHeader extends StatelessWidget {
       topRowItems.add(PositionedDirectional(
         end: 10.0,
         top: 0.0,
-        child: OutlineButton.icon(
+        child: OutlinedButton.icon(
             label: Text(S.of(context).signInSignUp,
                 style: TextStyle(
                     color: Theme.of(context).primaryIconTheme?.color)),
@@ -81,7 +81,7 @@ class AccountDrawerHeader extends StatelessWidget {
       topRowItems.add(PositionedDirectional(
         end: 10.0,
         top: 0.0,
-        child: OutlineButton(
+        child: OutlinedButton(
             onPressed: () {
               feedback(FeedbackType.light);
               showDialog<void>(
@@ -91,14 +91,14 @@ class AccountDrawerHeader extends StatelessWidget {
                   return AlertDialog(
                     title: Text(S.of(context).signOutQuestion),
                     actions: <Widget>[
-                      RaisedButton(
+                      ElevatedButton(
                         child: Text(S.of(context).YES),
                         onPressed: () {
                           signOut();
                           Navigator.pop(context);
                         },
                       ),
-                      FlatButton(
+                      TextButton(
                         child: Text(S.of(context).NO),
                         onPressed: () {
                           Navigator.pop(context);
@@ -164,8 +164,9 @@ class AccountDrawerHeader extends StatelessWidget {
                   message: S.of(context).editProfile,
                   child: SizedBox(
                     width: 50,
-                    child: OutlineButton(
-                        shape: const CircleBorder(),
+                    child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            shape: const CircleBorder()),
                         onPressed: _editAccount,
                         child: Icon(
                           Icons.mode_edit,

@@ -124,7 +124,8 @@ class _BookmarkButtonState extends State<BookmarkButton>
                 scale: _alpha.value,
                 alignment: Alignment.center,
                 child: Icon(
-                  widget.icon ?? (_isSelected
+                  widget.icon ??
+                      (_isSelected
                           ? widget.iconSelected
                           : widget.iconUnselected),
                   color: _isSelected ? SELECTED_COLOR : _color,

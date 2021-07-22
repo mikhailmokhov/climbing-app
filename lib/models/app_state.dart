@@ -1,7 +1,6 @@
 import 'package:climbing/enums/sign_in_provider_enum.dart';
 import 'package:climbing/models/coordinates.dart';
 import 'package:climbing/screens/gyms_screen.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'gym.dart';
 import 'user.dart';

@@ -28,9 +28,11 @@ class LocationService {
   bool _hasPermission(PermissionStatus permissionStatus) {
     switch (permissionStatus) {
       case PermissionStatus.granted:
+      case PermissionStatus.grantedLimited:
         return true;
       case PermissionStatus.denied:
       case PermissionStatus.deniedForever:
+        break;
     }
     return false;
   }

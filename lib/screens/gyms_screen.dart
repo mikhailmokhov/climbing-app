@@ -72,17 +72,17 @@ class _GymsScreenState extends State<GymsScreen> {
     _hiddenGymsCount = _allGymsCount - _visibleGymsCount;
   }
 
-  String getTitle(GymsFilter activeFilter){
+  String getTitle(GymsFilter activeFilter) {
     String title;
-    switch (activeFilter){
+    switch (activeFilter) {
       case GymsFilter.showAllGyms:
         title = S.of(context).showAllGyms(_allGymsCount);
         break;
       case GymsFilter.showHiddenGyms:
-        title =  S.of(context).hiddenWithCount(_hiddenGymsCount);
+        title = S.of(context).hiddenWithCount(_hiddenGymsCount);
         break;
       case GymsFilter.showVisibleGyms:
-        title =  S.of(context).visibleWithCount(_visibleGymsCount);
+        title = S.of(context).visibleWithCount(_visibleGymsCount);
     }
     return title;
   }
@@ -182,27 +182,25 @@ class _GymsScreenState extends State<GymsScreen> {
             signIn: widget.signIn,
             feedback: widget.feedback,
             updateUser: widget.updateUser),
-        bottomNavigationBar: appState.locationServiceEnabled ||
-                appState.locationServicePermitted
-            ? BottomNavigationBar(
-                currentIndex: ScreenTabs.values.indexOf(activeTab),
-                onTap: (int index) {
-                  _updateTab(ScreenTabs.values[index]);
-                },
-                items: ScreenTabs.values.map((ScreenTabs tab) {
-                  return BottomNavigationBarItem(
-                    icon: Icon(tab == ScreenTabs.list ? Icons.list : Icons.map,
-                        key: tab == ScreenTabs.list
-                            ? keys.listTab
-                            : keys.mapsTab),
-                    title: Text(
-                      tab == ScreenTabs.list
-                          ? S.of(context).list
-                          : S.of(context).map,
-                    ),
-                  );
-                }).toList(),
-              )
-            : null);
+        bottomNavigationBar:
+            appState.locationServiceEnabled || appState.locationServicePermitted
+                ? BottomNavigationBar(
+                    currentIndex: ScreenTabs.values.indexOf(activeTab),
+                    onTap: (int index) {
+                      _updateTab(ScreenTabs.values[index]);
+                    },
+                    items: ScreenTabs.values.map((ScreenTabs tab) {
+                      return BottomNavigationBarItem(
+                          icon: Icon(
+                              tab == ScreenTabs.list ? Icons.list : Icons.map,
+                              key: tab == ScreenTabs.list
+                                  ? keys.listTab
+                                  : keys.mapsTab),
+                          label: tab == ScreenTabs.list
+                              ? S.of(context).list
+                              : S.of(context).map);
+                    }).toList(),
+                  )
+                : null);
   }
 }

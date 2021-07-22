@@ -12,21 +12,23 @@ class GymTitleYelp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            gymName,
-            style: const TextStyle(fontSize: 25),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 3, left: 2),
-            child: YelpRatingBar(rating, reviewCount),
-          )
-        ],
+    return Expanded(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              gymName,
+              style: const TextStyle(fontSize: 25),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 3, left: 2),
+              child: YelpRatingBar(rating, reviewCount),
+            )
+          ],
+        ),
       ),
-    ),);
+    );
   }
 }

@@ -39,7 +39,7 @@ Future<User> getUser() async {
 Future<String> addGymToBookmarks(GymId gymId) async {
   final Response<String> response = await _dio.post('/user/bookmarks',
       queryParameters: <String, dynamic>{
-        'provider': EnumToString.parse(gymId.provider),
+        'provider': EnumToString.convertToString(gymId.provider),
         'id': gymId.id
       },
       options: _generateOptions());

@@ -7,7 +7,8 @@ import 'package:climbing/ui/buttons/my_google_sign_in_button.dart';
 import 'package:flutter/material.dart';
 
 class SignInDialog extends StatelessWidget {
-  const SignInDialog({Key key, @required this.signIn, @required this.signInProviderSet})
+  const SignInDialog(
+      {Key key, @required this.signIn, @required this.signInProviderSet})
       : super(key: key);
 
   static const double CORNER_RADIUS = 4.0;
@@ -15,7 +16,6 @@ class SignInDialog extends StatelessWidget {
 
   final Function(SignInProvider) signIn;
   final Set<SignInProvider> signInProviderSet;
-
 
   @override
   Widget build(BuildContext context) {

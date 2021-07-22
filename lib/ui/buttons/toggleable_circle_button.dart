@@ -66,12 +66,12 @@ class _ToggleableCircleButtonState extends State<ToggleableCircleButton> {
         message: widget.tooltip,
         child: SizedBox(
           width: 40,
-          child: OutlineButton(
-              padding: const EdgeInsets.only(left: 0, right: 0),
-              borderSide: _selected
-                  ? BorderSide(color: Theme.of(context).accentColor)
-                  : null,
-              shape: const CircleBorder(),
+          child: OutlinedButton(
+              //padding: const EdgeInsets.only(left: 0, right: 0),
+              //borderSide: _selected
+              //    ? BorderSide(color: Theme.of(context).accentColor)
+              //    : null,
+              //shape: const CircleBorder(),
               onPressed: _onTap,
               child: Icon(
                 widget.icon,

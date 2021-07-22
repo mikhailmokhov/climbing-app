@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/api/api.dart' as api;
+import 'package:climbing/generated/l10n.dart';
 import 'package:climbing/models/app_state.dart';
 import 'package:climbing/models/request_photo_upload_url_response.dart';
 import 'package:climbing/utils/utils.dart';
@@ -21,7 +21,10 @@ import '../typedefs.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen(
-      {Key key, @required this.appState, @required this.updateUser, @required this.feedback})
+      {Key key,
+      @required this.appState,
+      @required this.updateUser,
+      @required this.feedback})
       : super(key: key);
 
   static const String routeName = '/profile';
@@ -41,9 +44,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   BuildContext _buildContext;
-  bool _widgetIsActive = false,
-      _inAsyncCall = false,
-      _imageChanged = false;
+  bool _widgetIsActive = false, _inAsyncCall = false, _imageChanged = false;
 
   String _nicknameError = '', _fullNameError = '';
 
@@ -121,7 +122,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 quality: 100, targetWidth: 300, targetHeight: 300);
             final RequestPhotoUploadUrlResponse requestPhotoUploadUrlResponse =
                 await api.requestUploadPhotoUrl(extension);
-            await api.uploadFileToSpaces(requestPhotoUploadUrlResponse.url, _image);
+            await api.uploadFileToSpaces(
+                Uri.dataFromString(requestPhotoUploadUrlResponse.url), _image);
             final String newPhotoUrl = await api.updatePhotoUrl(
                 requestPhotoUploadUrlResponse.fileId + extension);
             widget.appState.user.photoPath = newPhotoUrl;
@@ -184,7 +186,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> getImage(ImageSource source) async {
     try {
       final ImagePicker imagePicker = ImagePicker();
-      final PickedFile image = await imagePicker.getImage(source: source);
+      final XFile image = await imagePicker.pickImage(source: source);
       if (image != null) {
         final File croppedFile = await ImageCropper.cropImage(
             cropStyle: CropStyle.circle,
@@ -255,7 +257,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         title: Text(S.of(context).editProfile),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
               child: Text(S.of(context).SAVE,
                   style:
                       theme.textTheme.bodyText1.copyWith(color: Colors.white)),
@@ -290,13 +292,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 },
                                 child: CircleAvatar(
                                   backgroundImage: _image != null
-                                      ? FileImage(_image) as ImageProvider<dynamic>
+                                      ? FileImage(_image)
+                                          as ImageProvider<dynamic>
                                       : CachedNetworkImageProvider(
                                           widget.appState.user.getPictureUrl()),
                                 ))),
                         Container(
                           margin: const EdgeInsets.only(top: 10.0),
-                          child: OutlineButton(
+                          child: OutlinedButton(
                               child: Text(S.of(context).editPhoto),
                               onPressed: () {
                                 editPhoto(context);

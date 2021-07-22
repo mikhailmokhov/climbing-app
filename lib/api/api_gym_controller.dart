@@ -17,7 +17,7 @@ Future<List<Gym>> getGyms(Coordinates coordinates) async {
 Future<void> setGymVisibility(GymId gymId, bool visibility) async {
   await _dio.patch<void>('/gyms/' + gymId.id,
       queryParameters: <String, dynamic>{
-        'provider': EnumToString.parse(gymId.provider),
+        'provider': EnumToString.convertToString(gymId.provider),
         'visibility': visibility
       },
       options: _generateOptions());

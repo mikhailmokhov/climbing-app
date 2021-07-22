@@ -2,109 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="377bc27d-7744-445f-9ce9-007108afc02c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/5/05b878e16bd605859dbea471a346a2c679a97077" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/9/09316a138295ea979643de27da35fd77bbeb9c11" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/8/2803c95a39fa17959b10e13bc51ca0bb4fb30e12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/a/2ae1b39a7a8644c6c8f8b14a1cbd97398ad0d0dd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/b/3bf2be3bbaeca35458821fb6b9e88a53d75e3235" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/55c8a739dff7729693fe4e51d953be5753c33955" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/8/78fd49e1497a28ffb1b3427c12cd1de5760d935c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/c/9cdbdee720b4e608c7ce0abefc1f4666d5097303" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/c/9cf43f836865c48e41befa746889331e4df8b533" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/4/a4242fc56c6fe15a1e2ae551a90fad54b714c8b8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/8/a8ea5273939a12e805641671b79e5eaeaab1e231" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/a/aac6c36f1e494790bb37397421c369b7a8c5e1e9" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/a/da3470bd599fab0dc9cca33c20246b64d7737626" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/b/dba050b5933dfcb7f59fffb1056167bc9ec3835a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/d/ddc05229766654b0dc9d9030740e8c1512ec01da" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/1/e1053239deac2db089c24589e119678c8a12729b" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/3/e34d6aec628fec6de904f0f36b58506326162946" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/5/e5657b212f62004fd00e03953399092d6e6545ff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/e/fe0f7630d5d0ee4382f148621f4d078321c603d6" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/e/fe5ccae0d306ebb7e2ff632b3e83eba3471b5c91" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/api.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/api_gym_controller.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/api_route_controller.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/api_spaces.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/api/api_user_controller.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/enums/gyms_provider.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/keys.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/app_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/coordinates.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/gym_id.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/repositories/user_repository.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/gyms_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/apple_sign_in_service.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/connectivity_service.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/haptic_feedback_service.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/location_service.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/sign_in_service_abstract.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/typedefs.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ui/widgets/take_picture_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/climbing-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/climbing-app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mikhail_mokhov.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/mikhail_mokhov.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Flutter/.last_build_id" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/.last_build_id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/enums/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/enums/role.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/enums/sign_in_provider_enum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/enums/sign_in_provider_enum.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/intl/messages_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/intl/messages_en.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/l10n.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/l10n.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/intl_en.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/intl_en.arb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/climbing_route.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/climbing_route.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/google_places_api.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/grade_scale.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/api_gym_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/api_gym_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/api_route_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/api_route_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/api_spaces.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/api_spaces.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/api_user_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/api_user_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keys.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/app_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/app_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/gym.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/gym.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/gyms_response.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/my_location.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/my_location.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/request_photo_upload_url_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/request_photo_upload_url_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/sign_in_with_apple_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/sign_in_with_apple_response.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/user_authority.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/user_authority.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/api_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/edit_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/edit_profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/gym_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gym_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/gyms_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gyms_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/apple_sign_in_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/apple_sign_in_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/location_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/location_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/sign_in_service_abstract.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/sign_in_service_abstract.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/buttons/bookmark_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/bookmark_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/my_apple_sign_in_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/my_apple_sign_in_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/buttons/my_google_sign_in_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/my_google_sign_in_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/buttons/open_yelp_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/open_yelp_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/buttons/toggleable_circle_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/buttons/toggleable_circle_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/dialogs/sign_in_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dialogs/sign_in_dialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/account_drawer_header_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/account_drawer_header_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/drawer_menu_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/drawer_menu_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/edit_profile_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/edit_profile_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gym_title_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gym_title_yelp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gym_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gym_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/disabled_location_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/location_service_unavailable.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_add_to_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_add_to_yelp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_empty_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_empty_response.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_tile_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_list_tile_yelp.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_map.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/gyms_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/rating_bar_yelp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/rating_bar_yelp.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/gyms/location_service_unavailable.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/gyms/location_service_unavailable.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/my_flexible_space_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/my_flexible_space_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/routes_grid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/routes_grid.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/routes_tabs_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/scale_picker_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/take_picture_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/take_picture_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/utils/apple_id_credential_converter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/apple_id_credential_converter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/gym_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/location_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/location_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/user_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/user_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +60,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/pubspec.lock" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pubspec.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ios/Flutter/Release.xcconfig" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="climbing-app/invalid/Android" />
+    </ignored-facets>
+  </component>
   <component name="ProjectId" id="1cgtDb9fhMOhnqpNA1qe3s4wSmt" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -130,6 +80,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -137,7 +89,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -155,12 +107,8 @@
       <option name="testFile" value="$PROJECT_DIR$/test/widget_test.dart" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Flutter Test.Counter increments smoke test" />
-      </list>
-    </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="377bc27d-7744-445f-9ce9-007108afc02c" name="Default Changelist" comment="" />
@@ -175,80 +123,11 @@
       <workItem from="1592598957204" duration="241000" />
       <workItem from="1592599220380" duration="7256000" />
       <workItem from="1592675433458" duration="3899000" />
+      <workItem from="1603938937492" duration="3895000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="190" y="183" key="#xdebugger.evaluate" timestamp="1592602922606">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="190" y="183" key="#xdebugger.evaluate/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602922606" />
-    <state width="581" height="438" key="DebuggerActiveHint" timestamp="1592602808273">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="581" height="438" key="DebuggerActiveHint/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602808273" />
-    <state width="941" height="1127" key="GridCell.Tab.0.bottom" timestamp="1592681222065">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.0.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222065" />
-    <state width="900" height="977" key="GridCell.Tab.0.bottom/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021779" />
-    <state width="941" height="1127" key="GridCell.Tab.0.center" timestamp="1592681222063">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.0.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222063" />
-    <state width="900" height="977" key="GridCell.Tab.0.center/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021779" />
-    <state width="941" height="1127" key="GridCell.Tab.0.left" timestamp="1592681222062">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.0.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222062" />
-    <state width="900" height="977" key="GridCell.Tab.0.left/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021778" />
-    <state width="941" height="1127" key="GridCell.Tab.0.right" timestamp="1592681222064">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.0.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681222064" />
-    <state width="900" height="977" key="GridCell.Tab.0.right/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021779" />
-    <state width="941" height="1127" key="GridCell.Tab.1.bottom" timestamp="1592681204890">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.1.bottom/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204890" />
-    <state width="900" height="977" key="GridCell.Tab.1.bottom/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021781" />
-    <state width="941" height="1127" key="GridCell.Tab.1.center" timestamp="1592681204890">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.1.center/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204890" />
-    <state width="900" height="977" key="GridCell.Tab.1.center/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021780" />
-    <state width="941" height="1127" key="GridCell.Tab.1.left" timestamp="1592681204889">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.1.left/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204889" />
-    <state width="900" height="977" key="GridCell.Tab.1.left/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021780" />
-    <state width="941" height="1127" key="GridCell.Tab.1.right" timestamp="1592681204890">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="941" height="1127" key="GridCell.Tab.1.right/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592681204890" />
-    <state width="900" height="977" key="GridCell.Tab.1.right/0.23.1627.1027@0.23.1627.1027" timestamp="1592666021780" />
-    <state x="181" y="43" key="SettingsEditor" timestamp="1590962003472">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="181" y="43" key="SettingsEditor/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1590962003472" />
-    <state x="319" y="84" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1592602727328">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="319" y="84" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602727327" />
-    <state x="394" y="216" width="598" height="490" key="find.popup" timestamp="1592602670514">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="394" y="216" width="598" height="490" key="find.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1592602670514" />
-    <state width="735" height="710" key="javadoc.popup.new" timestamp="1591068987161">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state width="735" height="710" key="javadoc.popup.new/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1591068987161" />
-    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1591051228310">
-      <screen x="0" y="23" width="1387" height="877" />
-    </state>
-    <state x="358" y="213" width="670" height="676" key="search.everywhere.popup/-255.-1177.1920.1177/0.23.1387.877@0.23.1387.877" timestamp="1591051228310" />
+    <option name="version" value="3" />
   </component>
 </project>

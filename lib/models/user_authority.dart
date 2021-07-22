@@ -5,7 +5,8 @@ class UserAuthority {
   UserAuthority.fromJson(Map<String, dynamic> json)
       : assert(json.containsKey('authority')),
         assert(json['authority'] != null) {
-    authority = EnumToString.fromString(Role.values, json['authority'] as String);
+    authority =
+        EnumToString.fromString(Role.values, json['authority'] as String);
   }
 
   Role authority;
